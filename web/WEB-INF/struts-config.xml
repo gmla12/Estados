@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+
+<struts-config>
+    <form-beans>
+        <form-bean name="LoginForm" type="forms.InicioForm"/>
+        <form-bean name="Entidad" type="forms.EntidadForm"/>
+        <form-bean name="OpEntidad" type="forms.EntidadOpForm"/>
+        <form-bean name="TipoEntidad" type="forms.TipoEntidadForm"/>
+        <form-bean name="OpTipoEntidad" type="forms.TipoEntidadOpForm"/>
+        <form-bean name="Usuarios" type="forms.UsuariosForm"/>
+        <form-bean name="OpUsuarios" type="forms.UsuariosOpForm"/>
+        <form-bean name="Roles" type="forms.RolesForm"/>
+        <form-bean name="OpRoles" type="forms.RolesOpForm"/>
+        <form-bean name="TipoDocumento" type="forms.TipoDocumentoForm"/>
+        <form-bean name="OpTipoDocumento" type="forms.TipoDocumentoOpForm"/>
+        <form-bean name="Pais" type="forms.PaisForm"/>
+        <form-bean name="OpPais" type="forms.PaisOpForm"/>
+        <form-bean name="Departamento" type="forms.DepartamentoForm"/>
+        <form-bean name="OpDepartamento" type="forms.DepartamentoOpForm"/>
+        <form-bean name="Municipio" type="forms.MunicipioForm"/>
+        <form-bean name="OpMunicipio" type="forms.MunicipioOpForm"/>
+        <form-bean name="PlantillaDispositivo" type="forms.PlantillaDispositivoForm"/>
+        <form-bean name="OpPlantillaDispositivo" type="forms.PlantillaDispositivoOpForm"/>
+        <form-bean name="Factura" type="forms.FacturaForm"/>
+        <form-bean name="OpFactura" type="forms.FacturaOpForm"/>
+    </form-beans>
+    
+    <global-exceptions>
+    
+    </global-exceptions>
+
+    <global-forwards>
+
+    </global-forwards>
+
+    <action-mappings>
+        <action path="/Login" name="LoginForm" type="actions.InicioAction">
+            <forward name="mal" path="/index.jsp" />
+            <forward name="ok" path="/Jsp/Top.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Entidad/Entidad.jsp" name="Entidad" path="/Entidad" scope="session" type="actions.ActionEntidad">
+            <forward name="ok" path="/Jsp/Entidad/Entidad.jsp"/>
+            <forward name="atras" path="/Jsp/Entidad/OpEntidad.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Entidad/OpEntidad.jsp" name="OpEntidad" path="/OpEntidad" scope="request" type="actions.ActionEntidadOp" validate="false">
+            <forward name="ok" path="/Jsp/Entidad/OpEntidad.jsp"/>
+            <forward name="modificar" path="/Jsp/Entidad/Entidad.jsp"/>
+            <forward name="nuevo" path="/Jsp/Entidad/Entidad.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/TipoEntidad/TipoEntidad.jsp" name="TipoEntidad" path="/TipoEntidad" scope="session" type="actions.ActionTipoEntidad">
+            <forward name="ok" path="/Jsp/TipoEntidad/TipoEntidad.jsp"/>
+            <forward name="atras" path="/Jsp/TipoEntidad/OpTipoEntidad.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/TipoEntidad/OpTipoEntidad.jsp" name="OpTipoEntidad" path="/OpTipoEntidad" scope="request" type="actions.ActionTipoEntidadOp" validate="false">
+            <forward name="ok" path="/Jsp/TipoEntidad/OpTipoEntidad.jsp"/>
+            <forward name="modificar" path="/Jsp/TipoEntidad/TipoEntidad.jsp"/>
+            <forward name="nuevo" path="/Jsp/TipoEntidad/TipoEntidad.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Usuarios/Usuarios.jsp" name="Usuarios" path="/Usuarios" scope="session" type="actions.ActionUsuarios">
+            <forward name="ok" path="/Jsp/Usuarios/Usuarios.jsp"/>
+            <forward name="atras" path="/Jsp/Usuarios/OpUsuarios.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Usuarios/OpUsuarios.jsp" name="OpUsuarios" path="/OpUsuarios" scope="request" type="actions.ActionUsuariosOp" validate="false">
+            <forward name="ok" path="/Jsp/Usuarios/OpUsuarios.jsp"/>
+            <forward name="modificar" path="/Jsp/Usuarios/Usuarios.jsp"/>
+            <forward name="nuevo" path="/Jsp/Usuarios/Usuarios.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Roles/Roles.jsp" name="Roles" path="/Roles" scope="session" type="actions.ActionRoles">
+            <forward name="ok" path="/Jsp/Roles/Roles.jsp"/>
+            <forward name="atras" path="/Jsp/Roles/OpRoles.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Roles/OpRoles.jsp" name="OpRoles" path="/OpRoles" scope="request" type="actions.ActionRolesOp" validate="false">
+            <forward name="ok" path="/Jsp/Roles/OpRoles.jsp"/>
+            <forward name="modificar" path="/Jsp/Roles/Roles.jsp"/>
+            <forward name="nuevo" path="/Jsp/Roles/Roles.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/TipoDocumento/TipoDocumento.jsp" name="TipoDocumento" path="/TipoDocumento" scope="session" type="actions.ActionTipoDocumento">
+            <forward name="ok" path="/Jsp/TipoDocumento/TipoDocumento.jsp"/>
+            <forward name="atras" path="/Jsp/TipoDocumento/OpTipoDocumento.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/TipoDocumento/OpTipoDocumento.jsp" name="OpTipoDocumento" path="/OpTipoDocumento" scope="request" type="actions.ActionTipoDocumentoOp" validate="false">
+            <forward name="ok" path="/Jsp/TipoDocumento/OpTipoDocumento.jsp"/>
+            <forward name="modificar" path="/Jsp/TipoDocumento/TipoDocumento.jsp"/>
+            <forward name="nuevo" path="/Jsp/TipoDocumento/TipoDocumento.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Pais/Pais.jsp" name="Pais" path="/Pais" scope="session" type="actions.ActionPais">
+            <forward name="ok" path="/Jsp/Pais/Pais.jsp"/>
+            <forward name="atras" path="/Jsp/Pais/OpPais.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Pais/OpPais.jsp" name="OpPais" path="/OpPais" scope="request" type="actions.ActionPaisOp" validate="false">
+            <forward name="ok" path="/Jsp/Pais/OpPais.jsp"/>
+            <forward name="modificar" path="/Jsp/Pais/Pais.jsp"/>
+            <forward name="nuevo" path="/Jsp/Pais/Pais.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Departamento/Departamento.jsp" name="Departamento" path="/Departamento" scope="session" type="actions.ActionDepartamento">
+            <forward name="ok" path="/Jsp/Departamento/Departamento.jsp"/>
+            <forward name="atras" path="/Jsp/Departamento/OpDepartamento.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Departamento/OpDepartamento.jsp" name="OpDepartamento" path="/OpDepartamento" scope="request" type="actions.ActionDepartamentoOp" validate="false">
+            <forward name="ok" path="/Jsp/Departamento/OpDepartamento.jsp"/>
+            <forward name="modificar" path="/Jsp/Departamento/Departamento.jsp"/>
+            <forward name="nuevo" path="/Jsp/Departamento/Departamento.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Municipio/Municipio.jsp" name="Municipio" path="/Municipio" scope="session" type="actions.ActionMunicipio">
+            <forward name="ok" path="/Jsp/Municipio/Municipio.jsp"/>
+            <forward name="atras" path="/Jsp/Municipio/OpMunicipio.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Municipio/OpMunicipio.jsp" name="OpMunicipio" path="/OpMunicipio" scope="request" type="actions.ActionMunicipioOp" validate="false">
+            <forward name="ok" path="/Jsp/Municipio/OpMunicipio.jsp"/>
+            <forward name="modificar" path="/Jsp/Municipio/Municipio.jsp"/>
+            <forward name="nuevo" path="/Jsp/Municipio/Municipio.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/PlantillaDispositivo/PlantillaDispositivo.jsp" name="PlantillaDispositivo" path="/PlantillaDispositivo" scope="session" type="actions.ActionPlantillaDispositivo">
+            <forward name="ok" path="/Jsp/PlantillaDispositivo/PlantillaDispositivo.jsp"/>
+            <forward name="atras" path="/Jsp/PlantillaDispositivo/OpPlantillaDispositivo.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/PlantillaDispositivo/OpPlantillaDispositivo.jsp" name="OpPlantillaDispositivo" path="/OpPlantillaDispositivo" scope="request" type="actions.ActionPlantillaDispositivoOp" validate="false">
+            <forward name="ok" path="/Jsp/PlantillaDispositivo/OpPlantillaDispositivo.jsp"/>
+            <forward name="modificar" path="/Jsp/PlantillaDispositivo/PlantillaDispositivo.jsp"/>
+            <forward name="nuevo" path="/Jsp/PlantillaDispositivo/PlantillaDispositivo.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Factura/Factura.jsp" name="Factura" path="/Factura" scope="session" type="actions.ActionFactura">
+            <forward name="ok" path="/Jsp/Factura/Factura.jsp"/>
+            <forward name="atras" path="/Jsp/Factura/OpFactura.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Factura/OpFactura.jsp" name="OpFactura" path="/OpFactura" scope="request" type="actions.ActionFacturaOp" validate="false">
+            <forward name="ok" path="/Jsp/Factura/OpFactura.jsp"/>
+            <forward name="modificar" path="/Jsp/Factura/Factura.jsp"/>
+            <forward name="nuevo" path="/Jsp/Factura/Factura.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action path="/Logout" name="LoginForm" type="actions.ActionSalir">
+            <forward name="ok" path="/index.jsp" />
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+    </action-mappings>
+    
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+    <message-resources parameter="com/myapp/struts/ApplicationResource"/>    
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+  
+</struts-config>
