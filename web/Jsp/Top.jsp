@@ -12,16 +12,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sistema de Inventario</title>
-        <link type="text/css" href="/Inventario/css/comun.css" rel="stylesheet" />
-        <link type="text/css" href="/Inventario/css/menu.css" rel="stylesheet" />
-        <link rel="stylesheet" href="/Inventario/css/themes/base/jquery.ui.all.css">
-        <script type="text/javascript" src="/Inventario/Js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.position.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.core.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.widget.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.button.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.tabs.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/jquery.ui.dialog.js"></script>
+        <link type="text/css" href="css/comun.css" rel="stylesheet" />
+        <link type="text/css" href="css/menu.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/themes/base/jquery.ui.all.css">
+        <script type="text/javascript" src="Js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.position.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.button.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.tabs.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.dialog.js"></script>
         <style type="text/css">
             .botonHome{
                 position:absolute;
@@ -195,7 +195,7 @@
 
                 $('#cerrar').click(function(e) {
                     e.preventDefault();
-                    window.parent.location.href = '/Inventario/Jsp/CerrarSesion.jsp';
+                    window.parent.location.href = 'Jsp/CerrarSesion.jsp';
                 }); 
             });
         </script>

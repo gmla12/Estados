@@ -15,15 +15,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Tipo Documento</title>
-        <link type="text/css" href="/Inventario/css/ui.all.css" rel="stylesheet" />
-        <link type="text/css" href="/Inventario/css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/Inventario/css/ui.jqgrid.css" />
-        <script src="/Inventario/Js/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script src="/Inventario/Js/i18n/grid.locale-es.js" type="text/javascript"></script>
-        <script src="/Inventario/Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/Inventario/Js/jquery.validate.js"></script>
-        <script src="/Inventario/Js/i18n/messages_es.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="/Inventario/niceforms_files/niceforms-default.css">
+        <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
+        <link type="text/css" href="css/comun.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+        <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
+        <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="Js/jquery.validate.js"></script>
+        <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
