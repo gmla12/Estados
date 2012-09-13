@@ -15,13 +15,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Usuario</title>
-        <link type="text/css" href="/Inventario/css/ui.all.css" rel="stylesheet" />
-        <link type="text/css" href="/Inventario/css/comun.css" rel="stylesheet" />
-        <script type="text/javascript" src="/Inventario/Js/jquery-1.3.2.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/ui.core.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/ui/ui.datepicker.js"></script>
-        <script type="text/javascript" src="/Inventario/Js/jquery.validate.js"></script>
-        <script src="/Inventario/Js/i18n/messages_es.js" type="text/javascript"></script>
+        <link type="text/css" href="/Estados/css/ui.all.css" rel="stylesheet" />
+        <link type="text/css" href="/Estados/css/comun.css" rel="stylesheet" />
+        <script type="text/javascript" src="/Estados/Js/jquery-1.3.2.js"></script>
+        <script type="text/javascript" src="/Estados/Js/ui/ui.core.js"></script>
+        <script type="text/javascript" src="/Estados/Js/ui/ui.datepicker.js"></script>
+        <script type="text/javascript" src="/Estados/Js/jquery.validate.js"></script>
+        <script src="/Estados/Js/i18n/messages_es.js" type="text/javascript"></script>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -130,8 +130,8 @@
                 document.forms[0].submit();
             }
         </script>
-        <script language="javascript" type="text/javascript" src="/Inventario/niceforms_files/niceforms.js"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="/Inventario/niceforms_files/niceforms-default.css">
+        <script language="javascript" type="text/javascript" src="/Estados/niceforms_files/niceforms.js"></script>
+        <link rel="stylesheet" type="text/css" media="all" href="/Estados/niceforms_files/niceforms-default.css">
 
     </head>
     <body>
