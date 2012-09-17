@@ -1,6 +1,6 @@
 <%-- 
-    Document   : OpTipoEntidad
-    Created on : 25-junio-2012, 11:17:34
+    Document   : OpSucursal
+    Created on : 14-septiembre-2012, 10:49:34
     Author     : Gilberth
 --%>
 
@@ -21,7 +21,7 @@
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
         <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <title>Opciones Tipo de Entidad</title>
+        <title>Opciones de Sucursal</title>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -37,7 +37,7 @@
         <%
         if (request.getAttribute("getOp") == "buscar") {
         %>
-        <jsp:forward page="/OpTipoEntidad.do">
+        <jsp:forward page="/OpSurcursal.do">
             <jsp:param name="getOp" value="buscar"/>
         </jsp:forward>
         <%
@@ -46,11 +46,11 @@
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/TipoEntidad/getGriddahico.jsp?op=bus',
+                    url:'Jsp/Sucursal/getGriddahico.jsp?op=bus',
                     datatype: "json",
                     colNames:['ID', 'Nombre', 'Editar'],
                     colModel:[
-                        {name:'idTipoEntidad',index:'idTipoEntidad', width:50, sortable:false},
+                        {name:'idSucursal',index:'idSucursal', width:50, sortable:false},
                         {name:'nombre',index:'nombre', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
@@ -59,7 +59,7 @@
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
-                    caption: "Lista de Tipo de Entidades"
+                    caption: "Lista de Sucursales"
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
             }); 
@@ -85,11 +85,11 @@
 
     </head>
     <body  bgcolor="#EFFBFB">
-        <html:form action="/OpTipoEntidad.do" method="post">
+        <html:form action="/OpSucursal.do" method="post">
             <input type="hidden" name="op" value=""> 
             <input type="hidden" name="id" value=""> 
             <fieldset>
-                <legend>Consulta de Tipos de Entidades</legend>
+                <legend>Consulta de Sucursales</legend>
                 <table>
                     <tr>
                         <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
@@ -99,7 +99,7 @@
                 </table>
             </fieldset>
             <fieldset>
-                <legend>Listado de Tipos de Entidad</legend>
+                <legend>Listado de Sucursales</legend>
                 <table>
                     <tr>
                         <td><table id="list4"></table></td>
