@@ -4,12 +4,12 @@
  */
 package actions;
 
-import forms.SucursalOpForm;
+import forms.PuertoOpForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modelo.GestionSucursal;
+import modelo.GestionPuerto;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -19,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author mario
  */
-public class ActionSucursalOp extends Action {
+public class ActionPuertoOp extends Action {
 
     /**
      * Processes requests for both HTTP
@@ -31,7 +31,7 @@ public class ActionSucursalOp extends Action {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public ActionSucursalOp() {
+    public ActionPuertoOp() {
 
         super();
 
@@ -44,12 +44,12 @@ public class ActionSucursalOp extends Action {
             HttpServletResponse response)
             throws Exception {
 
-        SucursalOpForm fo = (SucursalOpForm) form;
-        GestionSucursal gr = new GestionSucursal();
+        PuertoOpForm fo = (PuertoOpForm) form;
+        GestionPuerto gr = new GestionPuerto();
         HttpSession session = request.getSession();
 
         System.out.println("********************************************");
-        System.out.println("*********  ActionOpSucursal  **********");
+        System.out.println("*********  ActionOpPuerto  **********");
         System.out.println("********************************************");
         request.setAttribute("respuesta", "");
 
@@ -63,10 +63,10 @@ public class ActionSucursalOp extends Action {
             if (fo.getOp().equals("modificar")) {
 
                 ArrayList<Object> resultado = new ArrayList<Object>();
-                resultado = gr.MostrarSucursalFormulario(fo.getId(), false, null);
+                resultado = gr.MostrarPuertoFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    request.setAttribute("getIdSucursal", gr.getIdSucursal());
+                    request.setAttribute("getIdPuerto", gr.getIdPuerto());
                     request.setAttribute("getNombre", gr.getNombre());
 
                     return mapping.findForward("modificar");
@@ -81,18 +81,18 @@ public class ActionSucursalOp extends Action {
             } else if (fo.getOp().equals("buscar")) {
 
                 if (fo.getbNombre() == null) {
-                    fo.setbIdSucursal((String) session.getAttribute("getbIdSucursal"));
+                    fo.setbIdPuerto((String) session.getAttribute("getbIdPuerto"));
                     fo.setbNombre((String) session.getAttribute("getbNombre"));
                 }
 
                 ArrayList<Object> resultado = new ArrayList<Object>();
-                resultado = gr.MostrarSucursalOP(fo, false, null);
+                resultado = gr.MostrarPuertoOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    session.setAttribute("getbIdSucursal", fo.getbIdSucursal());
+                    session.setAttribute("getbIdPuerto", fo.getbIdPuerto());
                     session.setAttribute("getbNombre", fo.getbNombre());
 
-                    session.setAttribute("GR_SUCURSAL", resultado.get(1));
+                    session.setAttribute("GR_PUERTO", resultado.get(1));
                     return mapping.findForward("ok");
 
                 } else {
@@ -104,7 +104,7 @@ public class ActionSucursalOp extends Action {
 
             } else {
 
-                request.setAttribute("getIdSucursal", "");
+                request.setAttribute("getIdPuerto", "");
                 request.setAttribute("getNombre", "");
 
                 return mapping.findForward("nuevo");
@@ -113,15 +113,15 @@ public class ActionSucursalOp extends Action {
 
         } else {
 
-            session.setAttribute("getbIdSucursal", "");
+            session.setAttribute("getbIdPuerto", "");
             session.setAttribute("getbNombre", "");
             fo.setbNombre("");
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.MostrarSucursalOP(fo, false, null);
+            resultado = gr.MostrarPuertoOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 
-                session.setAttribute("GR_SUCURSAL", resultado.get(1));
+                session.setAttribute("GR_PUERTO", resultado.get(1));
                 return mapping.findForward("ok");
 
             } else {

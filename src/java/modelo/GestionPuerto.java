@@ -4,9 +4,9 @@
  */
 package modelo;
 
-import forms.SucursalForm;
-import forms.SucursalOpForm;
-import forms.bean.BeanSucursal;
+import forms.PuertoForm;
+import forms.PuertoOpForm;
+import forms.bean.BeanPuerto;
 import java.sql.*;
 import java.util.ArrayList;
 import util.ConeccionMySql;
@@ -15,12 +15,12 @@ import util.ConeccionMySql;
  *
  * @author Mario
  */
-public class GestionSucursal extends ConeccionMySql {
+public class GestionPuerto extends ConeccionMySql {
 
     Connection cn = null;
     Statement st = null;
 
-    public ArrayList<Object> IngresaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> IngresaPuerto(PuertoForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -51,7 +51,7 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into sucursal (idSucursal, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into Puerto (idPuerto, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getNombre());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
@@ -90,7 +90,7 @@ public class GestionSucursal extends ConeccionMySql {
         }
 
     }
-    private ArrayList<Object> GR_SUCURSAL;
+    private ArrayList<Object> GR_PUERTO;
 
     public ArrayList<Object> MostrarSucursal(Boolean transac, Connection tCn) {
 
@@ -99,7 +99,7 @@ public class GestionSucursal extends ConeccionMySql {
 
         try {
 
-            GR_SUCURSAL = new ArrayList<Object>();
+            GR_PUERTO = new ArrayList<Object>();
 
             if (transac == false) { //si no es una transaccion busca una nueva conexion
 
@@ -124,17 +124,17 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.Puerto, p.nombre FROM Puerto p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanSucursal bu;
+            BeanPuerto bu;
             while (rs.next()) {
-                bu = new BeanSucursal();
+                bu = new BeanPuerto();
 
-                bu.setIdSucursal(rs.getObject("p.idSucursal"));
+                bu.setIdPuerto(rs.getObject("p.idPuerto"));
                 bu.setNombre(rs.getObject("p.nombre"));
 
-                GR_SUCURSAL.add(bu);
+                GR_PUERTO.add(bu);
 
 
             }
@@ -146,7 +146,7 @@ public class GestionSucursal extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(GR_SUCURSAL); // y registros consultados
+            resultado.add(GR_PUERTO); // y registros consultados
 
         } catch (SQLException e) {
 
@@ -166,14 +166,14 @@ public class GestionSucursal extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarSucursalOP(SucursalOpForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarPuertoOP(PuertoOpForm f, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
 
         try {
 
-            GR_SUCURSAL = new ArrayList<Object>();
+            GR_PUERTO = new ArrayList<Object>();
 
             if (transac == false) { //si no es una transaccion busca una nueva conexion
 
@@ -198,8 +198,8 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idSucursal, p.nombre ";
-            query += "FROM sucursal p ";
+            String query = "SELECT p.idpuerto, p.nombre ";
+            query += "FROM Puerto p ";
             String query2 = "";
             if (f.getbNombre().isEmpty() != true) {
                 query2 = "p.nombre LIKE CONCAT('%',?,'%')";
@@ -213,15 +213,15 @@ public class GestionSucursal extends ConeccionMySql {
             }
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanSucursal bu;
+            BeanPuerto bu;
             while (rs.next()) {
 
-                bu = new BeanSucursal();
+                bu = new BeanPuerto();
 
-                bu.setIdSucursal(rs.getObject("p.idSucursal"));
+                bu.setIdPuerto(rs.getObject("p.idPuerto"));
                 bu.setNombre(rs.getObject("p.nombre"));
 
-                GR_SUCURSAL.add(bu);
+                GR_PUERTO.add(bu);
 
             }
 
@@ -232,7 +232,7 @@ public class GestionSucursal extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(GR_SUCURSAL); // y registros consultados
+            resultado.add(GR_PUERTO); // y registros consultados
 
         } catch (SQLException e) {
 
@@ -252,7 +252,7 @@ public class GestionSucursal extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> ModificaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> ModificaPuerto(PuertoForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -283,11 +283,11 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE sucursal SET nombre = ?";
-            query += " WHERE idSucursal = ?";
+            String query = "UPDATE Puerto SET nombre = ?";
+            query += " WHERE idPuerto = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
-            psUpdate.setInt(2, f.getIdSucursal());
+            psUpdate.setInt(2, f.getIdPuerto());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -319,7 +319,7 @@ public class GestionSucursal extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> EliminaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> EliminaPuerto(PuertoForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -350,8 +350,8 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM sucursal WHERE  idSucursal = ?");
-            psDelete.setInt(1, f.getIdSucursal());
+            psDelete = cn.prepareStatement("DELETE FROM Puerto WHERE  idPuerto = ?");
+            psDelete.setInt(1, f.getIdPuerto());
             psDelete.executeUpdate();
 
             mod = psDelete.getUpdateCount();
@@ -383,7 +383,7 @@ public class GestionSucursal extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarSucursalFormulario(int IdSucursal, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarPuertoFormulario(int IdPuerto, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
@@ -413,15 +413,15 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p WHERE  p.idSucursal = ?");
-            psSelectConClave.setInt(1, IdSucursal);
+            psSelectConClave = cn.prepareStatement("SELECT p.idPuerto, p.nombre FROM Puerto p WHERE  p.idPuerto = ?");
+            psSelectConClave.setInt(1, IdPuerto);
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanSucursal bu;
+            BeanPuerto bu;
             while (rs.next()) {
-                bu = new BeanSucursal();
+                bu = new BeanPuerto();
 
-                setIdSucursal(rs.getObject("p.idSucursal"));
+                setIdSucursal(rs.getObject("p.idPuerto"));
                 setNombre(rs.getObject("p.nombre"));
 
             }
@@ -610,15 +610,15 @@ public class GestionSucursal extends ConeccionMySql {
 //        return GR_USUARIOS2;
 //    }
 //}
-    private Object idSucursal;
+    private Object idPuerto;
     private Object nombre;
 
-    public Object getIdSucursal() {
-        return idSucursal;
+    public Object getIdPuerto() {
+        return idPuerto;
     }
 
-    public void setIdSucursal(Object idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setIdSucursal(Object idPuerto) {
+        this.idPuerto = idPuerto;
     }
 
     public Object getNombre() {

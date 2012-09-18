@@ -177,6 +177,11 @@
                     e.preventDefault();
                     addTab("Sucursales", "OpSucursal.do");
                 }); 
+                
+               $('#puerto').click(function(e) {
+                    e.preventDefault();
+                    addTab("Puertos", "OpPuerto.do");
+                }); 
 
                 $('#plantillaDispositivo').click(function(e) {
                     e.preventDefault();
@@ -234,6 +239,7 @@
                         <li><a id="departamento" href='#'><span>Departamentos</span></a></li>
                         <li><a id="municipio" href='#'><span>Municipios</span></a></li>
                         <li><a id="sucursal" href='#'><span>Sucursales</span></a></li>
+                        <li><a id="puerto" href='#'><span>Puertos</span></a></li>    
                         <li class='has-sub2'><a href='#'><span>Plantillas</span></a>
                             <ul>
                                 <li><a id="plantillaDispositivo" href='#'><span>Plantillas de Dispositivos</span></a></li>

@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanSucursal"%>
+<%@page import="forms.bean.BeanPuerto"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -25,7 +25,7 @@
     int total_pages = 0;
     String op = request.getParameter("op");
     if (op.equals("bus")) {
-        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_SUCURSAL");
+        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_PUERTO");
         int intpage = new Integer(request.getParameter("page"));
         int limit = new Integer(request.getParameter("rows"));
 
@@ -36,7 +36,7 @@
          * -----------------------------------
          */
 
-        BeanSucursal buSucursal2;
+        BeanPuerto buPuerto2;
 
         /*
          * -----------------------------------
@@ -97,14 +97,14 @@
                 json = json + ",";
             }
 
-            buSucursal2 = new BeanSucursal();
-            buSucursal2 = (BeanSucursal) GR_AUT.get(i);
+            buPuerto2 = new BeanPuerto();
+            buPuerto2 = (BeanPuerto) GR_AUT.get(i);
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buSucursal2.getIdSucursal() + "\"";
-            json = json + ",\"" + buSucursal2.getNombre() + "\"";
-            String aux2 = "<a href='javascript:modifica(&quot;" + buSucursal2.getIdSucursal() + "&quot;)'>Modificar</a>";
+            json = json + "\"cell\":[\"" + buPuerto2.getIdPuerto() + "\"";
+            json = json + ",\"" + buPuerto2.getNombre() + "\"";
+            String aux2 = "<a href='javascript:modifica(&quot;" + buPuerto2.getIdPuerto() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";
 

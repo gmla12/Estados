@@ -4,11 +4,11 @@
  */
 package actions;
 
-import forms.SucursalForm;
+import forms.PuertoForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.GestionSucursal;
+import modelo.GestionPuerto;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -18,9 +18,9 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Mario
  */
-public class ActionSucursal extends Action {
+public class ActionPuerto extends Action {
 
-    public ActionSucursal() {
+    public ActionPuerto() {
 
         super();
 
@@ -33,23 +33,23 @@ public class ActionSucursal extends Action {
             HttpServletResponse response)
             throws Exception {
 
-        SucursalForm fo = (SucursalForm) form;
-        GestionSucursal gr = new GestionSucursal();
+        PuertoForm fo = (PuertoForm) form;
+        GestionPuerto gr = new GestionPuerto();
         if (fo.getOp().equals("nuevo")) {
 
-            request.setAttribute("getIdSucursal", fo.getIdSucursal());
+            request.setAttribute("getIdPuerto", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.IngresaSucursal(fo, false, null);
+            resultado = gr.IngresaPuerto(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(2) >= 1) {
-                    request.setAttribute("getIdSucursal", resultado.get(1));
+                    request.setAttribute("getIdPuerto", resultado.get(1));
                     request.setAttribute("respuesta", "Registro ingresado correctamente.");
-                    System.out.println("Action Ingreso Sucursal");
+                    System.out.println("Action Ingreso Puerto");
                 } else {
                     request.setAttribute("respuesta", "Registro no fue ingresado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Ingreso Sucursal");
+                    System.out.println("Action Ingreso Puerto");
                 }
                 return mapping.findForward("ok");
             } else {
@@ -61,18 +61,18 @@ public class ActionSucursal extends Action {
 
         } else if (fo.getOp().equals("modificar")) {
 
-            request.setAttribute("getIdSucursal", fo.getIdSucursal());
+            request.setAttribute("getIdPuerto", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.ModificaSucursal(fo, false, null);
+            resultado = gr.ModificaPuerto(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(1) >= 1) {
                     request.setAttribute("respuesta", "Registro modificado correctamente.");
-                    System.out.println("Action Modicar Sucursal");
+                    System.out.println("Action Modicar Puerto");
                 } else {
                     request.setAttribute("respuesta", "Registro no fue modificado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Modicar Sucursal");
+                    System.out.println("Action Modicar puerto");
                 }
                 return mapping.findForward("ok");
             } else {
@@ -84,18 +84,18 @@ public class ActionSucursal extends Action {
 
         } else if (fo.getOp().equals("eliminar")) {
 
-            request.setAttribute("getIdSucursal", fo.getIdSucursal());
+            request.setAttribute("getIdSucursal", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.EliminaSucursal(fo, false, null);
+            resultado = gr.EliminaPuerto(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(1) >= 1) {
                     request.setAttribute("respuesta", "Registro eliminado correctamente.");
-                    System.out.println("Action Eliminar Sucursal");
+                    System.out.println("Action Eliminar Puerto");
                 } else {
                     request.setAttribute("respuesta", "Registro no fue eliminado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Eliminar Sucursal");
+                    System.out.println("Action Eliminar Puerto");
                 }
                 return mapping.findForward("ok");
             } else {

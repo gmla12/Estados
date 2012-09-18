@@ -11,17 +11,17 @@ import org.apache.struts.action.ActionForm;
  *
  * @author Mario
  */
-public class SucursalForm extends ActionForm{
-    private int idSucursal;
+public class PuertoForm extends ActionForm{
+    private int idPuerto;
     private String nombre;
     private String op;
 
-    public int getIdSucursal() {
-        return idSucursal;
+    public int getIdPuerto() {
+        return idPuerto;
     }
 
-    public void setIdSucursal(int idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setIdPuerto(int idPuerto) {
+        this.idPuerto = idPuerto;
     }
 
     public String getNombre() {

@@ -11,17 +11,17 @@ import java.io.Serializable;
  *
  * @author mario
  */
-public class BeanSucursal implements Serializable{
+public class BeanPuerto implements Serializable{
 
-    private Object idSucursal;
+    private Object idPuerto;
     private Object nombre;
 
-    public Object getIdSucursal() {
-        return idSucursal;
+    public Object getIdPuerto() {
+        return idPuerto;
     }
 
-    public void setIdSucursal(Object idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setIdPuerto(Object idPuerto) {
+        this.idPuerto= idPuerto;
     }
 
     public Object getNombre() {

@@ -11,8 +11,8 @@ import org.apache.struts.action.ActionForm;
  *
  * @author mario
  */
-public class SucursalOpForm extends ActionForm{
-    private String bIdSucursal;
+public class PuertoOpForm extends ActionForm{
+    private String bIdPuerto;
     private String bNombre;
     private String op;
     private int id;
@@ -33,12 +33,12 @@ public class SucursalOpForm extends ActionForm{
         this.id = id;
     }
 
-    public String getbIdSucursal() {
-        return bIdSucursal;
+    public String getbIdPuerto() {
+        return bIdPuerto;
     }
 
-    public void setbIdSucursal(String bIdSucursal) {
-        this.bIdSucursal = bIdSucursal;
+    public void setbIdPuerto(String bIdPuerto) {
+        this.bIdPuerto = bIdPuerto;
     }
 
     public String getbNombre() {
