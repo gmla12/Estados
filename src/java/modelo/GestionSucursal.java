@@ -413,7 +413,7 @@ public class GestionSucursal extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p WHERE  p.idTipoEntidad = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p WHERE  p.idSucursal = ?");
             psSelectConClave.setInt(1, IdSucursal);
             ResultSet rs = psSelectConClave.executeQuery();
 

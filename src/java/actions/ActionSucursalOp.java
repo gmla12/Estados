@@ -92,7 +92,7 @@ public class ActionSucursalOp extends Action {
                     session.setAttribute("getbIdSucursal", fo.getbIdSucursal());
                     session.setAttribute("getbNombre", fo.getbNombre());
 
-                    session.setAttribute("GR_TIPOENTIDAD", resultado.get(1));
+                    session.setAttribute("GR_SUCURSAL", resultado.get(1));
                     return mapping.findForward("ok");
 
                 } else {
