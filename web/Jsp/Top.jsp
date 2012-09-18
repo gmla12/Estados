@@ -12,16 +12,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sistema de Inventario</title>
-        <link type="text/css" href="/Estados/css/comun.css" rel="stylesheet" />
-        <link type="text/css" href="/Estados/css/menu.css" rel="stylesheet" />
-        <link rel="stylesheet" href="/Estados/css/themes/base/jquery.ui.all.css">
-        <script type="text/javascript" src="/Estados/Js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.position.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.core.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.widget.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.button.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.tabs.js"></script>
-        <script type="text/javascript" src="/Estados/Js/ui/jquery.ui.dialog.js"></script>
+        <link type="text/css" href="css/comun.css" rel="stylesheet" />
+        <link type="text/css" href="css/menu.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/themes/base/jquery.ui.all.css">
+        <script type="text/javascript" src="Js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.position.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.button.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.tabs.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.ui.dialog.js"></script>
         <style type="text/css">
             .botonHome{
                 position:absolute;
@@ -173,6 +173,11 @@
                     addTab("Municipios", "OpMunicipio.do");
                 }); 
 
+                $('#sucursal').click(function(e) {
+                    e.preventDefault();
+                    addTab("Sucursales", "OpSucursal.do");
+                }); 
+
                 $('#plantillaDispositivo').click(function(e) {
                     e.preventDefault();
                     addTab("Plantilla de Dispositivo", "OpPlantillaDispositivo.do");
@@ -228,6 +233,7 @@
                         <li><a id="pais" href='#'><span>Paises</span></a></li>
                         <li><a id="departamento" href='#'><span>Departamentos</span></a></li>
                         <li><a id="municipio" href='#'><span>Municipios</span></a></li>
+                        <li><a id="sucursal" href='#'><span>Sucursales</span></a></li>
                         <li class='has-sub2'><a href='#'><span>Plantillas</span></a>
                             <ul>
                                 <li><a id="plantillaDispositivo" href='#'><span>Plantillas de Dispositivos</span></a></li>

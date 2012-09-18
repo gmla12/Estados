@@ -62,7 +62,7 @@ public class InicioAction extends Action {
             BeanUsuarios c = (BeanUsuarios) resultado.get(1);
 
             if (c.getIdRol() == null) {
-                fo.setMensaje("<h2>Usuario y Password Incorrecta!</h2>");
+                fo.setMensaje("<h2>Usuario ó Password Incorrecta!</h2>");
                 return mapping.findForward("mal");
             } else {
                 sesionOk.setAttribute("usuario", c.getLogin());

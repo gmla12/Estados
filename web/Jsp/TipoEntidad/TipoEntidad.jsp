@@ -15,13 +15,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Tipo de Entidades</title>
-        <link type="text/css" href="/Inventario/css/ui.all.css" rel="stylesheet" />
-        <link type="text/css" href="/Inventario/css/comun.css" rel="stylesheet" />
-        <script type="text/javascript" src="/Inventario/Js/ui/ui.core.js"></script>
-        <script src="/Inventario/Js/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/Inventario/Js/jquery.validate.js"></script>
-        <script src="/Inventario/Js/i18n/messages_es.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="/Inventario/niceforms_files/niceforms-default.css">
+        <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
+        <link type="text/css" href="css/comun.css" rel="stylesheet" />
+        <script type="text/javascript" src="Js/ui/ui.core.js"></script>
+        <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="Js/jquery.validate.js"></script>
+        <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();

@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link type="text/css" href="/Inventario/css/comun.css" rel="stylesheet" />
+        <link type="text/css" href="../css/comun.css" rel="stylesheet" />
         <style>
             .ses{
                 position:absolute;
@@ -37,7 +37,7 @@
         <div class="ses">
             <table>
                 <tr>
-                    <td><img src="/Inventario/img/Bellavista.jpg" width="300" height="300"/> </td>
+                    <td><img src="../img/Bellavista.jpg" width="300" height="300"/> </td>
                 </tr>
                 <tr>
                     <td class="text" align="center">Bienvenido :&nbsp;<%=  session.getAttribute("nombre")%></td>

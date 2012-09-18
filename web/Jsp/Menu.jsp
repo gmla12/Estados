@@ -12,11 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu</title>
-        <script type="text/javascript" src="../Js/ui/jquery-1.3.1.min.js"></script>
-        <script type="text/javascript" src="../Js/ui/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" src="../Js/MenuDes.js"></script>
-        <link href="/Inventario/css/estiloMenuDes.css" rel="stylesheet" type="text/css">
-        <link href="/Inventario/css/menu.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="Js/ui/jquery-1.3.1.min.js"></script>
+        <script type="text/javascript" src="Js/ui/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="Js/MenuDes.js"></script>
+        <link href="css/estiloMenuDes.css" rel="stylesheet" type="text/css">
+        <link href="css/menu.css" rel="stylesheet" type="text/css">
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -31,7 +31,7 @@
         %>
         <script type="text/javascript">
             function salir(){
-                window.parent.location.href = '/Inventario/Jsp/CerrarSesion.jsp';
+                window.parent.location.href = 'Jsp/CerrarSesion.jsp';
             }
         </script>
 
@@ -57,8 +57,8 @@
                 </div>
                 <div id="navsite">
                     <ul id="menulink3">
-                        <li><a href="/Inventario/OpEntidad.do" target="Body">&nbsp;&nbsp;Entidad</a></li>
-                        <li><a href="/Inventario/OpTipoEntidad.do" target="Body">&nbsp;&nbsp;Tipo de Entidad</a></li>
+                        <li><a href="OpEntidad.do" target="Body">&nbsp;&nbsp;Entidad</a></li>
+                        <li><a href="OpTipoEntidad.do" target="Body">&nbsp;&nbsp;Tipo de Entidad</a></li>
                     </ul>
                 </div>
                 <div id="navsite">
@@ -68,14 +68,14 @@
                 </div>
                 <div id="navsite">
                     <ul id="menulink4">
-                        <li><a href="/Inventario/OpPlantillaDispositivo.do" target="Body">&nbsp;&nbsp;Plantilla Dispositivo</a></li>
+                        <li><a href="OpPlantillaDispositivo.do" target="Body">&nbsp;&nbsp;Plantilla Dispositivo</a></li>
                     </ul>
                 </div>
                 <ul >
-                    <li><a href="/Inventario/OpTipoDocumento.do" target="Body">&nbsp;&nbsp;Tipo de Documentos</a></li>
-                    <li><a href="/Inventario/OpPais.do" target="Body">&nbsp;&nbsp;Paises</a></li>
-                    <li><a href="/Inventario/OpDepartamento.do" target="Body">&nbsp;&nbsp;Departamentos</a></li>
-                    <li><a href="/Inventario/OpMunicipio.do" target="Body">&nbsp;&nbsp;Municipios</a></li>
+                    <li><a href="OpTipoDocumento.do" target="Body">&nbsp;&nbsp;Tipo de Documentos</a></li>
+                    <li><a href="OpPais.do" target="Body">&nbsp;&nbsp;Paises</a></li>
+                    <li><a href="OpDepartamento.do" target="Body">&nbsp;&nbsp;Departamentos</a></li>
+                    <li><a href="OpMunicipio.do" target="Body">&nbsp;&nbsp;Municipios</a></li>
                 </ul>
             </div> 
         </div>
@@ -86,8 +86,8 @@
         </div>
         <div id="navsite2">
             <ul id="menulink2">
-                <li><a href="/Inventario/OpUsuarios.do" target="Body">&nbsp;&nbsp;Usuarios</a></li>
-                <li><a href="/Inventario/OpRoles.do" target="Body">&nbsp;&nbsp;Roles</a></li>
+                <li><a href="OpUsuarios.do" target="Body">&nbsp;&nbsp;Usuarios</a></li>
+                <li><a href="OpRoles.do" target="Body">&nbsp;&nbsp;Roles</a></li>
             </ul>
         </div>
         <div id="navsite">

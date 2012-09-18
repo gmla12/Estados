@@ -21,8 +21,8 @@
             }
         </style>
     </head>
-    <body bgcolor=" #EFFBFB">
-        <div class="const"><img src="/OrganizadorWeb/IMG/contruccion.png" width="409" height="252" alt="contruccion"/></div>
+    <body bgcolor = "#EFFBFB">
+        <div class="const"><img src="IMG/contruccion.png" width="409" height="252" alt="contruccion"/></div>
 
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Roles
-    Created on : 24-abril-2012, 21:12:01
+    Document   : Sucursal
+    Created on : 14-septiembre-2012, 11:05:01
     Author     : Gilberth
 --%>
 
@@ -14,13 +14,13 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Roles</title>
+        <title>Sucursal</title>
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
         <script type="text/javascript" src="Js/ui/ui.core.js"></script>
-        <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="Js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="Js/jquery.validate.js"></script>
-        <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
+        <script type="text/javascript" src="Js/i18n/messages_es.js"></script>
         <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <%
             String usuario = "";
@@ -39,7 +39,7 @@
                 //guardar
                 $('#submit').click(function(e) {
                     e.preventDefault();
-                    if(document.forms[0].idRoles.value==""){
+                    if(document.forms[0].idSucursal.value==""){
                         document.forms[0].op.value="nuevo";
                     }
                     else {
@@ -67,7 +67,7 @@
 
             function nuevo(){
                 document.forms[0].op.value="";
-                document.forms[0].idRoles.value="";
+                document.forms[0].idSucursal.value="";
                 document.forms[0].nombre.value="";
             }
             
@@ -82,7 +82,7 @@
             }
         </script>
 
-        <style>
+        <style type="text/css">
             .error-message, label.error {
                 color: #ff0000;
                 margin:0;
@@ -94,21 +94,21 @@
     </head>
     <body>
         <div >
-            <html:form action="/Roles" method="post" styleId="forma">
+            <html:form action="/Sucursal" method="post" styleId="forma">
 
                 <input type="hidden" name="op" value=""> 
-                <input type="hidden" name="idRoles" value='<%= String.valueOf(request.getAttribute("getIdRoles"))%>'> 
+                <input type="hidden" name="idSucursal" value='<%= String.valueOf(request.getAttribute("getIdSucursal"))%>'> 
 
                 <fieldset>
-                    <legend>Ingreso Roles</legend>
+                    <legend>Sucursal</legend>
 
                     <table>
                         <tr>
-                            <td class="text">Nombre del Rol</td>
+                            <td class="text">Nombre de la Sucursal</td>
                             <td><html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdRoles") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
+                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdSucursal") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
                         </tr>
                         <%
                             if (request.getAttribute("respuesta") != "") {
