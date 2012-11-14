@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Sucursal
-    Created on : 14-septiembre-2012, 11:05:01
+    Document   : Puertos
+    Created on : 18-septiembre-2012, 09:47:01
     Author     : Gilberth
 --%>
 
@@ -14,7 +14,7 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sucursal</title>
+        <title>Puertos</title>
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
         <script type="text/javascript" src="Js/ui/ui.core.js"></script>
@@ -39,7 +39,7 @@
                 //guardar
                 $('#submit').click(function(e) {
                     e.preventDefault();
-                    if(document.forms[0].idSucursal.value==""){
+                    if(document.forms[0].idPuerto.value==""){
                         document.forms[0].op.value="nuevo";
                     }
                     else {
@@ -67,7 +67,7 @@
 
             function nuevo(){
                 document.forms[0].op.value="";
-                document.forms[0].idSucursal.value="";
+                document.forms[0].idPuerto.value="";
                 document.forms[0].nombre.value="";
             }
             
@@ -94,21 +94,21 @@
     </head>
     <body>
         <div >
-            <html:form action="/Sucursal" method="post" styleId="forma">
+            <html:form action="/Puerto" method="post" styleId="forma">
 
                 <input type="hidden" name="op" value=""> 
-                <input type="hidden" name="idSucursal" value='<%= String.valueOf(request.getAttribute("getIdSucursal"))%>'> 
+                <input type="hidden" name="idPuerto" value='<%= String.valueOf(request.getAttribute("getIdPuerto"))%>'> 
 
                 <fieldset>
-                    <legend>Sucursal</legend>
+                    <legend>Puertos</legend>
 
                     <table>
                         <tr>
-                            <td class="text">Nombre de la Sucursal</td>
+                            <td class="text">Nombre del Puerto</td>
                             <td><html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdSucursal") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
+                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPuerto") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
                         </tr>
                         <%
                             if (request.getAttribute("respuesta") != "") {
