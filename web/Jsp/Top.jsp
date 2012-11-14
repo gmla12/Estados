@@ -198,6 +198,11 @@
                     addTab("Factura", "OpFactura.do");
                 }); 
 
+                $('#do').click(function(e) {
+                    e.preventDefault();
+                    addTab("DOs", "OpDO.do");
+                }); 
+                
                 $('#cerrar').click(function(e) {
                     e.preventDefault();
                     window.parent.location.href = 'Jsp/CerrarSesion.jsp';
@@ -243,6 +248,7 @@
                 </li>
                 <li class='has-sub'><a href='#'><span>Operaciones</span></a>
                     <ul>
+                        <li><a id="do" href='#'><span>DOs</span></a></li>
                         <li><a id="factura" href='#'><span>Factura</span></a></li>
                     </ul>
                 </li>

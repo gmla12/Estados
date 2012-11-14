@@ -1,6 +1,6 @@
 <%-- 
-    Document   : OpEntidad
-    Created on : 24-abril-2012, 21:57:34
+    Document   : OpDO
+    Created on : 19-septiembre-2012, 10:24:34
     Author     : Gilberth
 --%>
 
@@ -24,7 +24,7 @@
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
         <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <title>Opciones Usuarios</title>
+        <title>Opciones DOs</title>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -38,19 +38,18 @@
             }
         %>
         <%
-        if (request.getAttribute("getOp") == "buscar") {
+            if (request.getAttribute("getOp") == "buscar") {
         %>
-        <jsp:forward page="/OpEntidad.do">
+        <jsp:forward page="/OpDO.do">
             <jsp:param name="getOp" value="buscar"/>
         </jsp:forward>
-        <%
-        }
+        <%            }
         %>
 
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Entidad/getGriddahico.jsp?op=bus',
+                    url:'Jsp/DO/getGriddahico.jsp?op=bus',
                     datatype: "json",
                     colNames:['ID', 'Nombre', 'Tipo de Documento', 'Identificacion', 'Editar'],
                     colModel:[
@@ -65,7 +64,7 @@
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
-                    caption: "Lista de Entidades"
+                    caption: "Lista de DOs"
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
             }); 
@@ -90,31 +89,76 @@
         </script>
     </head>
     <body  bgcolor="#EFFBFB">
-        <html:form action="/OpEntidad.do" method="post">
+        <html:form action="/OpDO.do" method="post">
             <input type="hidden" name="op" value=""> 
             <input type="hidden" name="id" value=""> 
             <fieldset>
-                <legend>Consulta de Entidad</legend>
+                <legend>Consulta de DO</legend>
                 <table>
                     <tr>
-                        <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
-                        <td>Tipo de Documento<html:select property="bIdTipoDocumento"  size="1" style="width:150px;" value='<%= String.valueOf(session.getAttribute("getbIdTipoDocumento"))%>'>
-                                <html:option value=""><c:out value='[Todos]'/></html:option>    
-                                <c:forEach items="${CMB_TIPODOCUMENTO}" var="cat">
-                                        <html:option value="${cat.idTipoDocumento}"><c:out value='${cat.nombre}'/></html:option>
-                                    </c:forEach>
-                                </html:select>
-                        </td>
-                        <td>Identificacion<input type="text" name="bIdentificacion" size="15" value="<%= session.getAttribute("getbIdentificacion")%>"/> </td>
+                        <td>DO<input type="text" name="bDO" value="<%= session.getAttribute("getbDO")%>"/> </td>
+                        <td>Referencia<input type="text" name="bReferencia" value="<%= session.getAttribute("getbReferencia")%>"/> </td>
                         <td>
                         </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
                     </tr>
+                    <tr>
+                        <td>Sucursal<html:select property="bSucursal"  size="1" style="width:150px;" value='<%= String.valueOf(session.getAttribute("getbSucursal"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_SUCURSAL}" var="cat">
+                                    <html:option value="${cat.idSucursal}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
+                        <td>Puerto<html:select property="bPuerto"  size="1" style="width:150px;" value='<%= String.valueOf(session.getAttribute("getbPuerto"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_PUERTO}" var="cat">
+                                    <html:option value="${cat.idPuerto}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cliente<input type="text" name="bIdCliente" size="15" value="<%= session.getAttribute("getbIdCliente")%>"/> </td>
+                        <td><input type="text" name="bCliente" size="15" value="<%= session.getAttribute("getbCliente")%>"/> </td>
+                        <td>BL<input type="text" name="bBL" size="15" value="<%= session.getAttribute("getbBL")%>"/> </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pedido<input type="text" name="bPedido" size="15" value="<%= session.getAttribute("getbPedido")%>"/> </td>
+                        <td>Lote<input type="text" name="bLote" size="15" value="<%= session.getAttribute("getbLote")%>"/> </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Descripcion<input type="text" name="bDescripcion" size="30" value="<%= session.getAttribute("getbDescripcion")%>"/> </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
                 </table>
             </fieldset>
             <fieldset>
-                <legend>Listado de Entidad</legend>
+                <legend>Listado de DOs</legend>
                 <table>
                     <tr>
                         <td><table id="list4"></table></td>

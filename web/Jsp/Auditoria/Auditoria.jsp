@@ -1,6 +1,6 @@
 <%-- 
-    Document   : OpRoles
-    Created on : 24-abril-2012, 21:14:34
+    Document   : Auditoria
+    Created on : 11-octubre-2012, 16:58:34
     Author     : Gilberth
 --%>
 
@@ -14,14 +14,14 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
-        <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
-        <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
-        <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <title>Opciones Roles</title>
+        <link type="text/css" href="../../css/ui.all.css" rel="stylesheet" />
+        <link type="text/css" href="../../css/comun.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" media="all" href="../../niceforms_files/niceforms-default.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../css/ui.jqgrid.css" />
+        <script src="../../Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="../../Js/i18n/grid.locale-es.js" type="text/javascript"></script>
+        <script src="../../Js/jquery.jqGrid.min.js" type="text/javascript"></script>
+        <title>Auditoria</title>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -35,25 +35,23 @@
             }
         %>
         <%
-        if (request.getAttribute("getOp") == "buscar") {
+            if (request.getAttribute("getOp") == "buscar") {
         %>
-        <jsp:forward page="/OpRoles.do">
+        <jsp:forward page="/Auditoria.do">
             <jsp:param name="getOp" value="buscar"/>
         </jsp:forward>
-        <%
-        }
+        <%            }
         %>
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Roles/getGriddahico.jsp?op=bus',
+                    url:'Jsp/Auditoria/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Descripcion', 'Editar'],
+                    colNames:['Usuario', 'Fecha', 'Cambios'],
                     colModel:[
-                        {name:'idRoles',index:'idRoles', width:50, sortable:false},
-                        {name:'nombre',index:'nombre', width:160, sortable:false},
-                        {name:'descripcion',index:'descripcion', width:160, sortable:false},
-                        {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
+                        {name:'usuario',index:'usuario', width:50, sortable:false},
+                        {name:'fecha',index:'fecha', width:160, sortable:false},
+                        {name:'cambios',index:'cambios', width:160, sortable:false}
                     ],
                     pager: '#prowed1',
                     width: 550,
@@ -86,28 +84,14 @@
 
     </head>
     <body  bgcolor="#EFFBFB">
-        <html:form action="/OpRoles.do" method="post">
-            <input type="hidden" name="op" value=""> 
-            <input type="hidden" name="id" value=""> 
-            <fieldset>
-                <legend>Consulta de Roles</legend>
-                <table>
-                    <tr>
-                        <td>Nombre del Rol<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
-                        <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
-                        <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset>
-                <legend>Listado de Roles</legend>
-                <table>
-                    <tr>
-                        <td><table id="list4"></table></td>
-                        <td><div id="prowed1"></div></td>
-                    </tr>
-                </table>
-            </fieldset>
-        </html:form>
+        <fieldset>
+            <legend>Listado de Roles</legend>
+            <table>
+                <tr>
+                    <td><table id="list4"></table></td>
+                    <td><div id="prowed1"></div></td>
+                </tr>
+            </table>
+        </fieldset>
     </body>
 </html:html>

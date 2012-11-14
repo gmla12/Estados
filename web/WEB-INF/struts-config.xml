@@ -30,6 +30,8 @@
         <form-bean name="OpPlantillaDispositivo" type="forms.PlantillaDispositivoOpForm"/>
         <form-bean name="Factura" type="forms.FacturaForm"/>
         <form-bean name="OpFactura" type="forms.FacturaOpForm"/>
+        <form-bean name="DO" type="forms.DOForm"/>
+        <form-bean name="OpDO" type="forms.DOOpForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -167,8 +169,23 @@
             <forward name="nuevo" path="/Jsp/Factura/Factura.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
+        <action input="/Jsp/DO/DO.jsp" name="DO" path="/DO" scope="session" type="actions.ActionDO">
+            <forward name="ok" path="/Jsp/DO/DO.jsp"/>
+            <forward name="atras" path="/Jsp/DO/OpDO.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/DO/OpDO.jsp" name="OpDO" path="/OpDO" scope="request" type="actions.ActionDOOp" validate="false">
+            <forward name="ok" path="/Jsp/DO/OpDO.jsp"/>
+            <forward name="modificar" path="/Jsp/DO/DO.jsp"/>
+            <forward name="nuevo" path="/Jsp/DO/DO.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
         <action path="/Logout" name="LoginForm" type="actions.ActionSalir">
             <forward name="ok" path="/index.jsp" />
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action path="/Auditoria" name="Auditoria" type="actions.ActionAuditoria">
+            <forward name="ok" path="/Jsp/Auditoria/Auditoria.jsp" />
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
     </action-mappings>

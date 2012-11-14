@@ -66,10 +66,22 @@ public class ActionRolesOp extends Action {
                 resultado = gr.MostrarRolesFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    request.setAttribute("getIdRoles", gr.getIdRoles());
-                    request.setAttribute("getNombre", gr.getNombre());
+                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    resultado2 = gr.MostrarRolesFormulario(fo.getId(), false, null);
+                    if ((Boolean) resultado2.get(0) == false) {
 
-                    return mapping.findForward("modificar");
+                        request.setAttribute("getIdRoles", gr.getIdRoles());
+                        request.setAttribute("getNombre", gr.getNombre());
+                        request.setAttribute("getDescripcion", gr.getDescripcion());
+
+                        return mapping.findForward("modificar");
+
+                    } else {
+
+                        request.setAttribute("error", resultado2.get(1));
+                        return mapping.findForward("error");
+
+                    }
 
                 } else {
 
@@ -106,6 +118,7 @@ public class ActionRolesOp extends Action {
 
                 request.setAttribute("getIdRoles", "");
                 request.setAttribute("getNombre", "");
+                request.setAttribute("getDescripcion", "");
 
                 return mapping.findForward("nuevo");
 

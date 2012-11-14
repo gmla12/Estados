@@ -15,6 +15,7 @@ public class BeanRoles implements Serializable{
 
     private Object idRoles;
     private Object nombre;
+    private Object descripcion;
 
     public Object getIdRoles() {
         return idRoles;
@@ -30,6 +31,14 @@ public class BeanRoles implements Serializable{
 
     public void setNombre(Object nombre) {
         this.nombre = nombre;
+    }
+
+    public Object getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
     }
 
 }

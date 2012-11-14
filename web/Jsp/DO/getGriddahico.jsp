@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanRoles"%>
+<%@page import="forms.bean.BeanEntidad"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -25,7 +25,7 @@
     int total_pages = 0;
     String op = request.getParameter("op");
     if (op.equals("bus")) {
-        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_ROLES");
+        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_ENTIDAD");
         int intpage = new Integer(request.getParameter("page"));
         int limit = new Integer(request.getParameter("rows"));
 
@@ -36,7 +36,7 @@
          * -----------------------------------
          */
 
-        BeanRoles buRoles2;
+        BeanEntidad buEntidad2;
 
         /*
          * -----------------------------------
@@ -97,15 +97,16 @@
                 json = json + ",";
             }
 
-            buRoles2 = new BeanRoles();
-            buRoles2 = (BeanRoles) GR_AUT.get(i);
+            buEntidad2 = new BeanEntidad();
+            buEntidad2 = (BeanEntidad) GR_AUT.get(i);
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buRoles2.getIdRoles() + "\"";
-            json = json + ",\"" + buRoles2.getNombre() + "\"";
-            json = json + ",\"" + buRoles2.getDescripcion() + "\"";
-            String aux2 = "<a href='javascript:modifica(&quot;" + buRoles2.getIdRoles() + "&quot;)'>Modificar</a>";
+            json = json + "\"cell\":[\"" + buEntidad2.getIdEntidad() + "\"";
+            json = json + ",\"" + buEntidad2.getNombre() + "\"";
+            json = json + ",\"" + buEntidad2.getNombreTipoDoc() + "\"";
+            json = json + ",\"" + buEntidad2.getIdentificacion() + "\"";
+            String aux2 = "<a href='javascript:modifica(&quot;" + buEntidad2.getIdEntidad() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";
 

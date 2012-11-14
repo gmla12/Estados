@@ -54,6 +54,9 @@
                             required : true,
                             minlength : 3,
                             maxlength : 45
+                        },
+                        descripcion : {
+                            maxlength : 100
                         }
                     },
                     debug: false,
@@ -69,6 +72,7 @@
                 document.forms[0].op.value="";
                 document.forms[0].idRoles.value="";
                 document.forms[0].nombre.value="";
+                document.forms[0].descripcion.value="";
             }
             
             function eliminar(){
@@ -80,9 +84,15 @@
                 document.forms[0].op.value="atras";
                 document.forms[0].submit();
             }
+
+            function auditoria(){
+                xpos=(screen.width/2)-200; 
+                ypos=(screen.height/2)-215; 
+                window.open('Jsp/Auditoria/Auditoria.jsp','popup','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=350, left='+ xpos+', top='+ ypos);
+            }
         </script>
 
-        <style>
+        <style type="text/css">
             .error-message, label.error {
                 color: #ff0000;
                 margin:0;
@@ -108,7 +118,10 @@
                             <td><html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdRoles") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
+                            <td class="text">Descripción</td>
+                            <td><html:textarea property="descripcion" value='<%= String.valueOf(request.getAttribute("getDescripcion"))%>'></html:textarea></td>
+                        </tr>                        <tr>
+                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdRoles") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a> <% if (request.getAttribute("getIdRoles") != "") {%> <a class="boton" href="javascript:auditoria();">Ver Auditoria</a> <% }%></td>
                         </tr>
                         <%
                             if (request.getAttribute("respuesta") != "") {

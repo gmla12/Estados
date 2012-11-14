@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanRoles"%>
+<%@page import="forms.bean.BeanAuditoria"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -36,7 +36,7 @@
          * -----------------------------------
          */
 
-        BeanRoles buRoles2;
+        BeanAuditoria buAuditoria2;
 
         /*
          * -----------------------------------
@@ -97,16 +97,14 @@
                 json = json + ",";
             }
 
-            buRoles2 = new BeanRoles();
-            buRoles2 = (BeanRoles) GR_AUT.get(i);
+            buAuditoria2 = new BeanAuditoria();
+            buAuditoria2 = (BeanAuditoria) GR_AUT.get(i);
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buRoles2.getIdRoles() + "\"";
-            json = json + ",\"" + buRoles2.getNombre() + "\"";
-            json = json + ",\"" + buRoles2.getDescripcion() + "\"";
-            String aux2 = "<a href='javascript:modifica(&quot;" + buRoles2.getIdRoles() + "&quot;)'>Modificar</a>";
-            json = json + ",\"" + aux2 + "\"]";
+            json = json + "\"cell\":[\"" + buAuditoria2.getUsuario() + "\"";
+            json = json + ",\"" + buAuditoria2.getFecha() + "\"";
+            json = json + ",\"" + buAuditoria2.getCambios() + "\"]";
             json = json + "}";
 
             rc = true;
