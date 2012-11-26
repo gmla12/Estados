@@ -51,16 +51,17 @@
                 jQuery("#list4").jqGrid({
                     url:'Jsp/DO/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Tipo de Documento', 'Identificacion', 'Editar'],
+                    colNames:['DO', 'Cliente', 'Pedido', 'Referencia', 'Descripcion', 'Editar'],
                     colModel:[
-                        {name:'idPais',index:'idPais', width:15, sortable:false},
-                        {name:'nombre',index:'nombre', width:90, sortable:false},
-                        {name:'nombreTipoDoc',index:'nombreTipoDoc', width:70, sortable:false},
-                        {name:'identificacion',index:'identificacion', width:40, sortable:false},
+                        {name:'DO',index:'DO', width:50, sortable:false},
+                        {name:'idCliente',index:'idCliente', width:160, sortable:false},
+                        {name:'pedido',index:'pedido', width:90, sortable:false},
+                        {name:'referencia',index:'referencia', width:90, sortable:false},
+                        {name:'descripcion',index:'descripcion', width:160, sortable:false},
                         {name:'editar',index:'editar', width:40, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 590,
+                    width: 1200,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,

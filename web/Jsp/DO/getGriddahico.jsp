@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanEntidad"%>
+<%@page import="forms.bean.BeanDO"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -25,7 +25,7 @@
     int total_pages = 0;
     String op = request.getParameter("op");
     if (op.equals("bus")) {
-        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_ENTIDAD");
+        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_DOs");
         int intpage = new Integer(request.getParameter("page"));
         int limit = new Integer(request.getParameter("rows"));
 
@@ -36,7 +36,7 @@
          * -----------------------------------
          */
 
-        BeanEntidad buEntidad2;
+        BeanDO buDO2;
 
         /*
          * -----------------------------------
@@ -97,16 +97,17 @@
                 json = json + ",";
             }
 
-            buEntidad2 = new BeanEntidad();
-            buEntidad2 = (BeanEntidad) GR_AUT.get(i);
+            buDO2 = new BeanDO();
+            buDO2 = (BeanDO) GR_AUT.get(i);
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buEntidad2.getIdEntidad() + "\"";
-            json = json + ",\"" + buEntidad2.getNombre() + "\"";
-            json = json + ",\"" + buEntidad2.getNombreTipoDoc() + "\"";
-            json = json + ",\"" + buEntidad2.getIdentificacion() + "\"";
-            String aux2 = "<a href='javascript:modifica(&quot;" + buEntidad2.getIdEntidad() + "&quot;)'>Modificar</a>";
+            json = json + "\"cell\":[\"" + buDO2.getDO() + "\"";
+            json = json + ",\"" + buDO2.getIdCliente() + "\"";
+            json = json + ",\"" + buDO2.getPedido() + "\"";
+            json = json + ",\"" + buDO2.getReferencia() + "\"";
+            json = json + ",\"" + buDO2.getDescripcion() + "\"";
+            String aux2 = "<a href='javascript:modifica(&quot;" + buDO2.getIdDO() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";
 
