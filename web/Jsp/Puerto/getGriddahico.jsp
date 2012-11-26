@@ -104,6 +104,9 @@
             json = json + "\"id\":\"" + i + "\",";
             json = json + "\"cell\":[\"" + buPuerto2.getIdPuerto() + "\"";
             json = json + ",\"" + buPuerto2.getNombre() + "\"";
+            json = json + ",\"" + buPuerto2.getNombrePais() + "\"";
+            json = json + ",\"" + buPuerto2.getNombreDepartamento() + "\"";
+            json = json + ",\"" + buPuerto2.getNombreMunicipio() + "\"";
             String aux2 = "<a href='javascript:modifica(&quot;" + buPuerto2.getIdPuerto() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";

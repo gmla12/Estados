@@ -39,6 +39,9 @@ public class ActionPuerto extends Action {
 
             request.setAttribute("getIdPuerto", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getIdPais", fo.getIdPais());
+            request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
+            request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.IngresaPuerto(fo, false, null);
@@ -63,6 +66,9 @@ public class ActionPuerto extends Action {
 
             request.setAttribute("getIdPuerto", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getIdPais", fo.getIdPais());
+            request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
+            request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.ModificaPuerto(fo, false, null);
@@ -86,6 +92,9 @@ public class ActionPuerto extends Action {
 
             request.setAttribute("getIdSucursal", fo.getIdPuerto());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getIdPais", fo.getIdPais());
+            request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
+            request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.EliminaPuerto(fo, false, null);

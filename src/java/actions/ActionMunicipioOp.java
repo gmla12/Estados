@@ -166,7 +166,10 @@ public class ActionMunicipioOp extends Action {
                 session.setAttribute("getIdDepartamento", "");
                 session.setAttribute("getIdPais", "");
                 session.setAttribute("getNombre", "");
-
+                request.setAttribute("getIdMunicipio", "");
+                request.setAttribute("getIdDepartamento", "");
+                request.setAttribute("getIdPais", "");
+                request.setAttribute("getNombre", "");
                 return mapping.findForward("nuevo");
 
             }

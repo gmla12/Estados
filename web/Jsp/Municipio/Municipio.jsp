@@ -177,6 +177,7 @@
                                 </html:select></td>
                                 <% } else {%> 
                             <td><html:select property="idPais" styleId="idPais" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
+                                    <html:option value=""><c:out value='[Seleccione]'/></html:option>
                                     <c:forEach items="${CMB_PAIS}" var="cat">
                                         <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
                                     </c:forEach>
@@ -202,9 +203,9 @@
                         <tr>
                             <td class="text">Nombre del Municipio</td>
                             <td><html:text property="nombre" styleId="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdMunicipio") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdMunicipio") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
                         </tr>
                         <%
                             if (request.getAttribute("respuesta") != "") {

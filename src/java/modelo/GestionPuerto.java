@@ -51,8 +51,11 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into Puerto (idPuerto, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into Puerto (idPuerto, nombre, idPais, idDepartamento, idMunicipio) values (null,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getNombre());
+            psInsertar.setInt(2, f.getIdPais());
+            psInsertar.setInt(3, f.getIdDepartamento());
+            psInsertar.setInt(4, f.getIdMunicipio());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -124,7 +127,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.Puerto, p.nombre FROM Puerto p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.Puerto, p.nombre, p.idPais, p.idDepartamento, p.idMunicipio FROM Puerto p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanPuerto bu;
@@ -132,6 +135,9 @@ public class GestionPuerto extends ConeccionMySql {
                 bu = new BeanPuerto();
 
                 bu.setIdPuerto(rs.getObject("p.idPuerto"));
+                bu.setIdPuerto(rs.getObject("p.idPais"));
+                bu.setIdPuerto(rs.getObject("p.idDepartamento"));
+                bu.setIdPuerto(rs.getObject("p.idMunicipio"));
                 bu.setNombre(rs.getObject("p.nombre"));
 
                 GR_PUERTO.add(bu);
@@ -198,11 +204,29 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idpuerto, p.nombre ";
-            query += "FROM Puerto p ";
+            String query = "SELECT p.idpuerto, p.nombre, p.idPais, p.idDepartamento, p.idMunicipio ";
+            query += "FROM Puerto p INNER JOIN paises r ON p.idPais = r.idPais INNER JOIN departamentos d ON p.idDepartamento = d.idDepartamento INNER JOIN municipios m ON p.idMunicipio = m.idMunicipio";
             String query2 = "";
             if (f.getbNombre().isEmpty() != true) {
-                query2 = "p.nombre LIKE CONCAT('%',?,'%')";
+                query2 = "p.Nombre LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdPais().isEmpty() != true) {
+                if (query2.isEmpty() == false) {
+                    query2 = query2 + ", ";
+                }
+                query2 = "p.idPais LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdDepartamento().isEmpty() != true) {
+                if (query2.isEmpty() == false) {
+                    query2 = query2 + ", ";
+                }
+                query2 = "p.idDepartamento LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdMunicipio().isEmpty() != true) {
+                if (query2.isEmpty() == false) {
+                    query2 = query2 + ", ";
+                }
+                query2 = "p.idMunicipio LIKE CONCAT('%',?,'%')";
             }
             if (query2.isEmpty() != true) {
                 query += "WHERE " + query2;
@@ -210,6 +234,9 @@ public class GestionPuerto extends ConeccionMySql {
             psSelectConClave = cn.prepareStatement(query);
             if (f.getbNombre().isEmpty() != true) {
                 psSelectConClave.setString(1, f.getbNombre());
+                psSelectConClave.setString(2, f.getbIdPais());
+                psSelectConClave.setString(3, f.getbIdDepartamento());
+                psSelectConClave.setString(4, f.getbIdMunicipio());
             }
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -219,7 +246,13 @@ public class GestionPuerto extends ConeccionMySql {
                 bu = new BeanPuerto();
 
                 bu.setIdPuerto(rs.getObject("p.idPuerto"));
+                bu.setIdPais(rs.getObject("p.idPais"));
+                bu.setIdDepartamento(rs.getObject("p.idDepartamento"));
+                bu.setIdMunicipio(rs.getObject("p.idMunicipio"));
                 bu.setNombre(rs.getObject("p.nombre"));
+                bu.setNombrePais(rs.getObject("p.nombrePais"));
+                bu.setNombreDepartamento(rs.getObject("p.nombreDepartamento"));
+                bu.setNombreMunicipio(rs.getObject("p.nombreMunicipio"));
 
                 GR_PUERTO.add(bu);
 
@@ -283,11 +316,14 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE Puerto SET nombre = ?";
+            String query = "UPDATE Puerto SET nombre = ?, idPais = ?, idDepartamento = ?, idMunicipio = ?";
             query += " WHERE idPuerto = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
-            psUpdate.setInt(2, f.getIdPuerto());
+            psUpdate.setInt(2, f.getIdPais());
+            psUpdate.setInt(3, f.getIdDepartamento());
+            psUpdate.setInt(4, f.getIdMunicipio());
+            psUpdate.setInt(5, f.getIdPuerto());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -413,7 +449,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idPuerto, p.nombre FROM Puerto p WHERE  p.idPuerto = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.idPuerto, p.nombre , p.idPais , p.idDepartamento , p.idMunicipio FROM Puerto p WHERE  p.idPuerto = ?");
             psSelectConClave.setInt(1, IdPuerto);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -422,6 +458,9 @@ public class GestionPuerto extends ConeccionMySql {
                 bu = new BeanPuerto();
 
                 setIdSucursal(rs.getObject("p.idPuerto"));
+                setIdPais(rs.getObject("p.idPais"));
+                setIdDepartamento(rs.getObject("p.idDepartamento"));
+                setIdMunicipio(rs.getObject("p.idMunicipio"));
                 setNombre(rs.getObject("p.nombre"));
 
             }
@@ -611,7 +650,34 @@ public class GestionPuerto extends ConeccionMySql {
 //    }
 //}
     private Object idPuerto;
+    private Object idPais;
+    private Object idDepartamento;
+    private Object idMunicipio;
     private Object nombre;
+
+    public Object getIdPais() {
+        return idPais;
+    }
+
+    public void setIdPais(Object idPais) {
+        this.idPais = idPais;
+    }
+
+    public Object getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(Object idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public Object getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(Object idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
 
     public Object getIdPuerto() {
         return idPuerto;

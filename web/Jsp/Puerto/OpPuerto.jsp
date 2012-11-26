@@ -1,7 +1,7 @@
 <%-- 
     Document   : OpPuerto
     Created on : 18-septiembre-2012, 09:44:34
-    Author     : Gilberth
+    Author     : ccastillor
 --%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -35,23 +35,32 @@
             }
         %>
         <%
-        if (request.getAttribute("getOp") == "buscar") {
+            if (request.getAttribute("getOp") == "buscar") {
         %>
         <jsp:forward page="/OpPuerto.do">
             <jsp:param name="getOp" value="buscar"/>
         </jsp:forward>
-        <%
-        }
+        <%            }
         %>
         <script type="text/javascript">
+            
             $(function(){ 
+                $("#idPais").change(function(){
+                    $.post("Jsp/Comun/getDepartamento.jsp",{ id:$(this).val() },function(data){$("#idDepartamento").html(data);$.post("Jsp/Comun/getMunicipio.jsp",{ id:document.forms[0].idDepartamento.value, idPais:document.forms[0].idPais.value },function(data){$("#idMunicipio").html(data);})})
+                });
+                $("#idDepartamento").change(function(){
+                    $.post("Jsp/Comun/getMunicipio.jsp",{ id:$(this).val(), idPais:document.forms[0].idPais.value },function(data){$("#idMunicipio").html(data);})
+                });
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Puerto/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Editar'],
+                    colNames:['ID', 'Nombre','Pais','Departamento','Municipio', 'Editar'],
                     colModel:[
                         {name:'idPuerto',index:'idPuerto', width:50, sortable:false},
                         {name:'nombre',index:'nombre', width:160, sortable:false},
+                        {name:'nombrePais',index:'nombrePais', width:160, sortable:false},
+                        {name:'nombreDepartamento',index:'nombreDepartamento', width:160, sortable:false},
+                        {name:'nombreMunicipio',index:'nombreMunicipio', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
@@ -92,7 +101,28 @@
                 <legend>Consulta de Puertos</legend>
                 <table>
                     <tr>
-                        <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
+                        <td>Nombre<input type="text" name="bNombre" style="width:240px;" value="<%= session.getAttribute("getbNombre")%>"/> </td>
+                        <td class="text">Pais<html:select property="idPais" styleId="idPais" size="1" style="width:240px;" disabled='false' value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>
+                                <c:forEach items="${CMB_PAIS}" var="cat">
+                                    <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
+                        <td class="text">Departamento<html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" disabled='false' value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>
+                                <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
+                                    <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
+                        <td class="text">Municipio<html:select property="idMunicipio" styleId="idMunicipio" size="1" style="width:240px;" disabled='false' value='<%= String.valueOf(request.getAttribute("getIdMunicipio"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>
+                                <c:forEach items="${CMB_MUNICIPIO}" var="cat">
+                                    <html:option value="${cat.idMunicipio}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
                     </tr>
