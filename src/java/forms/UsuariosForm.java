@@ -18,8 +18,17 @@ public class UsuariosForm extends ActionForm{
     private int idTipoDocumento;
     private int identificacion;
     private int idRol;
+    private int idUsu;
     private String op;
     private String actPassword;
+
+    public int getIdUsu() {
+        return idUsu;
+    }
+
+    public void setIdUsu(int idUsu) {
+        this.idUsu = idUsu;
+    }
 
     public int getIdUsuario() {
         return idUsuario;

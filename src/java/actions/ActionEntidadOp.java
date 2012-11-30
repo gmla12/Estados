@@ -4,6 +4,9 @@
  */
 package actions;
 
+import modelo.parametros.GestionMunicipio;
+import modelo.parametros.GestionDepartamento;
+import modelo.parametros.GestionPais;
 import forms.EntidadOpForm;
 import forms.bean.BeanTablas;
 import forms.bean.BeanTipoDocumento;

@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package modelo.parametros;
 
-import forms.UsuariosOpForm;
-import forms.UsuariosForm;
-import forms.bean.BeanUsuarios;
-import forms.InicioForm;
+import forms.parametros.SucursalForm;
+import forms.parametros.SucursalOpForm;
+import forms.bean.parametros.BeanSucursal;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import util.ConeccionMySql;
 
@@ -17,12 +15,12 @@ import util.ConeccionMySql;
  *
  * @author Mario
  */
-public class GestionUsuarios extends ConeccionMySql {
+public class GestionSucursal extends ConeccionMySql {
 
     Connection cn = null;
     Statement st = null;
 
-    public ArrayList<Object> IngresaUsuarios(UsuariosForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> IngresaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -52,13 +50,9 @@ public class GestionUsuarios extends ConeccionMySql {
                 cn = tCn;
 
             }
-            psInsertar = cn.prepareStatement("insert into susuario     (id, login, password, sroles_id, id_tipo_documento, identificacion, susuarios_id, fecha_modificacion) values (null,?,AES_ENCRYPT(?,'mundoodnum'),?,?,?,?,now())", PreparedStatement.RETURN_GENERATED_KEYS);
-            psInsertar.setString(1, f.getLogin());
-            psInsertar.setString(2, f.getPassword());
-            psInsertar.setInt(3, f.getIdRol());
-            psInsertar.setInt(4, f.getIdTipoDocumento());
-            psInsertar.setInt(5, f.getIdentificacion());
-            psInsertar.setInt(6, f.getIdUsu());
+
+            psInsertar = cn.prepareStatement("insert into sucursal (idSucursal, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar.setString(1, f.getNombre());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -76,10 +70,10 @@ public class GestionUsuarios extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(claveGenerada); // clave generada
+            resultado.add(claveGenerada); // clave Generada
             resultado.add(mod); // y el numero de registros consultados
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -96,18 +90,16 @@ public class GestionUsuarios extends ConeccionMySql {
         }
 
     }
-    private ArrayList<Object> GR_USUARIO;
-    private String descCargo = "";
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+    private ArrayList<Object> GR_SUCURSAL;
 
-    public ArrayList<Object> BuscarUsuarios(InicioForm fo, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarSucursal(Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
-        BeanUsuarios bu;
-        bu = new BeanUsuarios();
         PreparedStatement psSelectConClave = null;
 
         try {
+
+            GR_SUCURSAL = new ArrayList<Object>();
 
             if (transac == false) { //si no es una transaccion busca una nueva conexion
 
@@ -132,96 +124,17 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.login, p.sroles_id, p.id_tipo_documento, p.identificacion, r.id, r.nombre, e.id_tipo_documento, e.identificacion, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombreE FROM susuarios p INNER JOIN sroles r ON p.sroles_id = r.id INNER JOIN entidades e ON p.id_tipo_documento = e.id_tipo_documento AND p.identificacion = e.identificacion WHERE p.login = ? AND p.password = AES_ENCRYPT(?, 'mundoodnum')");
-            psSelectConClave.setString(1, fo.getUsuario());
-            psSelectConClave.setString(2, fo.getPassw());
+            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
+            BeanSucursal bu;
             while (rs.next()) {
-                bu = new BeanUsuarios();
+                bu = new BeanSucursal();
 
-                bu.setIdUsuario(rs.getObject("p.id"));
-                bu.setIdRol(rs.getObject("p.sroles_id"));
-                bu.setIdTipoDocumento(rs.getObject("p.id_tipo_documento"));
-                bu.setIdentificacion(rs.getObject("p.identificacion"));
-                bu.setLogin(rs.getObject("p.login"));
-                bu.setNombre(rs.getObject("nombreE"));
-                bu.setNombreRol(rs.getObject("r.nombre"));
+                bu.setIdSucursal(rs.getObject("p.idSucursal"));
+                bu.setNombre(rs.getObject("p.nombre"));
 
-            }
-
-            if (transac == false) { // si no es una transaccion cierra la conexion
-
-                cn.close();
-
-            }
-
-            resultado.add(false); //si no hubo un error asigna false
-            resultado.add(bu); // y registros consultados
-
-        } catch (Exception e) {
-
-            resultado.add(true); //si hubo error asigna true
-            resultado.add(e); //y asigna el error para retornar y visualizar
-
-            if (cn != null) {
-                cn.rollback();
-                cn.close();
-            }
-
-        } finally {
-
-            return resultado;
-
-        }
-
-    }
-
-    public ArrayList<Object> BuscarUsuarios(String login, Boolean transac, Connection tCn) {
-
-        ArrayList<Object> resultado = new ArrayList<Object>();
-        BeanUsuarios bu;
-        bu = new BeanUsuarios();
-        boolean encontro = false;
-        PreparedStatement psSelectConClave = null;
-
-        try {
-
-            if (transac == false) { //si no es una transaccion busca una nueva conexion
-
-                ArrayList<Object> resultad = new ArrayList<Object>();
-                resultad = (ArrayList) getConection();
-
-                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
-
-                    cn = (Connection) resultad.get(1);
-
-                } else { //si hubo error al obtener la conexion retorna el error para visualizar
-
-                    resultado.add(true);
-                    resultado.add(resultad.get(1));
-                    return resultado;
-
-                }
-
-            } else { //si es una transaccion asigna la conexion utilizada
-
-                cn = tCn;
-
-            }
-
-            psSelectConClave = cn.prepareStatement("SELECT p.login FROM susuario p WHERE p.login = ?");
-            psSelectConClave.setString(1, login);
-            ResultSet rs = psSelectConClave.executeQuery();
-
-            while (rs.next()) {
-                bu = new BeanUsuarios();
-
-                bu.setLogin(rs.getObject("p.login"));
-                String p = (String) bu.getLogin();
-                if (p.equals(login)) {
-                    encontro = true;
-                }
+                GR_SUCURSAL.add(bu);
 
 
             }
@@ -233,9 +146,9 @@ public class GestionUsuarios extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(encontro); // y registros consultados
+            resultado.add(GR_SUCURSAL); // y registros consultados
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -253,13 +166,14 @@ public class GestionUsuarios extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarUsuarios(UsuariosOpForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarSucursalOP(SucursalOpForm f, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
 
         try {
-            GR_USUARIO = new ArrayList<Object>();
+
+            GR_SUCURSAL = new ArrayList<Object>();
 
             if (transac == false) { //si no es una transaccion busca una nueva conexion
 
@@ -284,100 +198,30 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.login, p.sroles_id, p.id_tipo_documento, p.identificacion, r.nombre ";
-            query += "FROM susuario p INNER JOIN sroles r ON p.roles_id = r.id";
+            String query = "SELECT p.idSucursal, p.nombre ";
+            query += "FROM sucursal p ";
             String query2 = "";
-            if (f.getbLogin().isEmpty() != true) {
-                query2 = "p.login LIKE CONCAT('%',?,'%')";
-            }
-            if (f.getbIdRol().isEmpty() != true) {
-                if (query2.isEmpty() != true) {
-                    query2 += "AND ";
-                }
-                query2 += "p.roles_id LIKE CONCAT('%',?,'%')";
-            }
-            if (f.getbIdTipoDocumento().isEmpty() != true) {
-                if (query2.isEmpty() != true) {
-                    query2 += "AND ";
-                }
-                query2 += "p.id_tipo_documento LIKE CONCAT('%',?,'%')";
-            }
-            if (f.getbIdentificacion().isEmpty() != true) {
-                if (query2.isEmpty() != true) {
-                    query2 += "AND ";
-                }
-                query2 += "p.identificacion LIKE CONCAT('%',?,'%')";
+            if (f.getbNombre().isEmpty() != true) {
+                query2 = "p.nombre LIKE CONCAT('%',?,'%')";
             }
             if (query2.isEmpty() != true) {
-                query += " WHERE " + query2;
+                query += "WHERE " + query2;
             }
             psSelectConClave = cn.prepareStatement(query);
-            if (f.getbLogin().isEmpty() != true) {
-                psSelectConClave.setString(1, f.getbLogin());
-                if (f.getbIdRol().isEmpty() != true) {
-                    psSelectConClave.setString(2, f.getbIdRol());
-                    if (f.getbIdTipoDocumento().isEmpty() != true) {
-                        psSelectConClave.setString(3, f.getbIdTipoDocumento());
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(4, f.getbIdentificacion());
-                        }
-                    } else {
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(3, f.getbIdentificacion());
-                        }
-                    }
-                } else {
-                    if (f.getbIdTipoDocumento().isEmpty() != true) {
-                        psSelectConClave.setString(2, f.getbIdTipoDocumento());
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(3, f.getbIdentificacion());
-                        }
-                    } else {
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(2, f.getbIdentificacion());
-                        }
-                    }
-                }
-            } else {
-                if (f.getbIdRol().isEmpty() != true) {
-                    psSelectConClave.setString(1, f.getbIdRol());
-                    if (f.getbIdTipoDocumento().isEmpty() != true) {
-                        psSelectConClave.setString(2, f.getbIdTipoDocumento());
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(3, f.getbIdentificacion());
-                        }
-                    } else {
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(2, f.getbIdentificacion());
-                        }
-                    }
-                } else {
-                    if (f.getbIdTipoDocumento().isEmpty() != true) {
-                        psSelectConClave.setString(1, f.getbIdTipoDocumento());
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(2, f.getbIdentificacion());
-                        }
-                    } else {
-                        if (f.getbIdentificacion().isEmpty() != true) {
-                            psSelectConClave.setString(1, f.getbIdentificacion());
-                        }
-                    }
-                }
+            if (f.getbNombre().isEmpty() != true) {
+                psSelectConClave.setString(1, f.getbNombre());
             }
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanUsuarios bu;
+            BeanSucursal bu;
             while (rs.next()) {
-                bu = new BeanUsuarios();
 
-                bu.setIdUsuario(rs.getObject("p.id"));
-                bu.setLogin(rs.getObject("p.login"));
-                bu.setIdRol(rs.getObject("p.roles_id"));
-                bu.setIdentificacion(rs.getObject("p.identificacion"));
-                bu.setNombre(rs.getObject("r.nombre"));
+                bu = new BeanSucursal();
 
-                GR_USUARIO.add(bu);
+                bu.setIdSucursal(rs.getObject("p.idSucursal"));
+                bu.setNombre(rs.getObject("p.nombre"));
 
+                GR_SUCURSAL.add(bu);
 
             }
 
@@ -388,9 +232,9 @@ public class GestionUsuarios extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(GR_USUARIO); // y registros consultados
+            resultado.add(GR_SUCURSAL); // y registros consultados
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -408,7 +252,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> ModificaUsuarios(UsuariosForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> ModificaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -439,39 +283,11 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE susuario SET login = ?";
-            if (f.getActPassword() != null) {
-                if (f.getActPassword().equals("on")) {
-                    query += ", password= AES_ENCRYPT(?, 'mundoodnum')";
-                }
-            }
-            query += ", roles_id =?";
-            query += ", id_tipo_documento =?";
-            query += ", identificacion=?";
-            query += ", susuarios_id=?";
-            query += ", fecha_modificacion=now()";
-            query += " WHERE id=?";
+            String query = "UPDATE sucursal SET nombre = ?";
+            query += " WHERE idSucursal = ?";
             psUpdate = cn.prepareStatement(query);
-            psUpdate.setString(1, f.getLogin());
-            boolean oo = false;
-            if (f.getActPassword() != null) {
-                if (f.getActPassword().equals("on")) {
-                    psUpdate.setString(2, f.getPassword());
-                    psUpdate.setInt(3, f.getIdRol());
-                    psUpdate.setInt(4, f.getIdTipoDocumento());
-                    psUpdate.setInt(5, f.getIdentificacion());
-                    psUpdate.setInt(6, f.getIdUsu());
-                    psUpdate.setInt(7, f.getIdUsuario());
-                    oo = true;
-                }
-            }
-            if (oo == false) {
-                psUpdate.setInt(2, f.getIdRol());
-                psUpdate.setInt(3, f.getIdTipoDocumento());
-                psUpdate.setInt(4, f.getIdentificacion());
-                psUpdate.setInt(5, f.getIdUsuario());
-                psUpdate.setInt(6, f.getIdUsu());
-            }
+            psUpdate.setString(1, f.getNombre());
+            psUpdate.setInt(2, f.getIdSucursal());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -485,7 +301,7 @@ public class GestionUsuarios extends ConeccionMySql {
             resultado.add(false); //si no hubo un error asigna false
             resultado.add(mod); // y el numero de registros consultados
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -503,7 +319,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> EliminaUsuarios(UsuariosForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> EliminaSucursal(SucursalForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -534,8 +350,8 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM susuario WHERE  id = ?");
-            psDelete.setInt(1, f.getIdUsuario());
+            psDelete = cn.prepareStatement("DELETE FROM sucursal WHERE  idSucursal = ?");
+            psDelete.setInt(1, f.getIdSucursal());
             psDelete.executeUpdate();
 
             mod = psDelete.getUpdateCount();
@@ -549,7 +365,7 @@ public class GestionUsuarios extends ConeccionMySql {
             resultado.add(false); //si no hubo un error asigna false
             resultado.add(mod); // y el numero de registros consultados
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -567,7 +383,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarUsuarioFormulario(int IdUsuario, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarSucursalFormulario(int IdSucursal, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
@@ -597,22 +413,16 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.login, AES_DECRYPT(p.password,'mundoodnum') password, p.roles_id, p.id_tipo_documento, p.identificacion, p.susuarios_id, p.fecha_modificacion FROM susuario p WHERE  p.id =?");
-            psSelectConClave.setInt(1, IdUsuario);
+            psSelectConClave = cn.prepareStatement("SELECT p.idSucursal, p.nombre FROM sucursal p WHERE  p.idSucursal = ?");
+            psSelectConClave.setInt(1, IdSucursal);
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanUsuarios bu;
+            BeanSucursal bu;
             while (rs.next()) {
-                bu = new BeanUsuarios();
+                bu = new BeanSucursal();
 
-                setIdUsuario(rs.getObject("p.id"));
-                setLogin(rs.getObject("p.login"));
-                setPassword(rs.getObject("password"));
-                setIdRol(rs.getObject("p.roles_id"));
-                setIdTipoDocumento(rs.getObject("p.id_tipo_documento"));
-                setIdentificacion(rs.getObject("p.identificacion"));
-                setIdUsuM(rs.getObject("p.susuario_id"));
-                setFechaModificacion(rs.getObject("p.fecha_modificacion"));
+                setIdSucursal(rs.getObject("p.idSucursal"));
+                setNombre(rs.getObject("p.nombre"));
 
             }
 
@@ -624,7 +434,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
             resultado.add(false); //si no hubo un error asigna false
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -651,7 +461,7 @@ public class GestionUsuarios extends ConeccionMySql {
             tCn.commit();
             resultado.add(false); //si no hubo un error asigna false
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -678,7 +488,7 @@ public class GestionUsuarios extends ConeccionMySql {
             tCn.setAutoCommit(valor);
             resultado.add(false); //si no hubo un error asigna false
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -700,7 +510,7 @@ public class GestionUsuarios extends ConeccionMySql {
             tCn.rollback();
             resultado.add(false); //si no hubo un error asigna false
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             resultado.add(true); //si hubo error asigna true
             resultado.add(e); //y asigna el error para retornar y visualizar
@@ -799,82 +609,23 @@ public class GestionUsuarios extends ConeccionMySql {
 //        }
 //        return GR_USUARIOS2;
 //    }
-    private Object idUsuario;
-    private Object login;
-    private Object password;
-    private Object idTipoDocumento;
-    private Object identificacion;
-    private Object idRol;
-    private Object idUsuM;
-    private Object fechaModificacion;
+//}
+    private Object idSucursal;
+    private Object nombre;
 
-    public Object getIdUsuM() {
-        return idUsuM;
+    public Object getIdSucursal() {
+        return idSucursal;
     }
 
-    public void setIdUsuM(Object idUsuM) {
-        this.idUsuM = idUsuM;
+    public void setIdSucursal(Object idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
-    public Object getFechaModificacion() {
-        return fechaModificacion;
+    public Object getNombre() {
+        return nombre;
     }
 
-    public void setFechaModificacion(Object fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    /**
-     * @return the idUsuario
-     */
-    public Object getIdUsuario() {
-        return idUsuario;
-    }
-
-    /**
-     * @param idUsuario the idUsuarios to set
-     */
-    public void setIdUsuario(Object idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public Object getLogin() {
-        return login;
-    }
-
-    public void setLogin(Object login) {
-        this.login = login;
-    }
-
-    public Object getPassword() {
-        return password;
-    }
-
-    public void setPassword(Object password) {
-        this.password = password;
-    }
-
-    public Object getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Object idRol) {
-        this.idRol = idRol;
-    }
-
-    public Object getIdTipoDocumento() {
-        return idTipoDocumento;
-    }
-
-    public void setIdTipoDocumento(Object idTipoDocumento) {
-        this.idTipoDocumento = idTipoDocumento;
-    }
-
-    public Object getIdentificacion() {
-        return identificacion;
-    }
-
-    public void setIdentificacion(Object identificacion) {
-        this.identificacion = identificacion;
+    public void setNombre(Object nombre) {
+        this.nombre = nombre;
     }
 }
