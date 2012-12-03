@@ -21,7 +21,7 @@
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
         <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <title>Opiones Roles</title>
+        <title>Opciones Roles</title>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -48,10 +48,11 @@
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Roles/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Editar'],
+                    colNames:['ID', 'Nombre', 'Descripcion', 'Editar'],
                     colModel:[
                         {name:'idRoles',index:'idRoles', width:50, sortable:false},
                         {name:'nombre',index:'nombre', width:160, sortable:false},
+                        {name:'descripcion',index:'descripcion', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',

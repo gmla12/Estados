@@ -67,3 +67,50 @@ a.boton:hover,a.boton:active
 {
     background-color:#2e80ff;
 }
+.error-message, label.error {
+    color: #ff0000;
+    margin:0;
+    display: inline;
+    font-size: 1em !important;
+    font-weight:lighter;
+}
+*{
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #000000;
+}
+body{
+    margin: auto;
+    background-color: #FFFFFF;
+}
+.forma{
+    border: 1px solid #CED5D7;
+    border-radius: 6px;
+    padding: 0px 15px 15px;
+    margin-top: 0px;
+    background-color: white;
+}
+.forma label{
+    display: block;
+    font-weight: bold;
+}
+.forma div{
+    margin-bottom: 0px;
+}
+.forma input[type='text'], .forma textarea{
+    padding: 2px 2px;
+    border: 1px solid #CED5D7;
+    resize: none;
+    margin: 5px 0;
+}
+.forma input[type='text']:focus, .forma textarea:focus{
+    outline: none;
+    box-shadow:0 0 0 3px #dde9ec;
+}
+h1 {
+    font-size:14px;
+    color: #ffffff;
+    background-color: #2aa7e8;
+    text-align:center;
+    padding:4px;
+}

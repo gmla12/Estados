@@ -104,6 +104,7 @@
             json = json + "\"id\":\"" + i + "\",";
             json = json + "\"cell\":[\"" + buRoles2.getIdRoles() + "\"";
             json = json + ",\"" + buRoles2.getNombre() + "\"";
+            json = json + ",\"" + buRoles2.getDescripcion() + "\"";
             String aux2 = "<a href='javascript:modifica(&quot;" + buRoles2.getIdRoles() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";

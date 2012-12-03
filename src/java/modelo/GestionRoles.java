@@ -51,8 +51,9 @@ public class GestionRoles extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into roles (idRoles, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into roles (idRoles, nombre, descripcion) values (null,?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getNombre());
+            psInsertar.setString(1, f.getDescripcion());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -124,7 +125,7 @@ public class GestionRoles extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idRoles, p.nombre FROM roles p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.idRoles, p.nombre, p.descripcion FROM roles p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanRoles bu;
@@ -133,6 +134,7 @@ public class GestionRoles extends ConeccionMySql {
 
                 bu.setIdRoles(rs.getObject("p.idRoles"));
                 bu.setNombre(rs.getObject("p.nombre"));
+                bu.setDescripcion(rs.getObject("p.descripcion"));
 
                 GR_ROLES.add(bu);
 
@@ -198,7 +200,7 @@ public class GestionRoles extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idRoles, p.nombre ";
+            String query = "SELECT p.idRoles, p.nombre, p.descripcion ";
             query += "FROM roles p ";
             String query2 = "";
             if (f.getbNombre().isEmpty() != true) {
@@ -220,6 +222,7 @@ public class GestionRoles extends ConeccionMySql {
 
                 bu.setIdRoles(rs.getObject("p.idRoles"));
                 bu.setNombre(rs.getObject("p.nombre"));
+                bu.setDescripcion(rs.getObject("p.descripcion"));
 
                 GR_ROLES.add(bu);
 
@@ -283,11 +286,12 @@ public class GestionRoles extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE roles SET nombre = ?";
+            String query = "UPDATE roles SET nombre = ?, descripcion = ?";
             query += " WHERE idRoles = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
-            psUpdate.setInt(2, f.getIdRoles());
+            psUpdate.setString(2, f.getDescripcion());
+            psUpdate.setInt(3, f.getIdRoles());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -413,7 +417,7 @@ public class GestionRoles extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idRoles, p.nombre FROM roles p WHERE p.idRoles = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.idRoles, p.nombre, p.descripcion FROM roles p WHERE p.idRoles = ?");
             psSelectConClave.setInt(1, IdRoles);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -423,6 +427,7 @@ public class GestionRoles extends ConeccionMySql {
 
                 setIdRoles(rs.getObject("p.idRoles"));
                 setNombre(rs.getObject("p.nombre"));
+                setDescripcion(rs.getObject("p.descripcion"));
 
             }
 
@@ -612,6 +617,7 @@ public class GestionRoles extends ConeccionMySql {
 //}
     private Object idRoles;
     private Object nombre;
+    private Object descripcion;
 
     public Object getIdRoles() {
         return idRoles;
@@ -628,4 +634,13 @@ public class GestionRoles extends ConeccionMySql {
     public void setNombre(Object nombre) {
         this.nombre = nombre;
     }
+
+    public Object getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
+    }
+    
 }

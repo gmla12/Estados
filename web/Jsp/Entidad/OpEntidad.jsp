@@ -24,7 +24,7 @@
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
         <script src="Js/jquery.jqGrid.min.js" type="text/javascript"></script>
-        <title>Opiones Usuarios</title>
+        <title>Opciones Usuarios</title>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();

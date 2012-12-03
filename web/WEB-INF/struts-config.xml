@@ -18,20 +18,22 @@
         <form-bean name="OpRoles" type="forms.RolesOpForm"/>
         <form-bean name="TipoDocumento" type="forms.TipoDocumentoForm"/>
         <form-bean name="OpTipoDocumento" type="forms.TipoDocumentoOpForm"/>
-        <form-bean name="Pais" type="forms.PaisForm"/>
-        <form-bean name="OpPais" type="forms.PaisOpForm"/>
-        <form-bean name="Departamento" type="forms.DepartamentoForm"/>
-        <form-bean name="OpDepartamento" type="forms.DepartamentoOpForm"/>
-        <form-bean name="Municipio" type="forms.MunicipioForm"/>
-        <form-bean name="OpMunicipio" type="forms.MunicipioOpForm"/>
-        <form-bean name="Sucursal" type="forms.SucursalForm"/>
-        <form-bean name="OpSucursal" type="forms.SucursalOpForm"/>
-        <form-bean name="Puerto" type="forms.PuertoForm"/>
-        <form-bean name="OpPuerto" type="forms.PuertoOpForm"/>
+        <form-bean name="Pais" type="forms.parametros.PaisForm"/>
+        <form-bean name="OpPais" type="forms.parametros.PaisOpForm"/>
+        <form-bean name="Departamento" type="forms.parametros.DepartamentoForm"/>
+        <form-bean name="OpDepartamento" type="forms.parametros.DepartamentoOpForm"/>
+        <form-bean name="Municipio" type="forms.parametros.MunicipioForm"/>
+        <form-bean name="OpMunicipio" type="forms.parametros.MunicipioOpForm"/>
+        <form-bean name="Sucursal" type="forms.parametros.SucursalForm"/>
+        <form-bean name="OpSucursal" type="forms.parametros.SucursalOpForm"/>
+        <form-bean name="Puerto" type="forms.parametros.PuertoForm"/>
+        <form-bean name="OpPuerto" type="forms.parametros.PuertoOpForm"/>
         <form-bean name="PlantillaDispositivo" type="forms.PlantillaDispositivoForm"/>
         <form-bean name="OpPlantillaDispositivo" type="forms.PlantillaDispositivoOpForm"/>
         <form-bean name="Factura" type="forms.FacturaForm"/>
         <form-bean name="OpFactura" type="forms.FacturaOpForm"/>
+        <form-bean name="DO" type="forms.DOForm"/>
+        <form-bean name="OpDO" type="forms.DOOpForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -103,59 +105,59 @@
             <forward name="nuevo" path="/Jsp/TipoDocumento/TipoDocumento.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Pais/Pais.jsp" name="Pais" path="/Pais" scope="session" type="actions.ActionPais">
-            <forward name="ok" path="/Jsp/Pais/Pais.jsp"/>
-            <forward name="atras" path="/Jsp/Pais/OpPais.jsp"/>
+        <action input="/Jsp/Parametros/Pais/Pais.jsp" name="Pais" path="/Pais" scope="session" type="actions.parametros.ActionPais">
+            <forward name="ok" path="/Jsp/Parametros/Pais/Pais.jsp"/>
+            <forward name="atras" path="/Jsp/Parametros/Pais/OpPais.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Pais/OpPais.jsp" name="OpPais" path="/OpPais" scope="request" type="actions.ActionPaisOp" validate="false">
-            <forward name="ok" path="/Jsp/Pais/OpPais.jsp"/>
-            <forward name="modificar" path="/Jsp/Pais/Pais.jsp"/>
-            <forward name="nuevo" path="/Jsp/Pais/Pais.jsp"/>
+        <action input="/Jsp/Parametros/Pais/OpPais.jsp" name="OpPais" path="/OpPais" scope="request" type="actions.parametros.ActionPaisOp" validate="false">
+            <forward name="ok" path="/Jsp/Parametros/Pais/OpPais.jsp"/>
+            <forward name="modificar" path="/Jsp/Parametros/Pais/Pais.jsp"/>
+            <forward name="nuevo" path="/Jsp/Parametros/Pais/Pais.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Departamento/Departamento.jsp" name="Departamento" path="/Departamento" scope="session" type="actions.ActionDepartamento">
-            <forward name="ok" path="/Jsp/Departamento/Departamento.jsp"/>
-            <forward name="atras" path="/Jsp/Departamento/OpDepartamento.jsp"/>
+        <action input="/Jsp/Parametros/Departamento/Departamento.jsp" name="Departamento" path="/Departamento" scope="session" type="actions.parametros.ActionDepartamento">
+            <forward name="ok" path="/Jsp/Parametros/Departamento/Departamento.jsp"/>
+            <forward name="atras" path="/Jsp/Parametros/Departamento/OpDepartamento.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Departamento/OpDepartamento.jsp" name="OpDepartamento" path="/OpDepartamento" scope="request" type="actions.ActionDepartamentoOp" validate="false">
-            <forward name="ok" path="/Jsp/Departamento/OpDepartamento.jsp"/>
-            <forward name="modificar" path="/Jsp/Departamento/Departamento.jsp"/>
-            <forward name="nuevo" path="/Jsp/Departamento/Departamento.jsp"/>
+        <action input="/Jsp/Parametros/Departamento/OpDepartamento.jsp" name="OpDepartamento" path="/OpDepartamento" scope="request" type="actions.parametros.ActionDepartamentoOp" validate="false">
+            <forward name="ok" path="/Jsp/Parametros/Departamento/OpDepartamento.jsp"/>
+            <forward name="modificar" path="/Jsp/Parametros/Departamento/Departamento.jsp"/>
+            <forward name="nuevo" path="/Jsp/Parametros/Departamento/Departamento.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Municipio/Municipio.jsp" name="Municipio" path="/Municipio" scope="session" type="actions.ActionMunicipio">
-            <forward name="ok" path="/Jsp/Municipio/Municipio.jsp"/>
-            <forward name="atras" path="/Jsp/Municipio/OpMunicipio.jsp"/>
+        <action input="/Jsp/Parametros/Municipio/Municipio.jsp" name="Municipio" path="/Municipio" scope="session" type="actions.parametros.ActionMunicipio">
+            <forward name="ok" path="/Jsp/Parametros/Municipio/Municipio.jsp"/>
+            <forward name="atras" path="/Jsp/Parametros/Municipio/OpMunicipio.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Municipio/OpMunicipio.jsp" name="OpMunicipio" path="/OpMunicipio" scope="request" type="actions.ActionMunicipioOp" validate="false">
-            <forward name="ok" path="/Jsp/Municipio/OpMunicipio.jsp"/>
-            <forward name="modificar" path="/Jsp/Municipio/Municipio.jsp"/>
-            <forward name="nuevo" path="/Jsp/Municipio/Municipio.jsp"/>
+        <action input="/Jsp/Parametros/Municipio/OpMunicipio.jsp" name="OpMunicipio" path="/OpMunicipio" scope="request" type="actions.parametros.ActionMunicipioOp" validate="false">
+            <forward name="ok" path="/Jsp/Parametros/Municipio/OpMunicipio.jsp"/>
+            <forward name="modificar" path="/Jsp/Parametros/Municipio/Municipio.jsp"/>
+            <forward name="nuevo" path="/Jsp/Parametros/Municipio/Municipio.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Sucursal/Sucursal.jsp" name="Sucursal" path="/Sucursal" scope="session" type="actions.ActionSucursal">
-            <forward name="ok" path="/Jsp/Sucursal/Sucursal.jsp"/>
-            <forward name="atras" path="/Jsp/Sucursal/OpSucursal.jsp"/>
+        <action input="/Jsp/Parametros/Sucursal/Sucursal.jsp" name="Sucursal" path="/Sucursal" scope="session" type="actions.parametros.ActionSucursal">
+            <forward name="ok" path="/Jsp/Parametros/Sucursal/Sucursal.jsp"/>
+            <forward name="atras" path="/Jsp/Parametros/Sucursal/OpSucursal.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Sucursal/OpSucursal.jsp" name="OpSucursal" path="/OpSucursal" scope="request" type="actions.ActionSucursalOp" validate="false">
-            <forward name="ok" path="/Jsp/Sucursal/OpSucursal.jsp"/>
-            <forward name="modificar" path="/Jsp/Sucursal/Sucursal.jsp"/>
-            <forward name="nuevo" path="/Jsp/Sucursal/Sucursal.jsp"/>
+        <action input="/Jsp/Parametros/Sucursal/OpSucursal.jsp" name="OpSucursal" path="/OpSucursal" scope="request" type="actions.parametros.ActionSucursalOp" validate="false">
+            <forward name="ok" path="/Jsp/Parametros/Sucursal/OpSucursal.jsp"/>
+            <forward name="modificar" path="/Jsp/Parametros/Sucursal/Sucursal.jsp"/>
+            <forward name="nuevo" path="/Jsp/Parametros/Sucursal/Sucursal.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-         <action input="/Jsp/Puerto/Puerto.jsp" name="Puerto" path="/Puerto" scope="session" type="actions.ActionPuerto">
-            <forward name="ok" path="/Jsp/Puerto/Puerto.jsp"/>
-            <forward name="atras" path="/Jsp/Puerto/OpPuerto.jsp"/>
+         <action input="/Jsp/Parametros/Puerto/Puerto.jsp" name="Puerto" path="/Puerto" scope="session" type="actions.parametros.ActionPuerto">
+            <forward name="ok" path="/Jsp/Parametros/Puerto/Puerto.jsp"/>
+            <forward name="atras" path="/Jsp/Parametros/Puerto/OpPuerto.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Puerto/OpPuerto.jsp" name="OpPuerto" path="/OpPuerto" scope="request" type="actions.ActionPuertoOp" validate="false">
-            <forward name="ok" path="/Jsp/Puerto/OpPuerto.jsp"/>
-            <forward name="modificar" path="/Jsp/Puerto/Puerto.jsp"/>
-            <forward name="nuevo" path="/Jsp/Puerto/Puerto.jsp"/>
+        <action input="/Jsp/Parametros/Puerto/OpPuerto.jsp" name="OpPuerto" path="/OpPuerto" scope="request" type="actions.parametros.ActionPuertoOp" validate="false">
+            <forward name="ok" path="/Jsp/Parametros/Puerto/OpPuerto.jsp"/>
+            <forward name="modificar" path="/Jsp/Parametros/Puerto/Puerto.jsp"/>
+            <forward name="nuevo" path="/Jsp/Parametros/Puerto/Puerto.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
         <action input="/Jsp/PlantillaDispositivo/PlantillaDispositivo.jsp" name="PlantillaDispositivo" path="/PlantillaDispositivo" scope="session" type="actions.ActionPlantillaDispositivo">
@@ -180,8 +182,23 @@
             <forward name="nuevo" path="/Jsp/Factura/Factura.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
+        <action input="/Jsp/DO/DO.jsp" name="DO" path="/DO" scope="session" type="actions.ActionDO">
+            <forward name="ok" path="/Jsp/DO/DO.jsp"/>
+            <forward name="atras" path="/Jsp/DO/OpDO.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/DO/OpDO.jsp" name="OpDO" path="/OpDO" scope="request" type="actions.ActionDOOp" validate="false">
+            <forward name="ok" path="/Jsp/DO/OpDO.jsp"/>
+            <forward name="modificar" path="/Jsp/DO/DO.jsp"/>
+            <forward name="nuevo" path="/Jsp/DO/DO.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
         <action path="/Logout" name="LoginForm" type="actions.ActionSalir">
             <forward name="ok" path="/index.jsp" />
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action path="/Auditoria" name="Auditoria" type="actions.ActionAuditoria">
+            <forward name="ok" path="/Jsp/Auditoria/Auditoria.jsp" />
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
     </action-mappings>

@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionForm;
 public class RolesForm extends ActionForm{
     private int idRoles;
     private String nombre;
+    private String descripcion;
     private String op;
 
     public int getIdRoles() {
@@ -30,6 +31,14 @@ public class RolesForm extends ActionForm{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getOp() {

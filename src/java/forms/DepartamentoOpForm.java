@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package forms;
+package forms.parametros;
 
 import org.apache.struts.action.ActionForm;
 

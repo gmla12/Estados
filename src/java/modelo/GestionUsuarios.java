@@ -52,12 +52,13 @@ public class GestionUsuarios extends ConeccionMySql {
                 cn = tCn;
 
             }
-            psInsertar = cn.prepareStatement("insert into usuario     (idUsuario, login, password, idRol, idTipoDocumento, identificacion) values (null,?,AES_ENCRYPT(?,'mundoodnum'),?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into susuario     (id, login, password, sroles_id, id_tipo_documento, identificacion, susuarios_id, fecha_modificacion) values (null,?,AES_ENCRYPT(?,'mundoodnum'),?,?,?,?,now())", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getLogin());
             psInsertar.setString(2, f.getPassword());
             psInsertar.setInt(3, f.getIdRol());
             psInsertar.setInt(4, f.getIdTipoDocumento());
             psInsertar.setInt(5, f.getIdentificacion());
+            psInsertar.setInt(6, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -131,7 +132,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idUsuario, p.login, p.idRol, p.idTipoDocumento, p.identificacion, r.idRoles, r.nombre, e.idTipoDocumento, e.identificacion, IF(e.primernombre <> NULL AND e.primerapellido <> NULL, e.razonSocial, CONCAT(IF(e.primernombre <> NULL,'',CONCAT(e.primernombre,' ')), IF(e.segundonombre <> NULL,'',CONCAT(e.segundonombre,' ')), IF(e.primerapellido <> NULL,'',CONCAT(e.primerapellido,' ')), IF(e.segundoapellido <> NULL,'',CONCAT(e.segundoapellido,' ')))) as nombreE FROM usuario p INNER JOIN roles r ON p.idRol = r.idRoles INNER JOIN entidad e ON p.idTipoDocumento = e.idTipoDocumento AND p.identificacion = e.identificacion WHERE p.login = ? AND p.password = AES_ENCRYPT(?, 'mundoodnum')");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.login, p.sroles_id, p.id_tipo_documento, p.identificacion, r.id, r.nombre, e.id_tipo_documento, e.identificacion, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombreE FROM susuarios p INNER JOIN sroles r ON p.sroles_id = r.id INNER JOIN entidades e ON p.id_tipo_documento = e.id_tipo_documento AND p.identificacion = e.identificacion WHERE p.login = ? AND p.password = AES_ENCRYPT(?, 'mundoodnum')");
             psSelectConClave.setString(1, fo.getUsuario());
             psSelectConClave.setString(2, fo.getPassw());
             ResultSet rs = psSelectConClave.executeQuery();
@@ -139,9 +140,9 @@ public class GestionUsuarios extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanUsuarios();
 
-                bu.setIdUsuario(rs.getObject("p.idUsuario"));
-                bu.setIdRol(rs.getObject("p.idRol"));
-                bu.setIdTipoDocumento(rs.getObject("p.idTipoDocumento"));
+                bu.setIdUsuario(rs.getObject("p.id"));
+                bu.setIdRol(rs.getObject("p.sroles_id"));
+                bu.setIdTipoDocumento(rs.getObject("p.id_tipo_documento"));
                 bu.setIdentificacion(rs.getObject("p.identificacion"));
                 bu.setLogin(rs.getObject("p.login"));
                 bu.setNombre(rs.getObject("nombreE"));
@@ -209,7 +210,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.login FROM usuario p WHERE p.login = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.login FROM susuario p WHERE p.login = ?");
             psSelectConClave.setString(1, login);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -283,8 +284,8 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idUsuario, p.login, p.idRol, p.idTipoDocumento, p.identificacion, r.nombre, t.nombre ";
-            query += "FROM usuario p INNER JOIN roles r ON p.idRol = r.idRoles INNER JOIN tipoDocumento t ON p.idTipoDocumento = t.idTipoDocumento";
+            String query = "SELECT p.id, p.login, p.sroles_id, p.id_tipo_documento, p.identificacion, r.nombre ";
+            query += "FROM susuario p INNER JOIN sroles r ON p.roles_id = r.id";
             String query2 = "";
             if (f.getbLogin().isEmpty() != true) {
                 query2 = "p.login LIKE CONCAT('%',?,'%')";
@@ -293,13 +294,13 @@ public class GestionUsuarios extends ConeccionMySql {
                 if (query2.isEmpty() != true) {
                     query2 += "AND ";
                 }
-                query2 += "p.idRol LIKE CONCAT('%',?,'%')";
+                query2 += "p.roles_id LIKE CONCAT('%',?,'%')";
             }
             if (f.getbIdTipoDocumento().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
                     query2 += "AND ";
                 }
-                query2 += "p.idTipoDocumento LIKE CONCAT('%',?,'%')";
+                query2 += "p.id_tipo_documento LIKE CONCAT('%',?,'%')";
             }
             if (f.getbIdentificacion().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
@@ -369,12 +370,11 @@ public class GestionUsuarios extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanUsuarios();
 
-                bu.setIdUsuario(rs.getObject("p.idUsuario"));
+                bu.setIdUsuario(rs.getObject("p.id"));
                 bu.setLogin(rs.getObject("p.login"));
-                bu.setIdRol(rs.getObject("p.idRol"));
+                bu.setIdRol(rs.getObject("p.roles_id"));
                 bu.setIdentificacion(rs.getObject("p.identificacion"));
                 bu.setNombre(rs.getObject("r.nombre"));
-                bu.setNombreDocumento(rs.getObject("t.nombre"));
 
                 GR_USUARIO.add(bu);
 
@@ -439,16 +439,18 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE usuario SET login = ?";
+            String query = "UPDATE susuario SET login = ?";
             if (f.getActPassword() != null) {
                 if (f.getActPassword().equals("on")) {
                     query += ", password= AES_ENCRYPT(?, 'mundoodnum')";
                 }
             }
-            query += ", idRol =?";
-            query += ", idTipoDocumento =?";
+            query += ", roles_id =?";
+            query += ", id_tipo_documento =?";
             query += ", identificacion=?";
-            query += " WHERE idUsuario=?";
+            query += ", susuarios_id=?";
+            query += ", fecha_modificacion=now()";
+            query += " WHERE id=?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getLogin());
             boolean oo = false;
@@ -458,7 +460,8 @@ public class GestionUsuarios extends ConeccionMySql {
                     psUpdate.setInt(3, f.getIdRol());
                     psUpdate.setInt(4, f.getIdTipoDocumento());
                     psUpdate.setInt(5, f.getIdentificacion());
-                    psUpdate.setInt(6, f.getIdUsuario());
+                    psUpdate.setInt(6, f.getIdUsu());
+                    psUpdate.setInt(7, f.getIdUsuario());
                     oo = true;
                 }
             }
@@ -467,6 +470,7 @@ public class GestionUsuarios extends ConeccionMySql {
                 psUpdate.setInt(3, f.getIdTipoDocumento());
                 psUpdate.setInt(4, f.getIdentificacion());
                 psUpdate.setInt(5, f.getIdUsuario());
+                psUpdate.setInt(6, f.getIdUsu());
             }
             psUpdate.executeUpdate();
 
@@ -530,7 +534,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM usuario WHERE  idUsuario = ?");
+            psDelete = cn.prepareStatement("DELETE FROM susuario WHERE  id = ?");
             psDelete.setInt(1, f.getIdUsuario());
             psDelete.executeUpdate();
 
@@ -593,7 +597,7 @@ public class GestionUsuarios extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idUsuario, p.login, AES_DECRYPT(p.password,'mundoodnum') password, p.idRol, p.idTipoDocumento, p.identificacion FROM usuario p WHERE  p.idUsuario =?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.login, AES_DECRYPT(p.password,'mundoodnum') password, p.roles_id, p.id_tipo_documento, p.identificacion, p.susuarios_id, p.fecha_modificacion FROM susuario p WHERE  p.id =?");
             psSelectConClave.setInt(1, IdUsuario);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -601,12 +605,14 @@ public class GestionUsuarios extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanUsuarios();
 
-                setIdUsuario(rs.getObject("p.idUsuario"));
+                setIdUsuario(rs.getObject("p.id"));
                 setLogin(rs.getObject("p.login"));
                 setPassword(rs.getObject("password"));
-                setIdRol(rs.getObject("p.idRol"));
-                setIdTipoDocumento(rs.getObject("p.idTipoDocumento"));
+                setIdRol(rs.getObject("p.roles_id"));
+                setIdTipoDocumento(rs.getObject("p.id_tipo_documento"));
                 setIdentificacion(rs.getObject("p.identificacion"));
+                setIdUsuM(rs.getObject("p.susuario_id"));
+                setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
             }
 
@@ -799,6 +805,24 @@ public class GestionUsuarios extends ConeccionMySql {
     private Object idTipoDocumento;
     private Object identificacion;
     private Object idRol;
+    private Object idUsuM;
+    private Object fechaModificacion;
+
+    public Object getIdUsuM() {
+        return idUsuM;
+    }
+
+    public void setIdUsuM(Object idUsuM) {
+        this.idUsuM = idUsuM;
+    }
+
+    public Object getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Object fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 
     /**
      * @return the idUsuario

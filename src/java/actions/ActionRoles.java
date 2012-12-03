@@ -41,6 +41,7 @@ public class ActionRoles extends Action {
 
             request.setAttribute("getIdRoles", fo.getIdRoles());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.IngresaRoles(fo, false, null);
@@ -65,6 +66,7 @@ public class ActionRoles extends Action {
 
             request.setAttribute("getIdRoles", fo.getIdRoles());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.ModificaRoles(fo, false, null);
@@ -88,6 +90,7 @@ public class ActionRoles extends Action {
 
             request.setAttribute("getIdRoles", fo.getIdRoles());
             request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.EliminaRoles(fo, false, null);
