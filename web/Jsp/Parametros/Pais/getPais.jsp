@@ -6,7 +6,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modelo.GestionPais"%>
+<%@page import="modelo.parametros.GestionPais"%>
 
 <%
     String usuario = "";

@@ -53,7 +53,7 @@
                             minlength : 3,
                             maxlength : 3,
                             remote: { 
-                                url: "Jsp/Pais/getPais.jsp", //valida si existe el idPais
+                                url: "Jsp/Parametros/Pais/getPais.jsp", //valida si existe el idPais
                                 type: "post", 
                                 data: { 
                                     lectura: function() { return document.forms[0].idPais.readOnly } 
@@ -79,7 +79,7 @@
                     }
                 });
             });
-             function nuevo(){
+            function nuevo(){
                 document.forms[0].op.value="";
                 document.forms[0].idPais.value="";
                 document.forms[0].nombre.value="";
@@ -94,9 +94,9 @@
                 document.forms[0].op.value="atras";
                 document.forms[0].submit();
             }
-       </script>
+        </script>
 
-        <style>
+        <style type="text/css">
             .error-message, label.error {
                 color: #ff0000;
                 margin:0;
@@ -104,43 +104,72 @@
                 font-size: 1em !important;
                 font-weight:lighter;
             }
+            *{
+                font-family: sans-serif;
+                font-size: 12px;
+                color: #000000;
+            }
+            body{
+                margin: auto;
+                background-color: #FFFFFF;
+            }
+            .forma{
+                border: 1px solid #CED5D7;
+                border-radius: 6px;
+                padding: 0px 15px 15px;
+                margin-top: 0px;
+                background-color: white;
+            }
+            .forma label{
+                display: block;
+                font-weight: bold;
+            }
+            .forma div{
+                margin-bottom: 0px;
+            }
+            .forma input[type='text'], .forma textarea{
+                padding: 2px 2px;
+                border: 1px solid #CED5D7;
+                resize: none;
+                margin: 5px 0;
+            }
+            .forma input[type='text']:focus, .forma textarea:focus{
+                outline: none;
+                box-shadow:0 0 0 3px #dde9ec;
+            }
         </style>
+
     </head>
     <body>
-        <div >
-            <html:form action="/Pais" method="post" styleId="forma">
-
+        <div id="stylized" class="myform">
+            <html:form styleClass="forma" styleId="forma" method="post" action="/Pais">
                 <input type="hidden" name="op" value=""> 
-
-                <fieldset>
-                    <legend>Pais</legend>
-
-                    <table>
-                        <tr>
-                            <td class="text">ID</td>
-                            <% if (request.getAttribute("getIdPais") != "") {%> 
-                                <td><html:text property="idPais" readonly="true" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'></html:text></td>
-                            <% } else {%> 
-                                <td><html:text property="idPais" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'></html:text></td>
-                            <% }%> 
-                        </tr>
-                        <tr>
-                            <td class="text">Nombre</td>
-                            <td><html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a></td>
-                        </tr>
-                        <%
-                            if (request.getAttribute("respuesta") != "") {
-                        %>
-                        <tr>
-                            <td colspan="3" class="text"><%= String.valueOf(request.getAttribute("respuesta"))%></td>
-                        </tr>
-                        <%  }
-                        %>
-                    </table>
-                </fieldset>
+                <h1>Pais</h1>
+                <div>
+                    <label for="txtIdPais">ID</label>
+                    <% if (request.getAttribute("getIdPais") != "") {%> 
+                    <html:text property="idPais" readonly="true" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'></html:text>
+                    <% } else {%> 
+                    <html:text property="idPais" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'></html:text>
+                    <% }%> 
+                </div>
+                <div>
+                    <label for="txtNombre">Nombre</label>
+                    <html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text>
+                </div>
+                <div><br>
+                </div>
+                <div>
+                    <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
+                </div>
+                <%
+                    if (request.getAttribute("respuesta") != "") {
+                %>
+                <div>
+                    <%= String.valueOf(request.getAttribute("respuesta"))%>
+                </div>
+                <%  }
+                %>
             </html:form>
         </div>
     </body>

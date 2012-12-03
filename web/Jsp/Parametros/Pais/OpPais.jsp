@@ -46,7 +46,7 @@
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Pais/getGriddahico.jsp?op=bus',
+                    url:'Jsp/Parametros/Pais/getGriddahico.jsp?op=bus',
                     datatype: "json",
                     colNames:['ID', 'Nombre', 'Editar'],
                     colModel:[
