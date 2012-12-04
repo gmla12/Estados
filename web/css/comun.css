@@ -67,6 +67,14 @@ a.boton:hover,a.boton:active
 {
     background-color:#2e80ff;
 }
+a.linkin
+{
+    font-weight:bold;
+    color:#2e80ff;
+    text-align:center;
+    padding:4px;
+    text-decoration:underline;
+}
 .error-message, label.error {
     color: #ff0000;
     margin:0;
@@ -104,6 +112,13 @@ body{
 .forma input[type='text']:focus, .forma textarea:focus{
     outline: none;
     box-shadow:0 0 0 3px #dde9ec;
+}
+fieldset{
+    border: 1px solid #CED5D7;
+    border-radius: 6px;
+    padding: 0px 15px 15px;
+    margin-top: 0px;
+    background-color: white;
 }
 h1 {
     font-size:13px;

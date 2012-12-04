@@ -291,7 +291,7 @@ public class GestionPais extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE ppaises SET nombre = ?, susuarios_id=?";
+            String query = "UPDATE ppaises SET nombre = ?, susuarios_id=?, fecha_modificacion=now()";
             query += " WHERE id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
@@ -359,7 +359,7 @@ public class GestionPais extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM ppaises WHERE  id = ");
+            psDelete = cn.prepareStatement("DELETE FROM ppaises WHERE id = ?");
             psDelete.setString(1, f.getIdPais());
             psDelete.executeUpdate();
 

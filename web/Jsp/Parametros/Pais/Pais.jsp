@@ -91,12 +91,15 @@
             function nuevo(){
                 document.forms[0].op.value="";
                 document.forms[0].idPais.value="";
+                document.forms[0].idPais.readOnly=false;
                 document.forms[0].nombre.value="";
+                document.getElementById('nombreUsu').innerHTML = "";
+                document.getElementById('fechaModificacion').innerHTML = "";
             }
             
             function eliminar(){
                 document.forms[0].op.value="eliminar";
-                document.forms[0].op.value=<%= session.getAttribute("idusu")%>
+                document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
                 document.forms[0].submit();
             }
             
@@ -104,6 +107,14 @@
                 document.forms[0].op.value="atras";
                 document.forms[0].submit();
             }
+            
+            function historico(){
+                var forma = document.forms[0];
+                //var emer = window.open('../Auditoria?accion=Q&subAccion=D&hnumeroDo='+forma.hnumeroDo,'liquidarActualizar','width=500,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Auditoria/Auditoria.jsp','liquidarActualizar','width=500,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                emer.focus();
+            }
+            
             function toggleLayer(whichLayer) {
                 if (document.getElementById) {
                     // this is the way the standards work
@@ -157,40 +168,37 @@
                     <label for="txtNombre">Nombre</label>
                     <html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text>
                 </div>
-
-                <FIELDSET><LEGEND>
-                        [<A href="javascript:toggleLayer('anulacion')">
-                            Anular 
-                            DO
-                        </A>]
-                    </LEGEND>
-                    <DIV id="anulacion" style="display: none;">
-                        <label for="txtUsu">Usuario: </label><%= String.valueOf(request.getAttribute("getNombreUsu"))%>
-                        <label for="txtFechaModificacion">Fecha de Modificación: </label><%= String.valueOf(request.getAttribute("getFechaModificacion"))%>
-                    </DIV>
-                </FIELDSET>
-                <h3 class="collapsible" id="section1">Auditoria</h3>
-                <div class="container">
-                    <div class="content">
+                <fieldset>
+                    <legend>
+                        [<a class="linkin" href="javascript:toggleLayer('auditoria')">
+                            Auditoría
+                        </a>]
+                    </legend>
+                    <div id="auditoria" style="display: none;">
+                        <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
+                        <label for="txtFechaModificacion">Fecha de Modificación: </label><strong><div id="fechaModificacion"><%= String.valueOf(request.getAttribute("getFechaModificacion"))%></div></strong>
+                        <div><br>
+                        </div>
+                        <div><a class="boton" href="javascript:historico();">Historico</a>
+                        </div>
                     </div>
+                </fieldset>
+                <div><br>
                 </div>
-            </div>
-            <div><br>
-            </div>
-            <div>
-                <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
-            </div>
-            <%
-                if (request.getAttribute("respuesta") != "") {
-            %>
-            <div><br>
-            </div>
-            <div>
-                <%= String.valueOf(request.getAttribute("respuesta"))%>
-            </div>
-            <%  }
-            %>
-        </html:form>
-    </div>
-</body>
+                <div>
+                    <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
+                </div>
+                <%
+                    if (request.getAttribute("respuesta") != "") {
+                %>
+                <div><br>
+                </div>
+                <div>
+                    <%= String.valueOf(request.getAttribute("respuesta"))%>
+                </div>
+                <%  }
+                %>
+            </html:form>
+        </div>
+    </body>
 </html:html>

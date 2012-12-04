@@ -16,7 +16,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
@@ -95,6 +94,7 @@
                         <td>Nombre<input type="text" name="bNombre" size="40" value="<%= session.getAttribute("getbNombre")%>"/> </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
+                        <td><a class="boton" href="javascript:historico()">Historico Eliminados</a></td>
                     </tr>
                 </table>
             </fieldset>
