@@ -19,6 +19,15 @@
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="Js/jquery.validate.js"></script>
         <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
+        <script type="text/javascript" src="Js/jquery.collapsible.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //collapsible management
+                $('.collapsible').collapsible({
+                    defaultOpen: 'section2,section3'
+                });
+            });
+        </script>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -95,6 +104,39 @@
                 document.forms[0].op.value="atras";
                 document.forms[0].submit();
             }
+            function toggleLayer(whichLayer) {
+                if (document.getElementById) {
+                    // this is the way the standards work
+                    var style2 = document.getElementById(whichLayer).style;
+                    if(arguments.length == 2){
+                        style2.display = arguments[1]==true?"inline":"none";
+                        return;
+                    }
+                    if(style2.display.length == 0 || style2.display == "inline"){
+                        style2.display = "none";
+                    }
+                    else{
+                        style2.display = "inline";
+                    }
+                    //		style2.display = "none";
+                } else if (document.all) {
+                    // this is the way old msie versions work
+                    var style2 = document.all[whichLayer].style;
+                    if(arguments.length == 2){
+                        style2.display = arguments[1]==true?"block":"";
+                        return;
+                    }
+                    style2.display = style2.display? "":"block";
+                } else if (document.layers) {
+                    // this is the way nn4 works
+                    var style2 = document.layers[whichLayer].style;
+                    if(arguments.length == 2){
+                        style2.display = arguments[1]==true?"block":"";
+                        return;
+                    }
+                    style2.display = style2.display? "":"block";
+                }
+            }
         </script>
     </head>
     <body>
@@ -115,26 +157,40 @@
                     <label for="txtNombre">Nombre</label>
                     <html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text>
                 </div>
-                <div id="stylized" class="myform">
-                    <label for="txtFechaModificacion">Fecha de Modificación: </label><%= String.valueOf(request.getAttribute("getFechaModificacion"))%>
-                    <label for="txtUsu">Usuario: </label><%= String.valueOf(request.getAttribute("getNombreUsu"))%>
+
+                <FIELDSET><LEGEND>
+                        [<A href="javascript:toggleLayer('anulacion')">
+                            Anular 
+                            DO
+                        </A>]
+                    </LEGEND>
+                    <DIV id="anulacion" style="display: none;">
+                        <label for="txtUsu">Usuario: </label><%= String.valueOf(request.getAttribute("getNombreUsu"))%>
+                        <label for="txtFechaModificacion">Fecha de Modificación: </label><%= String.valueOf(request.getAttribute("getFechaModificacion"))%>
+                    </DIV>
+                </FIELDSET>
+                <h3 class="collapsible" id="section1">Auditoria</h3>
+                <div class="container">
+                    <div class="content">
+                    </div>
                 </div>
-                <div><br>
-                </div>
-                <div>
-                    <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
-                </div>
-                <%
-                    if (request.getAttribute("respuesta") != "") {
-                %>
-                <div><br>
-                </div>
-                <div>
-                    <%= String.valueOf(request.getAttribute("respuesta"))%>
-                </div>
-                <%  }
-                %>
-            </html:form>
-        </div>
-    </body>
+            </div>
+            <div><br>
+            </div>
+            <div>
+                <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
+            </div>
+            <%
+                if (request.getAttribute("respuesta") != "") {
+            %>
+            <div><br>
+            </div>
+            <div>
+                <%= String.valueOf(request.getAttribute("respuesta"))%>
+            </div>
+            <%  }
+            %>
+        </html:form>
+    </div>
+</body>
 </html:html>
