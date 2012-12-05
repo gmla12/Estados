@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package actions;
+package actions.seguridad;
 
-import forms.UsuariosForm;
+import forms.seguridad.RolesForm;
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.GestionUsuarios;
+import modelo.seguridad.GestionRoles;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -18,9 +20,9 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Mario
  */
-public class ActionUsuarios extends Action {
+public class ActionRoles extends Action {
 
-    public ActionUsuarios() {
+    public ActionRoles() {
 
         super();
 
@@ -33,27 +35,24 @@ public class ActionUsuarios extends Action {
             HttpServletResponse response)
             throws Exception {
 
-        UsuariosForm fo = (UsuariosForm) form;
-        GestionUsuarios gr = new GestionUsuarios();
+        RolesForm fo = (RolesForm) form;
+        GestionRoles gr = new GestionRoles();
         if (fo.getOp().equals("nuevo")) {
 
-            request.setAttribute("getIdUsuario", fo.getIdUsuario());
-            request.setAttribute("getLogin", fo.getLogin());
-            request.setAttribute("getPassword", fo.getPassword());
-            request.setAttribute("getIdRol", fo.getIdRol());
-            request.setAttribute("getIdTipoDocumento", fo.getIdTipoDocumento());
-            request.setAttribute("getIdentificacion", fo.getIdentificacion());
+            request.setAttribute("getIdRoles", fo.getIdRoles());
+            request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.IngresaUsuarios(fo, false, null);
+            resultado = gr.IngresaRoles(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(2) >= 1) {
-                    request.setAttribute("getIdUsuario", resultado.get(1));
+                    request.setAttribute("getIdRoles", resultado.get(1));
                     request.setAttribute("respuesta", "Registro ingresado correctamente.");
-                    System.out.println("Action Ingreso Usuarios");
+                    System.out.println("Action Ingreso Roles");
                 } else {
                     request.setAttribute("respuesta", "Registro no fue ingresado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Ingreso Usuarios");
+                    System.out.println("Action Ingreso Roles");
                 }
                 return mapping.findForward("ok");
             } else {
@@ -65,22 +64,19 @@ public class ActionUsuarios extends Action {
 
         } else if (fo.getOp().equals("modificar")) {
 
-            request.setAttribute("getIdUsuario", fo.getIdUsuario());
-            request.setAttribute("getLogin", fo.getLogin());
-            request.setAttribute("getPassword", fo.getPassword());
-            request.setAttribute("getIdRol", fo.getIdRol());
-            request.setAttribute("getIdTipoDocumento", fo.getIdTipoDocumento());
-            request.setAttribute("getIdentificacion", fo.getIdentificacion());
+            request.setAttribute("getIdRoles", fo.getIdRoles());
+            request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.ModificaUsuarios(fo, false, null);
+            resultado = gr.ModificaRoles(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(1) >= 1) {
                     request.setAttribute("respuesta", "Registro modificado correctamente.");
-                    System.out.println("Action Modicar Usuarios");
+                    System.out.println("Action Modicar Roles");
                 } else {
                     request.setAttribute("respuesta", "Registro no fue modificado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Modicar Usuarios");
+                    System.out.println("Action Modicar Roles");
                 }
                 return mapping.findForward("ok");
             } else {
@@ -92,36 +88,21 @@ public class ActionUsuarios extends Action {
 
         } else if (fo.getOp().equals("eliminar")) {
 
+            request.setAttribute("getIdRoles", fo.getIdRoles());
+            request.setAttribute("getNombre", fo.getNombre());
+            request.setAttribute("getDescripcion", fo.getDescripcion());
+
             ArrayList<Object> resultado = new ArrayList<Object>();
-            resultado = gr.EliminaUsuarios(fo, false, null);
+            resultado = gr.EliminaRoles(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
                 if ((Integer) resultado.get(1) >= 1) {
-
-                    request.setAttribute("getIdUsuario", "");
-                    request.setAttribute("getLogin", "");
-                    request.setAttribute("getPassword", "");
-                    request.setAttribute("getIdRol", "");
-                    request.setAttribute("getIdTipoDocumento", "");
-                    request.setAttribute("getIdentificacion", "");
-
                     request.setAttribute("respuesta", "Registro eliminado correctamente.");
-                    System.out.println("Action Eliminar Usuarios");
-
+                    System.out.println("Action Eliminar Roles");
                 } else {
-
-                    request.setAttribute("getIdUsuario", fo.getIdUsuario());
-                    request.setAttribute("getLogin", fo.getLogin());
-                    request.setAttribute("getPassword", fo.getPassword());
-                    request.setAttribute("getIdRol", fo.getIdRol());
-                    request.setAttribute("getIdTipoDocumento", fo.getIdTipoDocumento());
-                    request.setAttribute("getIdentificacion", fo.getIdentificacion());
-
                     request.setAttribute("respuesta", "Registro no fue eliminado correctamente, vuelvalo a intentar o contacte al programador.");
-                    System.out.println("Action Eliminar Usuarios");
-
+                    System.out.println("Action Eliminar Roles");
                 }
                 return mapping.findForward("ok");
-
             } else {
 
                 request.setAttribute("error", resultado.get(1));

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package forms.bean;
+package forms.bean.seguridad;
 
 import java.io.Serializable;
 

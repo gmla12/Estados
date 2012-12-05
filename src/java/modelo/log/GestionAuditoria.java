@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package modelo.log;
 
-import forms.bean.BeanAuditoria;
+import forms.bean.log.BeanAuditoria;
 import java.sql.*;
 import java.util.ArrayList;
 import util.ConeccionMySql;
@@ -18,7 +18,7 @@ public class GestionAuditoria extends ConeccionMySql {
     Connection cn = null;
     Statement st = null;
 
-    public ArrayList<Object> IngresaAuditoria(int idUsuario, String fecha, String cambios, String opcion, String opcion2, Boolean transac, Connection tCn) {
+    public ArrayList<Object> IngresaAuditoria(String accion, String valor_anterior, String valor_nuevo, int idUsuario, int idFormulario, String referencia, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -49,12 +49,13 @@ public class GestionAuditoria extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into auditoria (idAuditoria, idUsuario, fecha, cambios, opcion, opcion2) values (null,?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            psInsertar.setInt(1, idUsuario);
-            psInsertar.setString(1, fecha);
-            psInsertar.setString(1, cambios);
-            psInsertar.setString(1, opcion);
-            psInsertar.setString(1, opcion2);
+            psInsertar = cn.prepareStatement("insert into lauditoria (id, fecha, accion, valor_anterior, valor_nuevo, susuarios_id, sformularios_id, referencia) values (null, now(), ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar.setString(1, accion);
+            psInsertar.setString(2, valor_anterior);
+            psInsertar.setString(3, valor_nuevo);
+            psInsertar.setInt(4, idUsuario);
+            psInsertar.setInt(5, idFormulario);
+            psInsertar.setString(6, referencia);
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -94,7 +95,7 @@ public class GestionAuditoria extends ConeccionMySql {
     }
     private ArrayList<Object> GR_AUDITORIA;
 
-    public ArrayList<Object> MostrarRoles(String opcion, String opcion2, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarAuditoriaReferencia(String referencia, int idFormulario, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
@@ -126,22 +127,20 @@ public class GestionAuditoria extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idAuditoria, p.idUsuario, p.fecha, p.cambios, p.opcion, p.opcion2 FROM Auditoria p ";
-            String query2 = "p.opcion LIKE CONCAT('%',?,'%')";
-            query2 += " AND p.opcion2 LIKE CONCAT('%',?,'%')";
-            query += "WHERE " + query2;
+            String query = "SELECT p.id, p.suduarios_id, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p ";
+            query += "WHERE referencia=? AND sFormularios_id=? ";
             psSelectConClave = cn.prepareStatement(query);
-            psSelectConClave.setString(1, opcion);
-            psSelectConClave.setString(1, opcion2);
+            psSelectConClave.setString(1, referencia);
+            psSelectConClave.setInt(2, idFormulario);
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanAuditoria bu;
             while (rs.next()) {
                 bu = new BeanAuditoria();
 
-                bu.setIdUsuario(rs.getObject("p.idUsuario"));
+                bu.setIdUsuario(rs.getObject("p.sUsuario_id"));
                 bu.setFecha(rs.getObject("p.fecha"));
-                bu.setCambios(rs.getObject("p.cambios"));
+                bu.setCambios(rs.getObject("p.accion"));
 
                 GR_AUDITORIA.add(bu);
 
@@ -156,6 +155,77 @@ public class GestionAuditoria extends ConeccionMySql {
 
             resultado.add(false); //si no hubo un error asigna false
             resultado.add(GR_AUDITORIA); // y registros consultados
+
+        } catch (SQLException e) {
+
+            resultado.add(true); //si hubo error asigna true
+            resultado.add(e); //y asigna el error para retornar y visualizar
+
+            if (cn != null) {
+                cn.rollback();
+                cn.close();
+            }
+
+        } finally {
+
+            return resultado;
+
+        }
+
+    }
+
+    public ArrayList<Object> BuscarFormulario(String Formulario, Boolean transac, Connection tCn) {
+
+        ArrayList<Object> resultado = new ArrayList<Object>();
+        PreparedStatement psSelectConClave = null;
+
+        try {
+
+            GR_AUDITORIA = new ArrayList<Object>();
+
+            if (transac == false) { //si no es una transaccion busca una nueva conexion
+
+                ArrayList<Object> resultad = new ArrayList<Object>();
+                resultad = (ArrayList) getConection();
+
+                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
+
+                    cn = (Connection) resultad.get(1);
+
+                } else { //si hubo error al obtener la conexion retorna el error para visualizar
+
+                    resultado.add(true);
+                    resultado.add(resultad.get(1));
+                    return resultado;
+
+                }
+
+            } else { //si es una transaccion asigna la conexion utilizada
+
+                cn = tCn;
+
+            }
+
+            String query = "SELECT p.id, p.nombre FROM sFormularios p ";
+            query += "WHERE nombre=? ";
+            psSelectConClave = cn.prepareStatement(query);
+            psSelectConClave.setString(1, Formulario);
+            ResultSet rs = psSelectConClave.executeQuery();
+
+            while (rs.next()) {
+
+                setIdFormulario(rs.getObject("p.id"));
+                setFormularioNombre(rs.getObject("p.nombre"));
+
+            }
+
+            if (transac == false) { // si no es una transaccion cierra la conexion
+
+                cn.close();
+
+            }
+
+            resultado.add(false); //si no hubo un error asigna false
 
         } catch (SQLException e) {
 
@@ -282,4 +352,22 @@ public class GestionAuditoria extends ConeccionMySql {
 
     }
 
+    private Object idFormulario;
+    private Object formularioNombre;
+
+    public Object getFormularioNombre() {
+        return formularioNombre;
+    }
+
+    public void setFormularioNombre(Object formularioNombre) {
+        this.formularioNombre = formularioNombre;
+    }
+
+    public Object getIdFormulario() {
+        return idFormulario;
+    }
+
+    public void setIdFormulario(Object idFormulario) {
+        this.idFormulario = idFormulario;
+    }
 }

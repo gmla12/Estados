@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanAuditoria"%>
+<%@page import="forms.bean.log.BeanAuditoria"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -25,7 +25,7 @@
     int total_pages = 0;
     String op = request.getParameter("op");
     if (op.equals("bus")) {
-        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_ROLES");
+        ArrayList<Object> GR_AUT = (ArrayList) session.getAttribute("GR_AUDITORIA");
         int intpage = new Integer(request.getParameter("page"));
         int limit = new Integer(request.getParameter("rows"));
 
@@ -102,7 +102,7 @@
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buAuditoria2.getUsuario() + "\"";
+            json = json + "\"cell\":[\"" + buAuditoria2.getIdUsuario() + "\"";
             json = json + ",\"" + buAuditoria2.getFecha() + "\"";
             json = json + ",\"" + buAuditoria2.getCambios() + "\"]";
             json = json + "}";

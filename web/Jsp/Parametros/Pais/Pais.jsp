@@ -111,7 +111,7 @@
             function historico(){
                 var forma = document.forms[0];
                 //var emer = window.open('../Auditoria?accion=Q&subAccion=D&hnumeroDo='+forma.hnumeroDo,'liquidarActualizar','width=500,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
-                var emer = window.open('../Estados/Jsp/Auditoria/Auditoria.jsp','liquidarActualizar','width=500,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=pais&referencia='+'<%=request.getAttribute("getIdPais")%>','liquidarActualizar','width=500,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
             

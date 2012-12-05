@@ -5,8 +5,8 @@
 package actions;
 
 import forms.InicioForm;
-import forms.bean.BeanUsuarios;
-import modelo.GestionUsuarios;
+import forms.bean.seguridad.BeanUsuarios;
+import modelo.seguridad.GestionUsuarios;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

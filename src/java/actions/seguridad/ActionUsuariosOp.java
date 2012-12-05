@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package actions;
+package actions.seguridad;
 
-import forms.UsuariosOpForm;
+import forms.seguridad.UsuariosOpForm;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modelo.GestionUsuarios;
-import modelo.GestionRoles;
+import modelo.seguridad.GestionUsuarios;
+import modelo.seguridad.GestionRoles;
 import modelo.GestionTipoDocumento;
 
 

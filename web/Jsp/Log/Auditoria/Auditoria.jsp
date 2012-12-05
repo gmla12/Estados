@@ -14,13 +14,12 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link type="text/css" href="../../css/ui.all.css" rel="stylesheet" />
-        <link type="text/css" href="../../css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="../../niceforms_files/niceforms-default.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="../../css/ui.jqgrid.css" />
-        <script src="../../Js/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script src="../../Js/i18n/grid.locale-es.js" type="text/javascript"></script>
-        <script src="../../Js/jquery.jqGrid.min.js" type="text/javascript"></script>
+        <link type="text/css" href="../../../css/ui.all.css" rel="stylesheet" />
+        <link type="text/css" href="../../../css/comun.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" media="screen" href="../../../css/ui.jqgrid.css" />
+        <script src="../../../Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="../../../Js/i18n/grid.locale-es.js" type="text/javascript"></script>
+        <script src="../../../Js/jquery.jqGrid.min.js" type="text/javascript"></script>
         <title>Auditoria</title>
         <%
             String usuario = "";
@@ -39,13 +38,16 @@
         %>
         <jsp:forward page="/Auditoria.do">
             <jsp:param name="getOp" value="buscar"/>
+            <jsp:param name="getAccion" value='<%=request.getAttribute("accion")%>'/>
+            <jsp:param name="getFormulario" value='<%=request.getAttribute("formulario")%>'/>
+            <jsp:param name="getReferencia" value='<%=request.getAttribute("referencia")%>'/>
         </jsp:forward>
         <%            }
         %>
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Auditoria/getGriddahico.jsp?op=bus',
+                    url:'getGriddahico.jsp?op=bus',
                     datatype: "json",
                     colNames:['Usuario', 'Fecha', 'Cambios'],
                     colModel:[
