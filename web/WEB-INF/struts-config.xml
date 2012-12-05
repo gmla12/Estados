@@ -34,6 +34,7 @@
         <form-bean name="OpFactura" type="forms.FacturaOpForm"/>
         <form-bean name="DO" type="forms.DOForm"/>
         <form-bean name="OpDO" type="forms.DOOpForm"/>
+        <form-bean name="Auditoria" type="forms.log.AuditoriaForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -72,26 +73,26 @@
             <forward name="nuevo" path="/Jsp/TipoEntidad/TipoEntidad.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Usuarios/Usuarios.jsp" name="Usuarios" path="/Usuarios" scope="session" type="actions.ActionUsuarios">
-            <forward name="ok" path="/Jsp/Usuarios/Usuarios.jsp"/>
-            <forward name="atras" path="/Jsp/Usuarios/OpUsuarios.jsp"/>
+        <action input="/Jsp/Seguridad/Usuarios/Usuarios.jsp" name="Usuarios" path="/Usuarios" scope="session" type="actions.seguridad.ActionUsuarios">
+            <forward name="ok" path="/Jsp/Seguridad/Usuarios/Usuarios.jsp"/>
+            <forward name="atras" path="/Jsp/Seguridad/Usuarios/OpUsuarios.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Usuarios/OpUsuarios.jsp" name="OpUsuarios" path="/OpUsuarios" scope="request" type="actions.ActionUsuariosOp" validate="false">
-            <forward name="ok" path="/Jsp/Usuarios/OpUsuarios.jsp"/>
-            <forward name="modificar" path="/Jsp/Usuarios/Usuarios.jsp"/>
-            <forward name="nuevo" path="/Jsp/Usuarios/Usuarios.jsp"/>
+        <action input="/Jsp/Seguridad/Usuarios/OpUsuarios.jsp" name="OpUsuarios" path="/OpUsuarios" scope="request" type="actions.seguridad.ActionUsuariosOp" validate="false">
+            <forward name="ok" path="/Jsp/Seguridad/Usuarios/OpUsuarios.jsp"/>
+            <forward name="modificar" path="/Jsp/Seguridad/Usuarios/Usuarios.jsp"/>
+            <forward name="nuevo" path="/Jsp/Seguridad/Usuarios/Usuarios.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Roles/Roles.jsp" name="Roles" path="/Roles" scope="session" type="actions.ActionRoles">
-            <forward name="ok" path="/Jsp/Roles/Roles.jsp"/>
-            <forward name="atras" path="/Jsp/Roles/OpRoles.jsp"/>
+        <action input="/Jsp/Seguridad/Roles/Roles.jsp" name="Roles" path="/Roles" scope="session" type="actions.seguridad.ActionRoles">
+            <forward name="ok" path="/Jsp/Seguridad/Roles/Roles.jsp"/>
+            <forward name="atras" path="/Jsp/Seguridad/Roles/OpRoles.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action input="/Jsp/Roles/OpRoles.jsp" name="OpRoles" path="/OpRoles" scope="request" type="actions.ActionRolesOp" validate="false">
-            <forward name="ok" path="/Jsp/Roles/OpRoles.jsp"/>
-            <forward name="modificar" path="/Jsp/Roles/Roles.jsp"/>
-            <forward name="nuevo" path="/Jsp/Roles/Roles.jsp"/>
+        <action input="/Jsp/Seguridad/Roles/OpRoles.jsp" name="OpRoles" path="/OpRoles" scope="request" type="actions.seguridad.ActionRolesOp" validate="false">
+            <forward name="ok" path="/Jsp/Seguridad/Roles/OpRoles.jsp"/>
+            <forward name="modificar" path="/Jsp/Seguridad/Roles/Roles.jsp"/>
+            <forward name="nuevo" path="/Jsp/Seguridad/Roles/Roles.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
         <action input="/Jsp/TipoDocumento/TipoDocumento.jsp" name="TipoDocumento" path="/TipoDocumento" scope="session" type="actions.ActionTipoDocumento">
@@ -193,12 +194,12 @@
             <forward name="nuevo" path="/Jsp/DO/DO.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action path="/Logout" name="LoginForm" type="actions.ActionSalir">
-            <forward name="ok" path="/index.jsp" />
+        <action input="/Jsp/Log/Auditoria/Auditoria.jsp" name="Auditoria" path="/Auditoria" scope="request" type="actions.log.ActionAuditoria" validate="false">
+            <forward name="ok" path="/Jsp/Log/Auditoria/Auditoria.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
-        <action path="/Auditoria" name="Auditoria" type="actions.ActionAuditoria">
-            <forward name="ok" path="/Jsp/Auditoria/Auditoria.jsp" />
+        <action path="/Logout" name="LoginForm" type="actions.ActionSalir">
+            <forward name="ok" path="/index.jsp" />
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
     </action-mappings>

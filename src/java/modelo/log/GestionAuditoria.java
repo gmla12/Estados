@@ -127,7 +127,7 @@ public class GestionAuditoria extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.suduarios_id, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p ";
+            String query = "SELECT p.id, p.susuarios_id, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p ";
             query += "WHERE referencia=? AND sFormularios_id=? ";
             psSelectConClave = cn.prepareStatement(query);
             psSelectConClave.setString(1, referencia);
