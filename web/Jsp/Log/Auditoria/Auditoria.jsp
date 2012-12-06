@@ -38,10 +38,7 @@
             if (oop.equals("buscar") == true)  {
         %>
         <jsp:forward page="/Auditoria.do">
-            <jsp:param name="getOp" value="buscar"/>
-            <jsp:param name="getAccion" value='<%=request.getAttribute("accion")%>'/>
-            <jsp:param name="getFormulario" value='<%=request.getAttribute("formulario")%>'/>
-            <jsp:param name="getReferencia" value='<%=request.getAttribute("referencia")%>'/>
+            <jsp:param name="getOp" value='<%=request.getParameter("getOp")%>'/>
         </jsp:forward>
         <%
             }

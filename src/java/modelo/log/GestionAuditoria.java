@@ -138,7 +138,7 @@ public class GestionAuditoria extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanAuditoria();
 
-                bu.setIdUsuario(rs.getObject("p.sUsuario_id"));
+                bu.setIdUsuario(rs.getObject("p.sUsuarios_id"));
                 bu.setFecha(rs.getObject("p.fecha"));
                 bu.setCambios(rs.getObject("p.accion"));
 
