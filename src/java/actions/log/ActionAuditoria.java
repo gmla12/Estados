@@ -53,12 +53,12 @@ public class ActionAuditoria extends Action {
         System.out.println("********************************************");
         request.setAttribute("respuesta", "");
 
-        if (request.getAttribute("getOp") == "buscar") {
+        String oop = request.getParameter("getOp").toString();
+        if (oop.equals("buscar2") == true) {
             fo.setOp("buscar");
-            request.setAttribute("getOp", "buscar2");
-        } else {
-            fo.setOp("buscar");
-            request.setAttribute("getOp", "buscar2");
+            fo.setAccion(request.getParameter("accion").toString());
+            fo.setFormulario(request.getParameter("formulario").toString());
+            fo.setReferencia(request.getParameter("referencia").toString());
         }
 
         if (fo.getOp() != null) {

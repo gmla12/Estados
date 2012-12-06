@@ -13,17 +13,18 @@ import java.io.Serializable;
  */
 public class BeanAuditoria implements Serializable{
 
-    private Object idUsuario;
+    private Object nombreUsu;
     private Object fecha;
-    private Object cambios;
-    private Object opcion;
+    private Object accion;
+    private Object valorAnterior;
+    private Object valorNuevo;
 
-    public Object getIdUsuario() {
-        return idUsuario;
+    public Object getNombreUsu() {
+        return nombreUsu;
     }
 
-    public void setIdUsuario(Object idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setNombreUsu(Object nombreUsu) {
+        this.nombreUsu = nombreUsu;
     }
 
     public Object getFecha() {
@@ -34,20 +35,28 @@ public class BeanAuditoria implements Serializable{
         this.fecha = fecha;
     }
 
-    public Object getCambios() {
-        return cambios;
+    public Object getAccion() {
+        return accion;
     }
 
-    public void setCambios(Object cambios) {
-        this.cambios = cambios;
+    public void setAccion(Object accion) {
+        this.accion = accion;
     }
 
-    public Object getOpcion() {
-        return opcion;
+    public Object getValorAnterior() {
+        return valorAnterior;
     }
 
-    public void setOpcion(Object opcion) {
-        this.opcion = opcion;
+    public void setValorAnterior(Object valorAnterior) {
+        this.valorAnterior = valorAnterior;
+    }
+
+    public Object getValorNuevo() {
+        return valorNuevo;
+    }
+
+    public void setValorNuevo(Object valorNuevo) {
+        this.valorNuevo = valorNuevo;
     }
 
 }

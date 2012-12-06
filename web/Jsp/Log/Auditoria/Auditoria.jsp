@@ -34,11 +34,11 @@
             }
         %>
         <%
-            String oop = request.getParameter("getOp");
+            String oop = request.getParameter("getOp").toString();
             if (oop.equals("buscar") == true)  {
         %>
         <jsp:forward page="/Auditoria.do">
-            <jsp:param name="getOp" value='<%=request.getParameter("getOp")%>'/>
+            <jsp:param name="getOp" value='buscar2'/>
         </jsp:forward>
         <%
             }
@@ -48,45 +48,29 @@
                 jQuery("#list4").jqGrid({
                     url:'getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['Usuario', 'Fecha', 'Cambios'],
+                    colNames:['Usuario', 'Fecha', 'Accion', 'Valor Anterior', 'Valor Nuevo'],
                     colModel:[
-                        {name:'usuario',index:'usuario', width:50, sortable:false},
+                        {name:'nombreUsu',index:'NombreUsu', width:50, sortable:false},
                         {name:'fecha',index:'fecha', width:160, sortable:false},
-                        {name:'cambios',index:'cambios', width:160, sortable:false}
+                        {name:'accion',index:'accion', width:160, sortable:false},
+                        {name:'valorAnterior',index:'valorAnterior', width:160, sortable:false},
+                        {name:'valorNuevo',index:'valorNuevo', width:160, sortable:false}
                     ],
                     pager: '#prowed1',
                     width: 550,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
-                    caption: "Lista de Roles"
+                    caption: "Lista de Auditoria"
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
             }); 
-
-            function buscar(){
-                document.forms[0].op.value="buscar";
-                document.forms[0].id.value="";
-                document.forms[0].submit();
-            }
-            
-            function modifica(id){
-                document.forms[0].op.value="modificar";
-                document.forms[0].id.value=id;
-                document.forms[0].submit();
-            }
-
-            function nuevo(){
-                document.forms[0].op.value="nuevo";
-                document.forms[0].id.value="";
-                document.forms[0].submit();
-            }
         </script>
 
     </head>
     <body  bgcolor="#EFFBFB">
         <fieldset>
-            <legend>Listado de Roles</legend>
+            <legend>Listado de Auditoria</legend>
             <table>
                 <tr>
                     <td><table id="list4"></table></td>

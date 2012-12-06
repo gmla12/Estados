@@ -102,9 +102,11 @@
 
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
-            json = json + "\"cell\":[\"" + buAuditoria2.getIdUsuario() + "\"";
+            json = json + "\"cell\":[\"" + buAuditoria2.getNombreUsu() + "\"";
             json = json + ",\"" + buAuditoria2.getFecha() + "\"";
-            json = json + ",\"" + buAuditoria2.getCambios() + "\"]";
+            json = json + ",\"" + buAuditoria2.getAccion() + "\"]";
+            json = json + ",\"" + buAuditoria2.getValorAnterior() + "\"]";
+            json = json + ",\"" + buAuditoria2.getValorNuevo() + "\"]";
             json = json + "}";
 
             rc = true;

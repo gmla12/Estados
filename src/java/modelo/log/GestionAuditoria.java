@@ -127,7 +127,7 @@ public class GestionAuditoria extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.susuarios_id, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p ";
+            String query = "SELECT p.id, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion ";
             query += "WHERE referencia=? AND sFormularios_id=? ";
             psSelectConClave = cn.prepareStatement(query);
             psSelectConClave.setString(1, referencia);
@@ -138,9 +138,11 @@ public class GestionAuditoria extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanAuditoria();
 
-                bu.setIdUsuario(rs.getObject("p.sUsuarios_id"));
+                bu.setNombreUsu(rs.getObject("nombre_usu"));
                 bu.setFecha(rs.getObject("p.fecha"));
-                bu.setCambios(rs.getObject("p.accion"));
+                bu.setAccion(rs.getObject("p.accion"));
+                bu.setValorAnterior(rs.getObject("p.valor_anterior"));
+                bu.setValorNuevo(rs.getObject("p.valor_nuevo"));
 
                 GR_AUDITORIA.add(bu);
 
