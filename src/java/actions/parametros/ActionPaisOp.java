@@ -70,6 +70,9 @@ public class ActionPaisOp extends Action {
                     request.setAttribute("getNombre", gr.getNombre());
                     request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                     request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                    //para validar si se modifico un campo
+                    session.setAttribute("getPaisIdPais", gr.getIdPais());
+                    session.setAttribute("getPaisNombre", gr.getNombre());
 
                     return mapping.findForward("modificar");
 
@@ -121,7 +124,7 @@ public class ActionPaisOp extends Action {
             session.setAttribute("getbNombre", "");
             fo.setbIdPais("");
             fo.setbNombre("");
-            
+
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.MostrarPaisOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {

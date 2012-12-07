@@ -35,13 +35,12 @@
         %>
         <%
             String oop = request.getParameter("getOp").toString();
-            if (oop.equals("buscar") == true)  {
+            if (oop.equals("buscar") == true) {
         %>
         <jsp:forward page="/Auditoria.do">
             <jsp:param name="getOp" value='buscar2'/>
         </jsp:forward>
-        <%
-            }
+        <%            }
         %>
         <script type="text/javascript">
             $(function(){ 
@@ -65,6 +64,13 @@
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
             }); 
+            
+            function historico(id){
+                var forma = document.forms[0];
+                
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=buscar&formulario='+formulario+'&referencia='+id,'Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                emer.focus();
+            }
         </script>
 
     </head>

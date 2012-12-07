@@ -209,9 +209,9 @@ public class GestionAuditoria extends ConeccionMySql {
             }
 
             String query = "SELECT p.id, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion ";
-            query += "WHERE sFormularios_id=? AND p.accion = 'Eliminado'";
+            query += "WHERE sFormularios_id=? AND p.accion = 'Eliminar'";
             psSelectConClave = cn.prepareStatement(query);
-            psSelectConClave.setInt(2, idFormulario);
+            psSelectConClave.setInt(1, idFormulario);
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanAuditoria bu;

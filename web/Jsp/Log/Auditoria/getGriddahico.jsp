@@ -105,7 +105,8 @@
             json = json + "\"cell\":[\"" + buAuditoria2.getNombreUsu() + "\"";
             json = json + ",\"" + buAuditoria2.getFecha() + "\"";
             json = json + ",\"" + buAuditoria2.getAccion() + "\"";
-            json = json + ",\"" + buAuditoria2.getValorAnterior() + "\"";
+            String aux2 = "<a href='javascript:historico(&quot;" + buAuditoria2.getValorAnterior() + "&quot;)'>" + buAuditoria2.getValorAnterior() + "</a>";
+            json = json + ",\"" + aux2 + "\"";
             json = json + ",\"" + buAuditoria2.getValorNuevo() + "\"]";
             json = json + "}";
 
