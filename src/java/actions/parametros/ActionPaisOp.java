@@ -108,6 +108,8 @@ public class ActionPaisOp extends Action {
 
                 request.setAttribute("getIdPais", "");
                 request.setAttribute("getNombre", "");
+                request.setAttribute("getNombreUsu", "");
+                request.setAttribute("getFechaModificacion", "");
 
                 return mapping.findForward("nuevo");
 

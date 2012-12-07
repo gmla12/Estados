@@ -58,7 +58,9 @@ public class ActionAuditoria extends Action {
             fo.setOp("buscar");
             fo.setAccion(request.getParameter("accion").toString());
             fo.setFormulario(request.getParameter("formulario").toString());
-            fo.setReferencia(request.getParameter("referencia").toString());
+            if (fo.getAccion().equals("referencia")) {
+                fo.setReferencia(request.getParameter("referencia").toString());
+            }
         }
 
         if (fo.getOp() != null) {
@@ -69,18 +71,39 @@ public class ActionAuditoria extends Action {
                 resultado = g.BuscarFormulario(fo.getFormulario(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado1 = new ArrayList<Object>();
-                    resultado1 = g.MostrarAuditoriaReferencia(fo.getReferencia(), Integer.valueOf(g.getIdFormulario().toString()), false, null);
-                    if ((Boolean) resultado1.get(0) == false) {
+                    if (fo.getAccion().equals("referencia")) {
 
-                        session.setAttribute("GR_AUDITORIA", resultado1.get(1));
+                        ArrayList<Object> resultado1 = new ArrayList<Object>();
+                        resultado1 = g.MostrarAuditoriaReferencia(fo.getReferencia(), Integer.valueOf(g.getIdFormulario().toString()), false, null);
+                        if ((Boolean) resultado1.get(0) == false) {
 
-                        return mapping.findForward("ok");
+                            session.setAttribute("GR_AUDITORIA", resultado1.get(1));
+
+                            return mapping.findForward("ok");
+
+                        } else {
+
+                            request.setAttribute("error", resultado1.get(1));
+                            return mapping.findForward("error");
+
+                        }
 
                     } else {
 
-                        request.setAttribute("error", resultado1.get(1));
-                        return mapping.findForward("error");
+                        ArrayList<Object> resultado1 = new ArrayList<Object>();
+                        resultado1 = g.MostrarAuditoriaEliminadas(Integer.valueOf(g.getIdFormulario().toString()), false, null);
+                        if ((Boolean) resultado1.get(0) == false) {
+
+                            session.setAttribute("GR_AUDITORIA", resultado1.get(1));
+
+                            return mapping.findForward("ok");
+
+                        } else {
+
+                            request.setAttribute("error", resultado1.get(1));
+                            return mapping.findForward("error");
+
+                        }
 
                     }
 

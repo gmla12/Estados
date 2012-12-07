@@ -80,6 +80,12 @@
                 document.forms[0].id.value="";
                 document.forms[0].submit();
             }
+
+            function historico(){
+                var forma = document.forms[0];
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=eliminadas&formulario=pais','Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                emer.focus();
+            }
         </script>
     </head>
     <body  bgcolor="#EFFBFB">

@@ -176,6 +176,86 @@ public class GestionAuditoria extends ConeccionMySql {
 
     }
 
+    public ArrayList<Object> MostrarAuditoriaEliminadas(int idFormulario, Boolean transac, Connection tCn) {
+
+        ArrayList<Object> resultado = new ArrayList<Object>();
+        PreparedStatement psSelectConClave = null;
+
+        try {
+
+            GR_AUDITORIA = new ArrayList<Object>();
+
+            if (transac == false) { //si no es una transaccion busca una nueva conexion
+
+                ArrayList<Object> resultad = new ArrayList<Object>();
+                resultad = (ArrayList) getConection();
+
+                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
+
+                    cn = (Connection) resultad.get(1);
+
+                } else { //si hubo error al obtener la conexion retorna el error para visualizar
+
+                    resultado.add(true);
+                    resultado.add(resultad.get(1));
+                    return resultado;
+
+                }
+
+            } else { //si es una transaccion asigna la conexion utilizada
+
+                cn = tCn;
+
+            }
+
+            String query = "SELECT p.id, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha, p.accion, p.valor_anterior, p.valor_nuevo, p.sFormularios_id, p.referencia FROM lauditoria p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion ";
+            query += "WHERE sFormularios_id=? AND p.accion = 'Eliminado'";
+            psSelectConClave = cn.prepareStatement(query);
+            psSelectConClave.setInt(2, idFormulario);
+            ResultSet rs = psSelectConClave.executeQuery();
+
+            BeanAuditoria bu;
+            while (rs.next()) {
+                bu = new BeanAuditoria();
+
+                bu.setNombreUsu(rs.getObject("nombre_usu"));
+                bu.setFecha(rs.getObject("p.fecha"));
+                bu.setAccion(rs.getObject("p.accion"));
+                bu.setValorAnterior(rs.getObject("p.valor_anterior"));
+                bu.setValorNuevo(rs.getObject("p.valor_nuevo"));
+
+                GR_AUDITORIA.add(bu);
+
+
+            }
+
+            if (transac == false) { // si no es una transaccion cierra la conexion
+
+                cn.close();
+
+            }
+
+            resultado.add(false); //si no hubo un error asigna false
+            resultado.add(GR_AUDITORIA); // y registros consultados
+
+        } catch (SQLException e) {
+
+            resultado.add(true); //si hubo error asigna true
+            resultado.add(e); //y asigna el error para retornar y visualizar
+
+            if (cn != null) {
+                cn.rollback();
+                cn.close();
+            }
+
+        } finally {
+
+            return resultado;
+
+        }
+
+    }
+
     public ArrayList<Object> BuscarFormulario(String Formulario, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();

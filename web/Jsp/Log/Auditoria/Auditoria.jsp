@@ -50,14 +50,14 @@
                     datatype: "json",
                     colNames:['Usuario', 'Fecha', 'Accion', 'Valor Anterior', 'Valor Nuevo'],
                     colModel:[
-                        {name:'nombreUsu',index:'NombreUsu', width:50, sortable:false},
+                        {name:'nombreUsu',index:'NombreUsu', width:160, sortable:false},
                         {name:'fecha',index:'fecha', width:160, sortable:false},
-                        {name:'accion',index:'accion', width:160, sortable:false},
-                        {name:'valorAnterior',index:'valorAnterior', width:160, sortable:false},
-                        {name:'valorNuevo',index:'valorNuevo', width:160, sortable:false}
+                        {name:'accion',index:'accion', width:50, sortable:false},
+                        {name:'valorAnterior',index:'valorAnterior', width:200, sortable:false},
+                        {name:'valorNuevo',index:'valorNuevo', width:200, sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 550,
+                    width: 900,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
