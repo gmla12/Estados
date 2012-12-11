@@ -4,9 +4,9 @@
  */
 package modelo.parametros;
 
+import forms.bean.parametros.BeanDepartamento;
 import forms.parametros.DepartamentoForm;
 import forms.parametros.DepartamentoOpForm;
-import forms.bean.parametros.BeanDepartamento;
 import java.sql.*;
 import java.util.ArrayList;
 import util.ConeccionMySql;
@@ -51,10 +51,11 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into departamentos (idDepartamento, idPais, nombre) values(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into pdepartamentos (id, nombre, ppaises_id, susuarios_id, fecha_modificacion) values(?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getIdDepartamento());
-            psInsertar.setString(2, f.getIdPais());
-            psInsertar.setString(3, f.getNombre());
+            psInsertar.setString(2, f.getNombre());
+            psInsertar.setString(3, f.getIdPais());
+            psInsertar.setInt(4, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             mod = psInsertar.getUpdateCount();
@@ -119,7 +120,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idDepartamento, p.idPais, p.nombre FROM departamentos p WHERE p.idPais =?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.ppaises_id, p.nombre FROM pdepartamentos p WHERE p.ppais_id =?");
             psSelectConClave.setString(1, id);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -128,7 +129,7 @@ public class GestionDepartamento extends ConeccionMySql {
                 bu = new BeanDepartamento();
 
                 bu.setIdDepartamento(rs.getObject("p.idDepartamento"));
-                bu.setIdPais(rs.getObject("p.idPais"));
+                bu.setIdPais(rs.getObject("p.ppaises_id"));
                 bu.setNombre(rs.getObject("p.nombre"));
 
                 GR_DEPARTAMENTO.add(bu);
@@ -195,17 +196,17 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idDepartamento, p.idPais, p.nombre, r.nombre ";
-            query += "FROM departamentos p INNER JOIN paises r ON p.idPais = r.idPais";
+            String query = "SELECT p.id, p.ppaises_id, p.nombre, r.nombre ";
+            query += "FROM pdepartamentos p INNER JOIN ppaises r ON p.ppaises_id = r.id";
             String query2 = "";
             if (f.getbIdDepartamento().isEmpty() != true) {
-                query2 = "p.idDepartamento LIKE CONCAT('%',?,'%')";
+                query2 = "p.id LIKE CONCAT('%',?,'%')";
             }
             if (f.getbIdPais().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
                     query2 += "AND ";
                 }
-                query2 += "p.idPais LIKE CONCAT('%',?,'%')";
+                query2 += "p.ppaises_id LIKE CONCAT('%',?,'%')";
             }
             if (f.getbNombre().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
@@ -249,8 +250,8 @@ public class GestionDepartamento extends ConeccionMySql {
 
                 bu = new BeanDepartamento();
 
-                bu.setIdPais(rs.getObject("p.idPais"));
-                bu.setIdDepartamento(rs.getObject("p.idDepartamento"));
+                bu.setIdPais(rs.getObject("p.ppaises_id"));
+                bu.setIdDepartamento(rs.getObject("p.id"));
                 bu.setNombre(rs.getObject("p.nombre"));
                 bu.setNombrePais(rs.getObject("r.nombre"));
 
@@ -316,12 +317,13 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE departamentos SET nombre = ?";
-            query += " WHERE idDepartamento = ? AND AND idPais = ?";
+            String query = "UPDATE pdepartamentos SET nombre = ?, susuarios_id = ?, fecha_modificacion = now()";
+            query += " WHERE id = ? AND AND ppaises_id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
-            psUpdate.setString(2, f.getIdDepartamento());
-            psUpdate.setString(3, f.getIdPais());
+            psUpdate.setInt(2, f.getIdUsu());
+            psUpdate.setString(3, f.getIdDepartamento());
+            psUpdate.setString(4, f.getIdPais());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -384,7 +386,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM departamentos WHERE idDepartamento = ? AND AND idPais = ?");
+            psDelete = cn.prepareStatement("DELETE FROM pdepartamentos WHERE id = ? AND AND ppaises_id = ?");
             psDelete.setString(1, f.getIdDepartamento());
             psDelete.setString(2, f.getIdPais());
             psDelete.executeUpdate();
@@ -451,7 +453,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idDepartamento, p.idPais FROM departamentos p WHERE p.idDepartamento = ? AND p.idPais = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.ppaises_id FROM pdepartamentos p WHERE p.id = ? AND p.ppaises_id = ?");
             psSelectConClave.setString(1, idDepartamento);
             psSelectConClave.setString(2, idPais);
             ResultSet rs = psSelectConClave.executeQuery();
@@ -459,8 +461,8 @@ public class GestionDepartamento extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanDepartamento();
 
-                bu.setIdDepartamento(rs.getObject("p.idDepartamento"));
-                bu.setIdPais(rs.getObject("p.idPais"));
+                bu.setIdDepartamento(rs.getObject("p.id"));
+                bu.setIdPais(rs.getObject("p.ppaises_id"));
                 String p = (String) bu.getIdDepartamento();
                 String p2 = (String) bu.getIdPais();
                 if (p.equals(idDepartamento) && p2.equals(idPais)) {
@@ -527,7 +529,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idDepartamento, p.idPais, p.nombre FROM departamentos p WHERE p.idDepartamento = ? AND p.idPais = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.ppaises_id, p.nombre, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM pdepartamentos p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ? AND p.ppaises_id = ?");
             psSelectConClave.setString(1, IdDepartamento);
             psSelectConClave.setString(2, IdPais);
             ResultSet rs = psSelectConClave.executeQuery();
@@ -536,9 +538,11 @@ public class GestionDepartamento extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanDepartamento();
 
-                setIdDepartamento(rs.getObject("p.idDepartamento"));
-                setIdPais(rs.getObject("p.idPais"));
+                setIdDepartamento(rs.getObject("p.id"));
+                setIdPais(rs.getObject("p.ppaises_id"));
                 setNombre(rs.getObject("p.nombre"));
+                setNombreUsu(rs.getObject("nombre_usu"));
+                setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
             }
 
@@ -729,6 +733,24 @@ public class GestionDepartamento extends ConeccionMySql {
     private Object idDepartamento;
     private Object idPais;
     private Object nombre;
+    private Object nombreUsu;
+    private Object fechaModificacion;
+
+    public Object getNombreUsu() {
+        return nombreUsu;
+    }
+
+    public void setNombreUsu(Object nombreUsu) {
+        this.nombreUsu = nombreUsu;
+    }
+
+    public Object getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Object fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 
     public Object getIdDepartamento() {
         return idDepartamento;

@@ -77,7 +77,7 @@ public class ActionAuditoria extends Action {
                         resultado1 = g.MostrarAuditoriaReferencia(fo.getReferencia(), Integer.valueOf(g.getIdFormulario().toString()), false, null);
                         if ((Boolean) resultado1.get(0) == false) {
 
-                            session.setAttribute("GR_AUDITORIA", resultado1.get(1));
+                            session.setAttribute("GR_AUDITORIA1", resultado1.get(1));
 
                             return mapping.findForward("ok");
 
@@ -94,7 +94,7 @@ public class ActionAuditoria extends Action {
                         resultado1 = g.MostrarAuditoriaEliminadas(Integer.valueOf(g.getIdFormulario().toString()), false, null);
                         if ((Boolean) resultado1.get(0) == false) {
 
-                            session.setAttribute("GR_AUDITORIA", resultado1.get(1));
+                            session.setAttribute("GR_AUDITORIA2", resultado1.get(1));
 
                             return mapping.findForward("ok");
 

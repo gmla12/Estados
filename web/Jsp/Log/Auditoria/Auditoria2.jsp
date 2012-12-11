@@ -37,7 +37,7 @@
             String oop = request.getParameter("getOp").toString();
             if (oop.equals("buscar") == true) {
         %>
-        <jsp:forward page="/Auditoria.do">
+        <jsp:forward page="/Auditoria2.do">
             <jsp:param name="getOp" value='buscar2'/>
         </jsp:forward>
         <%            }
@@ -45,7 +45,7 @@
         <script type="text/javascript">
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'getGriddahico.jsp?op=bus'+'&accion='+'<%=request.getParameter("accion").toString()%>',
+                    url:'getGriddahico2.jsp?op=bus',
                     datatype: "json",
                     colNames:['Usuario', 'Fecha', 'Accion', 'Valor Anterior', 'Valor Nuevo'],
                     colModel:[
@@ -63,7 +63,51 @@
                     caption: "Lista de Auditoria"
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
+                jQuery("#list5").jqGrid({
+                    url:'getGriddahico.jsp?op=bus',
+                    datatype: "json",
+                    colNames:['Usuario', 'Fecha', 'Accion', 'Valor Anterior', 'Valor Nuevo'],
+                    colModel:[
+                        {name:'nombreUsu',index:'NombreUsu', width:160, sortable:false},
+                        {name:'fecha',index:'fecha', width:160, sortable:false},
+                        {name:'accion',index:'accion', width:50, sortable:false},
+                        {name:'valorAnterior',index:'valorAnterior', width:200, sortable:false},
+                        {name:'valorNuevo',index:'valorNuevo', width:200, sortable:false}
+                    ],
+                    pager: '#prowed2',
+                    width: 900,
+                    height: "100%",
+                    rowNum:10,
+                    viewrecords: true,
+                    caption: "Lista de Auditoria"
+                }); 
+                jQuery("#list5").jqGrid('navGrid',"#prowed2",{edit:false,add:false,del:false,search:false});
             }); 
+            
+            function Busca(texto,letra)
+            {
+                for(i=0;i<texto.length;i++)
+                {
+                    if(texto.charAt(i)==letra) return i;
+                }
+                return false
+            }
+            
+            function historico(id){
+                var forma = document.forms[0];
+                var x1 = Busca(id,"&");
+                if (x1 != false)
+                {
+                    var id1 = id.substring(0,x1);
+                    var x2 = Busca(id1,"=");
+                    if (x2 != false)
+                    {
+                        var id2 = id1.substring(x2+1,id1.Length);
+                        var emer = window.open('../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario=pais&referencia='+id2,'Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                        emer.focus();
+                    }
+                }
+            }
         </script>
 
     </head>
@@ -74,6 +118,12 @@
                 <tr>
                     <td><table id="list4"></table></td>
                     <td><div id="prowed1"></div></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><table id="list5"></table></td>
+                    <td><div id="prowed2"></div></td>
                 </tr>
             </table>
         </fieldset>

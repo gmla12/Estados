@@ -35,6 +35,7 @@
         <form-bean name="DO" type="forms.DOForm"/>
         <form-bean name="OpDO" type="forms.DOOpForm"/>
         <form-bean name="Auditoria" type="forms.log.AuditoriaForm"/>
+        <form-bean name="Auditoria2" type="forms.log.AuditoriaForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -196,6 +197,10 @@
         </action>
         <action input="/Jsp/Log/Auditoria/Auditoria.jsp" name="Auditoria" path="/Auditoria" scope="request" type="actions.log.ActionAuditoria" validate="false">
             <forward name="ok" path="/Jsp/Log/Auditoria/Auditoria.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/Log/Auditoria/Auditoria2.jsp" name="Auditoria2" path="/Auditoria2" scope="request" type="actions.log.ActionAuditoria" validate="false">
+            <forward name="ok" path="/Jsp/Log/Auditoria/Auditoria2.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
         <action path="/Logout" name="LoginForm" type="actions.ActionSalir">

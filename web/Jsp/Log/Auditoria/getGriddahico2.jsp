@@ -26,7 +26,7 @@
     String op = request.getParameter("op");
     if (op.equals("bus")) {
         ArrayList<Object> GR_AUT;
-            GR_AUT = (ArrayList) session.getAttribute("GR_AUDITORIA1");
+        GR_AUT = (ArrayList) session.getAttribute("GR_AUDITORIA2");
         int intpage = new Integer(request.getParameter("page"));
         int limit = new Integer(request.getParameter("rows"));
 
@@ -106,7 +106,8 @@
             json = json + "\"cell\":[\"" + buAuditoria2.getNombreUsu() + "\"";
             json = json + ",\"" + buAuditoria2.getFecha() + "\"";
             json = json + ",\"" + buAuditoria2.getAccion() + "\"";
-            json = json + ",\"" + buAuditoria2.getValorAnterior() + "\"";
+            String aux2 = "<a href='javascript:historico(&quot;" + buAuditoria2.getValorAnterior() + "&quot;)'>" + buAuditoria2.getValorAnterior() + "</a>";
+            json = json + ",\"" + aux2 + "\"";
             json = json + ",\"" + buAuditoria2.getValorNuevo() + "\"]";
             json = json + "}";
 

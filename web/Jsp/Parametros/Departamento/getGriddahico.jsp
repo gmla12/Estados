@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanDepartamento"%>
+<%@page import="forms.bean.parametros.BeanDepartamento"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();

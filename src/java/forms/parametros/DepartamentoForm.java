@@ -15,7 +15,16 @@ public class DepartamentoForm extends ActionForm{
     private String idDepartamento;
     private String idPais;
     private String nombre;
+    private Integer idUsu;
     private String op;
+
+    public Integer getIdUsu() {
+        return idUsu;
+    }
+
+    public void setIdUsu(Integer idUsu) {
+        this.idUsu = idUsu;
+    }
 
     public String getIdPais() {
         return idPais;
