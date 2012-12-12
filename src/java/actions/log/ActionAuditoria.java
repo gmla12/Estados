@@ -95,6 +95,7 @@ public class ActionAuditoria extends Action {
                         if ((Boolean) resultado1.get(0) == false) {
 
                             session.setAttribute("GR_AUDITORIA2", resultado1.get(1));
+                            session.setAttribute("GR_AUDITORIA1", null);
 
                             return mapping.findForward("ok");
 

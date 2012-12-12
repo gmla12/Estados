@@ -37,6 +37,8 @@
                 //guardar
                 $('#submit').click(function(e) {
                     e.preventDefault();
+                    document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
+                    //alert(document.forms[0].idPais.value)
                     if(document.forms[0].idDepartamento.readOnly==false){
                         document.forms[0].op.value="nuevo";
                     }
@@ -102,10 +104,13 @@
                 document.forms[0].idPais.value="";
                 document.forms[0].idPais.disabled=false;
                 document.forms[0].nombre.value="";
+                document.getElementById('nombreUsu').innerHTML = "";
+                document.getElementById('fechaModificacion').innerHTML = "";
             }
             
             function eliminar(){
                 document.forms[0].op.value="eliminar";
+                document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
                 document.forms[0].submit();
             }
             
@@ -116,7 +121,7 @@
             
             function historico(){
                 var forma = document.forms[0];
-                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=departamento&referencia='+'<%=request.getAttribute("getIdPais")%>','Auditoria Pais','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=departamento&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>','Auditoria Pais','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
             
@@ -171,6 +176,9 @@
 
                 <input type="hidden" name="op" value=""> 
                 <input type="hidden" name="idUsu" value=""> 
+                <% if (request.getAttribute("getIdDepartamento") != "") {%> 
+                <input type="hidden" name="idPais" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'> 
+                <% }%> 
                 <h1>Departamentos</h1>
                 <div>
                     <label for="txtIdDepartamento">ID</label>
@@ -199,15 +207,15 @@
                 <div>
                     <label for="txtNombre">Nombre del Departamento</label>
                     <html:text property="nombre" value='<%= String.valueOf(request.getAttribute("getNombre"))%>'></html:text>
-                </div>
-                <fieldset>
-                    <legend>
-                        [<a class="linkin" href="javascript:toggleLayer('auditoria')">
-                            Auditoría
-                        </a>]
-                    </legend>
-                    <div id="auditoria" style="display: none;">
-                        <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
+                    </div>
+                    <fieldset>
+                        <legend>
+                            [<a class="linkin" href="javascript:toggleLayer('auditoria')">
+                                Auditoría
+                            </a>]
+                        </legend>
+                        <div id="auditoria" style="display: none;">
+                            <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
                         <label for="txtFechaModificacion">Fecha de Modificación: </label><strong><div id="fechaModificacion"><%= String.valueOf(request.getAttribute("getFechaModificacion"))%></div></strong>
                         <div><br>
                         </div>

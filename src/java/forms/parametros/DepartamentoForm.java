@@ -18,20 +18,20 @@ public class DepartamentoForm extends ActionForm{
     private Integer idUsu;
     private String op;
 
-    public Integer getIdUsu() {
-        return idUsu;
-    }
-
-    public void setIdUsu(Integer idUsu) {
-        this.idUsu = idUsu;
-    }
-
     public String getIdPais() {
         return idPais;
     }
 
     public void setIdPais(String idPais) {
         this.idPais = idPais;
+    }
+
+    public Integer getIdUsu() {
+        return idUsu;
+    }
+
+    public void setIdUsu(Integer idUsu) {
+        this.idUsu = idUsu;
     }
 
     public String getIdDepartamento() {

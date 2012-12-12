@@ -75,6 +75,12 @@ public class ActionDepartamentoOp extends Action {
                         request.setAttribute("getIdDepartamento", gr.getIdDepartamento());
                         request.setAttribute("getIdPais", gr.getIdPais());
                         request.setAttribute("getNombre", gr.getNombre());
+                        request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                        request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                        //para validar si se modifico un campo
+                        session.setAttribute("getDepartamentoIdDepartamento", gr.getIdDepartamento());
+                        session.setAttribute("getDepartamentoIdPais", gr.getIdPais());
+                        session.setAttribute("getDepartamentoNombre", gr.getNombre());
 
                         session.setAttribute("CMB_PAIS", resultado2.get(1));
                         return mapping.findForward("modificar");
@@ -136,6 +142,8 @@ public class ActionDepartamentoOp extends Action {
                 request.setAttribute("getIdDepartamento", "");
                 request.setAttribute("getIdPais", "");
                 request.setAttribute("getNombre", "");
+                request.setAttribute("getNombreUsu", "");
+                request.setAttribute("getFechaModificacion", "");
 
                 ArrayList<Object> resultado2 = new ArrayList<Object>();
                 resultado2 = gp.MostrarPais(false, null);

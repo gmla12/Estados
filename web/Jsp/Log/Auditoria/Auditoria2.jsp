@@ -103,7 +103,7 @@
                     if (x2 != false)
                     {
                         var id2 = id1.substring(x2+1,id1.Length);
-                        var emer = window.open('../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario=pais&referencia='+id2,'Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                        var emer = window.open('../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario='+'<%= request.getParameter("formulario")%>'+'&referencia='+id2,'Auditoria Eliminados','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                         emer.focus();
                     }
                 }

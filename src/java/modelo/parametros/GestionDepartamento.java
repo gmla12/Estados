@@ -318,7 +318,7 @@ public class GestionDepartamento extends ConeccionMySql {
             }
 
             String query = "UPDATE pdepartamentos SET nombre = ?, susuarios_id = ?, fecha_modificacion = now()";
-            query += " WHERE id = ? AND AND ppaises_id = ?";
+            query += " WHERE id = ? AND ppaises_id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
             psUpdate.setInt(2, f.getIdUsu());
@@ -386,7 +386,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM pdepartamentos WHERE id = ? AND AND ppaises_id = ?");
+            psDelete = cn.prepareStatement("DELETE FROM pdepartamentos WHERE id = ? AND ppaises_id = ?");
             psDelete.setString(1, f.getIdDepartamento());
             psDelete.setString(2, f.getIdPais());
             psDelete.executeUpdate();

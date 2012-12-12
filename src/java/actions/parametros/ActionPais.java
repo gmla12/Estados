@@ -86,21 +86,19 @@ public class ActionPais extends Action {
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
 
                                             request.setAttribute("respuesta", "Registro ingresado correctamente.");
-                                        System.out.println("Action Ingreso Pais");
-                                        return mapping.findForward("ok");
+                                            System.out.println("Action Ingreso Pais");
+                                            return mapping.findForward("ok");
 
-                                    } else {
+                                        } else {
 
-                                        request.setAttribute("error", resultado7.get(1));
-                                        resultado6 = gr.rollback(cn);
-                                        return mapping.findForward("error");
+                                            request.setAttribute("error", resultado7.get(1));
+                                            return mapping.findForward("error");
 
-                                    }
-                                
+                                        }
+
                                     } else {
 
                                         request.setAttribute("error", resultado6.get(1));
-                                        resultado6 = gr.rollback(cn);
                                         return mapping.findForward("error");
 
                                     }
@@ -108,47 +106,41 @@ public class ActionPais extends Action {
                                 } else {
 
                                     request.setAttribute("error", resultado5.get(1));
-                                    resultado5 = gr.rollback(cn);
                                     return mapping.findForward("error");
 
                                 }
-                                
+
                             } else {
 
                                 request.setAttribute("error", resultado4.get(1));
-                                resultado4 = gr.rollback(cn);
                                 return mapping.findForward("error");
 
                             }
-                            
+
                         } else {
 
                             request.setAttribute("error", resultado3.get(1));
-                            resultado3 = gr.rollback(cn);
                             return mapping.findForward("error");
 
                         }
-                        
+
                     } else {
 
                         request.setAttribute("error", resultado2.get(1));
-                        resultado2 = gr.rollback(cn);
                         return mapping.findForward("error");
 
                     }
-                    
+
                 } else {
 
                     request.setAttribute("error", resultado1.get(1));
-                    resultado1 = gr.rollback(cn);
                     return mapping.findForward("error");
 
                 }
-                
+
             } else {
 
                 request.setAttribute("error", resultado.get(1));
-                resultado = gr.rollback(cn);
                 return mapping.findForward("error");
 
             }
@@ -169,7 +161,7 @@ public class ActionPais extends Action {
                 if ((Boolean) resultado1.get(0) == false) {
 
                     ArrayList<Object> resultado2 = new ArrayList<Object>();
-                    resultado2 = gr.ModificaPais(fo, false, null);
+                    resultado2 = gr.ModificaPais(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
                         ArrayList<Object> resultado3 = new ArrayList<Object>();
@@ -190,7 +182,7 @@ public class ActionPais extends Action {
                                 valor_anterior = "id='" + AIdPais + "'";
                             }
                             if (NNombre.equals(ANombre) == false) {
-                                if (valor_nuevo != "") {
+                                if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
@@ -296,7 +288,7 @@ public class ActionPais extends Action {
                 if ((Boolean) resultado1.get(0) == false) {
 
                     ArrayList<Object> resultado2 = new ArrayList<Object>();
-                    resultado2 = gr.EliminaPais(fo, false, null);
+                    resultado2 = gr.EliminaPais(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
                         ArrayList<Object> resultado3 = new ArrayList<Object>();
