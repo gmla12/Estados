@@ -120,7 +120,7 @@ public class GestionDepartamento extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.ppaises_id, p.nombre FROM pdepartamentos p WHERE p.ppais_id =?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.ppaises_id, p.nombre FROM pdepartamentos p WHERE p.ppaises_id =?");
             psSelectConClave.setString(1, id);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -128,7 +128,7 @@ public class GestionDepartamento extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanDepartamento();
 
-                bu.setIdDepartamento(rs.getObject("p.idDepartamento"));
+                bu.setIdDepartamento(rs.getObject("p.id"));
                 bu.setIdPais(rs.getObject("p.ppaises_id"));
                 bu.setNombre(rs.getObject("p.nombre"));
 

@@ -4,10 +4,10 @@
     Author     : @gilberth12.
 --%>
 
-<%@page import="forms.bean.BeanDepartamento"%>
+<%@page import="forms.bean.parametros.BeanDepartamento"%>
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modelo.GestionDepartamento"%>
+<%@page import="modelo.parametros.GestionDepartamento"%>
 
 <%
     String usuario = "";

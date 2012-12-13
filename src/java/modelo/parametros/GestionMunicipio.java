@@ -51,12 +51,12 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into pmunicipios (id, pdepartamentos_id, ppaises_id, nombre, susuarios_id, fecha_modificacion) values (?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into pmunicipios (id, departamentos_id, departamentos_ppaises_id, nombre, susuarios_id, fecha_modificacion) values (?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getIdMunicipio());
             psInsertar.setString(2, f.getIdDepartamento());
             psInsertar.setString(3, f.getIdPais());
             psInsertar.setString(4, f.getNombre());
-            psInsertar.setInt(4, f.getIdUsu());
+            psInsertar.setInt(5, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             mod = psInsertar.getUpdateCount();
@@ -121,7 +121,7 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.pdepartamentos_id, p.ppaises_id, p.nombre FROM pmunicipios p WHERE p.ppaises_id = ? AND p.pdepartamentos_id = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.departamentos_id, p.departamentos_ppaises_id, p.nombre FROM pmunicipios p WHERE p.departamentos_ppaises_id = ? AND p.departamentos_id = ?");
             psSelectConClave.setString(1, idPais);
             psSelectConClave.setString(2, idDepartamento);
             ResultSet rs = psSelectConClave.executeQuery();
@@ -131,8 +131,8 @@ public class GestionMunicipio extends ConeccionMySql {
                 bu = new BeanMunicipio();
 
                 bu.setIdMunicipio(rs.getObject("p.id"));
-                bu.setIdDepartamento(rs.getObject("p.pdepartamentos_id"));
-                bu.setIdPais(rs.getObject("p.ppaises_id"));
+                bu.setIdDepartamento(rs.getObject("p.departamentos_id"));
+                bu.setIdPais(rs.getObject("p.departamentos_ppaises_id"));
                 bu.setNombre(rs.getObject("p.nombre"));
 
                 GR_MUNICIPIO.add(bu);
@@ -199,8 +199,8 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.pdepartamentos_id, p.ppaises_id, p.nombre, r.nombre, d.nombre ";
-            query += "FROM pmunicipios p INNER JOIN ppaises r ON p.ppaises_id = r.id INNER JOIN pdepartamentos d ON p.pdepartamentos_id = d.id";
+            String query = "SELECT p.id, p.departamentos_id, p.departamentos_ppaises_id, p.nombre, r.nombre, d.nombre ";
+            query += "FROM pmunicipios p INNER JOIN ppaises r ON p.departamentos_ppaises_id = r.id INNER JOIN pdepartamentos d ON p.departamentos_id = d.id";
             String query2 = "";
             if (f.getbIdMunicipio().isEmpty() != true) {
                 query2 = "p.id LIKE CONCAT('%',?,'%')";
@@ -209,13 +209,13 @@ public class GestionMunicipio extends ConeccionMySql {
                 if (query2.isEmpty() != true) {
                     query2 += "AND ";
                 }
-                query2 += "p.pdepartamentos_id LIKE CONCAT('%',?,'%')";
+                query2 += "p.departamentos_id LIKE CONCAT('%',?,'%')";
             }
             if (f.getbIdPais().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
                     query2 += "AND ";
                 }
-                query2 += "p.ppaises_id LIKE CONCAT('%',?,'%')";
+                query2 += "p.departamentos_ppaises_id LIKE CONCAT('%',?,'%')";
             }
             if (f.getbNombre().isEmpty() != true) {
                 if (query2.isEmpty() != true) {
@@ -287,8 +287,8 @@ public class GestionMunicipio extends ConeccionMySql {
                 bu = new BeanMunicipio();
 
                 bu.setIdMunicipio(rs.getObject("p.id"));
-                bu.setIdPais(rs.getObject("p.ppaises_id"));
-                bu.setIdDepartamento(rs.getObject("p.pdepartamentos_id"));
+                bu.setIdPais(rs.getObject("p.departamentos_ppaises_id"));
+                bu.setIdDepartamento(rs.getObject("p.departamentos_id"));
                 bu.setNombre(rs.getObject("p.nombre"));
                 bu.setNombreDepartamento(rs.getObject("d.nombre"));
                 bu.setNombrePais(rs.getObject("r.nombre"));
@@ -356,7 +356,7 @@ public class GestionMunicipio extends ConeccionMySql {
             }
 
             String query = "UPDATE pmunicipios SET nombre = ?, susuarios_id = ?, fecha_modificacion = now()";
-            query += " WHERE id = ? AND pdepartamentos_id = ? AND ppaises_id = ?";
+            query += " WHERE id = ? AND departamentos_id = ? AND departamentos_ppaises_id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombre());
             psUpdate.setInt(2, f.getIdUsu());
@@ -425,7 +425,7 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM pmunicipios WHERE id = ? AND pdepartamentos_id = ? AND ppaises_id = ?");
+            psDelete = cn.prepareStatement("DELETE FROM pmunicipios WHERE id = ? AND departamentos_id = ? AND departamentos_ppaises_id = ?");
             psDelete.setString(1, f.getIdMunicipio());
             psDelete.setString(2, f.getIdDepartamento());
             psDelete.setString(3, f.getIdPais());
@@ -491,7 +491,7 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.pdepartamentos_id, p.ppaises_id FROM pmunicipios p WHERE p.id = ? AND p.pdepartamentos_id = ? AND p.ppaises_id = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.departamentos_id, p.departamentos_ppaises_id FROM pmunicipios p WHERE p.id = ? AND p.departamentos_id = ? AND p.departamentos_ppaises_id = ?");
             psSelectConClave.setString(1, idMunicipio);
             psSelectConClave.setString(2, idDepartamento);
             psSelectConClave.setString(3, idPais);
@@ -501,8 +501,8 @@ public class GestionMunicipio extends ConeccionMySql {
                 bu = new BeanMunicipio();
 
                 bu.setIdMunicipio(rs.getObject("p.id"));
-                bu.setIdDepartamento(rs.getObject("p.pdepartamentos_id"));
-                bu.setIdPais(rs.getObject("p.ppaises_id"));
+                bu.setIdDepartamento(rs.getObject("p.departamentos_id"));
+                bu.setIdPais(rs.getObject("p.departamentos_ppaises_id"));
                 String p = (String) bu.getIdMunicipio();
                 String p2 = (String) bu.getIdDepartamento();
                 String p3 = (String) bu.getIdPais();
@@ -570,7 +570,7 @@ public class GestionMunicipio extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idMunicipio, p.idDepartamento, p.idPais, p.nombrep.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM municipios p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ? AND p.pdepartamentos_ido = ? AND p.ppaises_id = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.departamentos_id, p.departamentos_ppaises_id, p.nombre, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM pmunicipios p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ? AND p.departamentos_id = ? AND p.departamentos_ppaises_id = ?");
             psSelectConClave.setString(1, IdMunicipio);
             psSelectConClave.setString(2, IdDepartamento);
             psSelectConClave.setString(3, IdPais);
@@ -581,8 +581,8 @@ public class GestionMunicipio extends ConeccionMySql {
                 bu = new BeanMunicipio();
 
                 setIdMunicipio(rs.getObject("p.id"));
-                setIdDepartamento(rs.getObject("p.pdepartamentos_id"));
-                setIdPais(rs.getObject("p.ppaises_id"));
+                setIdDepartamento(rs.getObject("p.departamentos_id"));
+                setIdPais(rs.getObject("p.departamentos_ppaises_id"));
                 setNombre(rs.getObject("p.nombre"));
                 setNombreUsu(rs.getObject("nombre_usu"));
                 setFechaModificacion(rs.getObject("p.fecha_modificacion"));

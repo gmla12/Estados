@@ -82,6 +82,13 @@ public class ActionMunicipioOp extends Action {
                             request.setAttribute("getIdDepartamento", gr.getIdDepartamento());
                             request.setAttribute("getIdPais", gr.getIdPais());
                             request.setAttribute("getNombre", gr.getNombre());
+                            request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                            request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                            //para validar si se modifico un campo
+                            session.setAttribute("getMunicipioIdMunicipio", gr.getIdMunicipio());
+                            session.setAttribute("getMunicipioIdDepartamento", gr.getIdDepartamento());
+                            session.setAttribute("getMunicipioIdPais", gr.getIdPais());
+                            session.setAttribute("getMunicipioNombre", gr.getNombre());
 
                             session.setAttribute("CMB_DEPARTAMENTO", resultado2.get(1));
                             session.setAttribute("CMB_PAIS", resultado3.get(1));
@@ -162,10 +169,12 @@ public class ActionMunicipioOp extends Action {
 
             } else {
 
-                session.setAttribute("getIdMunicipio", "");
-                session.setAttribute("getIdDepartamento", "");
-                session.setAttribute("getIdPais", "");
-                session.setAttribute("getNombre", "");
+                request.setAttribute("getIdMunicipio", "");
+                request.setAttribute("getIdDepartamento", "");
+                request.setAttribute("getIdPais", "");
+                request.setAttribute("getNombre", "");
+                request.setAttribute("getNombreUsu", "");
+                request.setAttribute("getFechaModificacion", "");
 
                 return mapping.findForward("nuevo");
 

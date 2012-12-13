@@ -191,16 +191,20 @@ public class ActionDepartamento extends Action {
                                 valor_anterior = "id='" + AIdDepartamento + "'";
                             }
                             if (NIdPais.equals(AIdPais) == false) {
-                                valor_nuevo = "&id_pais='" + NIdPais + "'";
-                                valor_anterior = "&id_pais='" + AIdPais + "'";
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "id_pais='" + NIdPais + "'";
+                                valor_anterior = "id_pais='" + AIdPais + "'";
                             }
                             if (NNombre.equals(ANombre) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = valor_nuevo + "&nombre='" + NNombre + "'";
-                                valor_anterior = valor_anterior + "&nombre='" + ANombre + "'";
+                                valor_nuevo = valor_nuevo + "nombre='" + NNombre + "'";
+                                valor_anterior = valor_anterior + "nombre='" + ANombre + "'";
                             }
 
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais() + fo.getIdDepartamento(), true, cn);
@@ -223,6 +227,10 @@ public class ActionDepartamento extends Action {
                                             request.setAttribute("getNombre", gr.getNombre());
                                             request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                                            //para validar si se modifico un campo
+                                            session.setAttribute("getDepartamentoIdDepartamento", gr.getIdDepartamento());
+                                            session.setAttribute("getDepartamentoIdPais", gr.getIdPais());
+                                            session.setAttribute("getDepartamentoNombre", gr.getNombre());
 
                                             request.setAttribute("respuesta", "Registro modificado correctamente.");
                                             System.out.println("Action Modicar Departamento");
@@ -325,6 +333,7 @@ public class ActionDepartamento extends Action {
                                         request.setAttribute("respuesta", "Registro eliminado correctamente.");
                                         System.out.println("Action Eliminar Departamento");
                                         return mapping.findForward("ok");
+
                                     } else {
 
                                         request.setAttribute("error", resultado6.get(1));

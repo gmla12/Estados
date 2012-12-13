@@ -17,11 +17,9 @@
         <title>Municipio</title>
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <script type="text/javascript" src="Js/ui/ui.core.js"></script>
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="Js/jquery.validate.js"></script>
         <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -56,10 +54,10 @@
                             minlength : 3,
                             maxlength : 3,
                             remote: { 
-                                url: "Jsp/Municipio/getMunicipio.jsp", //valida si existe el idMunicipio
+                                url: "Jsp/Parametros/Municipio/getMunicipio.jsp", //valida si existe el idMunicipio
                                 type: "post", 
                                 data: { 
-                                    lectura: function() { return document.forms[0].idMunicipio.disabled },
+                                    lectura: function() { return document.forms[0].idMunicipio.readOnly },
                                     idPais: function() { return $("#idPais").val() },
                                     idDepartamento: function() { return $("#idDepartamento").val() } 
                                 } 
@@ -68,7 +66,7 @@
                         idDepartamento : {
                             required : true,
                             remote: { 
-                                url: "Jsp/Municipio/getMunicipio.jsp", //valida si existe la identificacion
+                                url: "Jsp/Parametros/Municipio/getMunicipio.jsp", //valida si existe la identificacion
                                 type: "post", 
                                 data: { 
                                     lectura: function() { return document.forms[0].idMunicipio.readOnly },
@@ -80,10 +78,10 @@
                         idPais : {
                             required : true,
                             remote: { 
-                                url: "Jsp/Municipio/getMunicipio.jsp", //valida si existe la identificacion
+                                url: "Jsp/Parametros/Municipio/getMunicipio.jsp", //valida si existe la identificacion
                                 type: "post", 
                                 data: { 
-                                    lectura: function() { return document.forms[0].idPais.readOnly },
+                                    lectura: function() { return document.forms[0].idMunicipio.readOnly },
                                     idMunicipio: function() { return $("#idMunicipio").val() },
                                     idDepartamento: function() { return $("#idDepartamento").val() } 
                                 } 
@@ -180,6 +178,7 @@
                     }
                     style2.display = style2.display? "":"block";
                 }
+            }
         </script>
 
         <style type="text/css">
@@ -200,8 +199,9 @@
                 <input type="hidden" name="idUsu" value=""> 
                 <% if (request.getAttribute("getIdMunicipio") != "") {%> 
                 <input type="hidden" name="idPais" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'> 
-                <input type="hidden" name="idDepartamento" value='<%= String.valueOf(request.getAttribute("idDepartamento"))%>'> 
+                <input type="hidden" name="idDepartamento" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'> 
                 <% }%> 
+                
                 <h1>Municipios</h1>
                 <div>
                     <label for="txtIdMunicipio">ID</label>

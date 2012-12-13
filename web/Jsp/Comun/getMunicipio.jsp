@@ -4,10 +4,10 @@
     Author     : @gilberth12.
 --%>
 
-<%@page import="forms.bean.BeanMunicipio"%>
+<%@page import="forms.bean.parametros.BeanMunicipio"%>
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modelo.GestionMunicipio"%>
+<%@page import="modelo.parametros.GestionMunicipio"%>
 
 <%
     String usuario = "";

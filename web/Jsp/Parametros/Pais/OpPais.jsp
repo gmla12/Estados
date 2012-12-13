@@ -83,7 +83,7 @@
 
             function historico(){
                 var forma = document.forms[0];
-                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=pais','Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=pais&num=1','Auditoria Paises','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
         </script>
