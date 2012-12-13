@@ -121,7 +121,7 @@
             
             function historico(){
                 var forma = document.forms[0];
-                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=departamento&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>','Auditoria Pais','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=departamento&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>','Auditoria Departamento','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
             
@@ -226,7 +226,7 @@
                 <div><br>
                 </div>
                 <div>
-                    <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdPais") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
+                    <a class="boton" href="javascript:nuevo();">Nuevo</a> <a class="boton" id="submit" href="javascript:guardar();">Guardar</a> <% if (request.getAttribute("getIdDepartamento") != "") {%> <a class="boton" href="javascript:eliminar();">Eliminar</a> <% }%> <a class="boton" href="javascript:atras();">Volver</a>
                 </div>
                 <%
                     if (request.getAttribute("respuesta") != "") {

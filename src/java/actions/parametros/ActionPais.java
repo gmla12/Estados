@@ -84,6 +84,9 @@ public class ActionPais extends Action {
                                             request.setAttribute("getNombre", gr.getNombre());
                                             request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                                            //para validar si se modifico un campo
+                                            session.setAttribute("getPaisIdPais", gr.getIdPais());
+                                            session.setAttribute("getPaisNombre", gr.getNombre());
 
                                             request.setAttribute("respuesta", "Registro ingresado correctamente.");
                                             System.out.println("Action Ingreso Pais");

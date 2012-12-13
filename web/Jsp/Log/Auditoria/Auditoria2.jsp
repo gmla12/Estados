@@ -99,12 +99,34 @@
                 if (x1 != false)
                 {
                     var id1 = id.substring(0,x1);
-                    var x2 = Busca(id1,"=");
-                    if (x2 != false)
-                    {
-                        var id2 = id1.substring(x2+1,id1.Length);
-                        var emer = window.open('../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario='+'<%= request.getParameter("formulario")%>'+'&referencia='+id2,'Auditoria Eliminados','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
-                        emer.focus();
+                    //alert(id1);
+                    if ('<%= request.getParameter("num")%>' == '2'){
+                        var id2 = id.substring(x1+1,id.Length);
+                        //alert(id2);
+                        var x2 = Busca(id2,"&");
+                        if (x2 != false)
+                        {
+                            var id3 = id2.substring(0,x2);
+                            //alert(id3);
+                            var x3 = Busca(id1,"=");
+                            var x4 = Busca(id3,"=");
+                            if ((x3 != false) || (x4 != false))
+                            {
+                                var id4 = id1.substring(x3+1,id1.Length);
+                                var id5 = id3.substring(x4+1,id3.Length);
+                                //alert(id4+id5);
+                                window.location.href = '../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario='+'<%= request.getParameter("formulario")%>'+'&referencia='+id5+id4,'Auditoria Eliminados','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes';
+                                //emer.focus();
+                            }
+                        }
+                    } else{
+                        var x2 = Busca(id1,"=");
+                        if (x2 != false)
+                        {
+                            var id2 = id1.substring(x2+1,id1.Length);
+                            window.location.href= '../Auditoria/Auditoria2.jsp?getOp=buscar&accion=referencia&formulario='+'<%= request.getParameter("formulario")%>'+'&referencia='+id2,'Auditoria Eliminados','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes';
+                            emer.focus();
+                        }
                     }
                 }
             }
