@@ -207,7 +207,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.nombre_corto, p.descripcion ";
+            String query = "SELECT p.id, p.nombre_corto, p.descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id ";
             query += "FROM pPuerto p ";
             String query2 = "";
             if (f.getbNombreCorto().isEmpty() != true) {
@@ -425,11 +425,16 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE Puerto SET nombre = ?";
-            query += " WHERE idPuerto = ?";
+            String query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, susuarios_id = ?, fecha_modificacion = now";
+            query += " WHERE id = ?";
             psUpdate = cn.prepareStatement(query);
-            psUpdate.setString(1, f.getNombre());
-            psUpdate.setInt(2, f.getIdPuerto());
+            psUpdate.setString(1, f.getNombreCorto());
+            psUpdate.setString(2, f.getDescripcion());
+            psUpdate.setString(3, f.getIdMunicipio());
+            psUpdate.setString(4, f.getIdDepartamento());
+            psUpdate.setString(5, f.getIdPais());
+            psUpdate.setInt(6, f.getIdUsu());
+            psUpdate.setInt(7, f.getIdPuerto());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -492,7 +497,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM Puerto WHERE  idPuerto = ?");
+            psDelete = cn.prepareStatement("DELETE FROM pPuerto WHERE id = ?");
             psDelete.setInt(1, f.getIdPuerto());
             psDelete.executeUpdate();
 
@@ -555,7 +560,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.idPuerto, p.nombre FROM Puerto p WHERE  p.idPuerto = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, fecha_modificacion FROM pPuerto p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
             psSelectConClave.setInt(1, IdPuerto);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -563,8 +568,14 @@ public class GestionPuerto extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanPuerto();
 
-                setIdSucursal(rs.getObject("p.idPuerto"));
-                setNombre(rs.getObject("p.nombre"));
+                setIdSucursal(rs.getObject("p.id"));
+                setNombreCorto(rs.getObject("p.nombre_corto"));
+                setDescripcion(rs.getObject("p.descripcion"));
+                setIdMunicipio(rs.getObject("p.pmunicipios_id"));
+                setIdDepartamento(rs.getObject("p.pmunicipios_departamentos_id"));
+                setIdPais(rs.getObject("p.pmunicipios_departmentos_ppaises_id"));
+                setNombreUsu(rs.getObject("p.nombre_usu"));
+                setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
             }
 
@@ -753,7 +764,13 @@ public class GestionPuerto extends ConeccionMySql {
 //    }
 //}
     private Object idPuerto;
-    private Object nombre;
+    private Object nombreCorto;
+    private Object descripcion;
+    private Object idMunicipio;
+    private Object idDepartamento;
+    private Object idPais;
+    private Object nombreUsu;
+    private Object fechaModificacion;
 
     public Object getIdPuerto() {
         return idPuerto;
@@ -763,11 +780,60 @@ public class GestionPuerto extends ConeccionMySql {
         this.idPuerto = idPuerto;
     }
 
-    public Object getNombre() {
-        return nombre;
+    public Object getNombreCorto() {
+        return nombreCorto;
     }
 
-    public void setNombre(Object nombre) {
-        this.nombre = nombre;
+    public void setNombreCorto(Object nombreCorto) {
+        this.nombreCorto = nombreCorto;
     }
+
+    public Object getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Object getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(Object idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public Object getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(Object idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public Object getIdPais() {
+        return idPais;
+    }
+
+    public void setIdPais(Object idPais) {
+        this.idPais = idPais;
+    }
+
+    public Object getNombreUsu() {
+        return nombreUsu;
+    }
+
+    public void setNombreUsu(Object nombreUsu) {
+        this.nombreUsu = nombreUsu;
+    }
+
+    public Object getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Object fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
 }

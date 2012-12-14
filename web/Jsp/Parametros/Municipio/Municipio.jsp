@@ -141,7 +141,6 @@
             }
             
             function historico(){
-                var forma = document.forms[0];
                 var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=municipio&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>'+'<%=request.getAttribute("getIdMunicipio")%>','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
@@ -230,13 +229,13 @@
                 <div>
                     <label for="txtIdDepartamento">Departamento</label>
                     <% if (request.getAttribute("getIdMunicipio") != "") {%> 
-                    <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
+                    <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'>
                         <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
                             <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
                         </c:forEach>
                     </html:select>
                     <% } else {%> 
-                    <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
+                    <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'>
                         <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
                             <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
                         </c:forEach>

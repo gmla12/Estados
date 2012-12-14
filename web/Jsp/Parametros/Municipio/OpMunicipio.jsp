@@ -92,16 +92,10 @@
             }
                         
             function historico(){
-                var forma = document.forms[0];
                 var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=municipio&num=3','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
         </script>
-<style>
-.ui-jqgrid tr.jqgrow td {
-  white-space: normal !important;
-}
-</style>
 
     </head>
     <body  bgcolor="#EFFBFB">

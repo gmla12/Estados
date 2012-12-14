@@ -16,7 +16,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
@@ -48,10 +47,14 @@
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Puerto/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Editar'],
+                    colNames:['ID', 'Nombre Corto', 'Descripcion', 'Pais', 'Departamento', 'Municipio', 'Editar'],
                     colModel:[
                         {name:'idPuerto',index:'idPuerto', width:50, sortable:false},
-                        {name:'nombre',index:'nombre', width:160, sortable:false},
+                        {name:'nombreCorto',index:'nombreCorto', width:160, sortable:false},
+                        {name:'descripcion',index:'descripcion', width:160, sortable:false},
+                        {name:'pais',index:'pais', width:160, sortable:false},
+                        {name:'departamento',index:'departamento', width:160, sortable:false},
+                        {name:'municipio',index:'municipio', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
@@ -80,6 +83,11 @@
                 document.forms[0].op.value="nuevo";
                 document.forms[0].id.value="";
                 document.forms[0].submit();
+            }
+            
+            function historico(){
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=puerto&num=1','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                emer.focus();
             }
         </script>
 
