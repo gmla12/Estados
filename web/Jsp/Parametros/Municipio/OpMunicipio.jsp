@@ -42,6 +42,10 @@
         <%            }
         %>
         <script type="text/javascript">
+            $(document).ready(function(){
+                anchoPantalla = document.body.offsetWidth - 50;
+            })
+            
             $(function(){ 
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Parametros/Municipio/getGriddahico.jsp?op=bus',
@@ -55,7 +59,7 @@
                         {name:'editar',index:'editar', width:50, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 600,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
@@ -89,10 +93,15 @@
                         
             function historico(){
                 var forma = document.forms[0];
-                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=municipio&num=3','Auditoria Municipios','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=municipio&num=3','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
         </script>
+<style>
+.ui-jqgrid tr.jqgrow td {
+  white-space: normal !important;
+}
+</style>
 
     </head>
     <body  bgcolor="#EFFBFB">
@@ -117,13 +126,13 @@
                                 <c:forEach items="${CMB_PAIS}" var="cat">
                                     <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                        </html:select></td>
+                            </html:select></td>
                         <td>Departamento<html:select property="bIdDepartamento" styleId="bIdDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdDepartamento"))%>'>
                                 <html:option value=""><c:out value='[Todos]'/></html:option>    
                                 <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
                                     <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                        </html:select></td>
+                            </html:select></td>
                     </tr>
                 </table>
             </fieldset>

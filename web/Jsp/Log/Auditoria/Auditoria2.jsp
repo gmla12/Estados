@@ -161,7 +161,12 @@
                     }
                 }
         </script>
-
+        <style>
+            .ui-jqgrid tr.jqgrow td {
+                white-space: pre-line !important;
+                word-wrap: break-word;
+            }
+        </style>
     </head>
     <body  bgcolor="#EFFBFB">
         <fieldset>

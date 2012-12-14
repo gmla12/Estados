@@ -142,7 +142,7 @@
             
             function historico(){
                 var forma = document.forms[0];
-                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=municipio&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>'+'<%=request.getAttribute("getIdMunicipio")%>','Auditoria Municipio','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=municipio&referencia='+'<%=request.getAttribute("getIdPais")%>'+'<%=request.getAttribute("getIdDepartamento")%>'+'<%=request.getAttribute("getIdMunicipio")%>','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                 emer.focus();
             }
             

@@ -14,7 +14,11 @@ import java.io.Serializable;
 public class BeanPuerto implements Serializable{
 
     private Object idPuerto;
-    private Object nombre;
+    private Object nombreCorto;
+    private Object descripcion;
+    private Object idMunicipio;
+    private Object idDepartamento;
+    private Object idPais;
 
     public Object getIdPuerto() {
         return idPuerto;
@@ -24,12 +28,44 @@ public class BeanPuerto implements Serializable{
         this.idPuerto= idPuerto;
     }
 
-    public Object getNombre() {
-        return nombre;
+    public Object getNombreCorto() {
+        return nombreCorto;
     }
 
-    public void setNombre(Object nombre) {
-        this.nombre = nombre;
+    public void setNombreCorto(Object nombreCorto) {
+        this.nombreCorto = nombreCorto;
+    }
+
+    public Object getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Object getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(Object idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public Object getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(Object idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public Object getIdPais() {
+        return idPais;
+    }
+
+    public void setIdPais(Object idPais) {
+        this.idPais = idPais;
     }
 
 }

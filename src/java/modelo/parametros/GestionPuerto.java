@@ -4,9 +4,9 @@
  */
 package modelo.parametros;
 
+import forms.bean.parametros.BeanPuerto;
 import forms.parametros.PuertoForm;
 import forms.parametros.PuertoOpForm;
-import forms.bean.parametros.BeanPuerto;
 import java.sql.*;
 import java.util.ArrayList;
 import util.ConeccionMySql;
@@ -51,8 +51,13 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into Puerto (idPuerto, nombre) values (null,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            psInsertar.setString(1, f.getNombre());
+            psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar.setString(1, f.getNombreCorto());
+            psInsertar.setString(2, f.getDescripcion());
+            psInsertar.setString(3, f.getIdMunicipio());
+            psInsertar.setString(4, f.getIdDepartamento());
+            psInsertar.setString(5, f.getIdPais());
+            psInsertar.setInt(6, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -124,15 +129,19 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.Puerto, p.nombre FROM Puerto p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id FROM pPuerto p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanPuerto bu;
             while (rs.next()) {
                 bu = new BeanPuerto();
 
-                bu.setIdPuerto(rs.getObject("p.idPuerto"));
-                bu.setNombre(rs.getObject("p.nombre"));
+                bu.setIdPuerto(rs.getObject("p.id"));
+                bu.setNombreCorto(rs.getObject("p.nombre_corto"));
+                bu.setDescripcion(rs.getObject("p.descripcion"));
+                bu.setIdMunicipio(rs.getObject("p.pmunicipios_id"));
+                bu.setIdDepartamento(rs.getObject("p.pmunicipios_departamento_id"));
+                bu.setIdPais(rs.getObject("p.pmunicipios_departamento_ppaises_id"));
 
                 GR_PUERTO.add(bu);
 
@@ -198,18 +207,147 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idpuerto, p.nombre ";
-            query += "FROM Puerto p ";
+            String query = "SELECT p.id, p.nombre_corto, p.descripcion ";
+            query += "FROM pPuerto p ";
             String query2 = "";
-            if (f.getbNombre().isEmpty() != true) {
-                query2 = "p.nombre LIKE CONCAT('%',?,'%')";
+            if (f.getbNombreCorto().isEmpty() != true) {
+                query2 = "p.nombre_corto LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbDescripcion().isEmpty() != true) {
+                if (query2.isEmpty() != true) {
+                    query2 += "AND ";
+                }
+                query2 = "p.descripcion LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdMunicipio().isEmpty() != true) {
+                if (query2.isEmpty() != true) {
+                    query2 += "AND ";
+                }
+                query2 = "p.pmunicipios_id LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdDepartamento().isEmpty() != true) {
+                if (query2.isEmpty() != true) {
+                    query2 += "AND ";
+                }
+                query2 += "p.pmunicipios_departamentos_id LIKE CONCAT('%',?,'%')";
+            }
+            if (f.getbIdPais().isEmpty() != true) {
+                if (query2.isEmpty() != true) {
+                    query2 += "AND ";
+                }
+                query2 += "p.pmunicipios_departamentos_ppaises_id LIKE CONCAT('%',?,'%')";
             }
             if (query2.isEmpty() != true) {
                 query += "WHERE " + query2;
             }
             psSelectConClave = cn.prepareStatement(query);
-            if (f.getbNombre().isEmpty() != true) {
-                psSelectConClave.setString(1, f.getbNombre());
+            if (f.getbNombreCorto().isEmpty() != true) {
+                psSelectConClave.setString(1, f.getbNombreCorto());
+                if (f.getbDescripcion().isEmpty() != true) {
+                    psSelectConClave.setString(2, f.getbDescripcion());
+                    if (f.getbIdMunicipio().isEmpty() != true) {
+                        psSelectConClave.setString(3, f.getbIdMunicipio());
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(4, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(5, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(4, f.getbIdPais());
+                            }
+                        }
+                    } else {
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(3, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(4, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        }
+                    }
+                } else {
+                    if (f.getbIdMunicipio().isEmpty() != true) {
+                        psSelectConClave.setString(2, f.getbIdMunicipio());
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(3, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(4, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        }
+                    } else {
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(2, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(2, f.getbIdPais());
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (f.getbDescripcion().isEmpty() != true) {
+                    psSelectConClave.setString(1, f.getbDescripcion());
+                    if (f.getbIdMunicipio().isEmpty() != true) {
+                        psSelectConClave.setString(2, f.getbIdMunicipio());
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(3, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(4, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        }
+                    } else {
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(2, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(2, f.getbIdPais());
+                            }
+                        }
+                    }
+                } else {
+                    if (f.getbIdMunicipio().isEmpty() != true) {
+                        psSelectConClave.setString(1, f.getbIdMunicipio());
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(2, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(3, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(2, f.getbIdPais());
+                            }
+                        }
+                    } else {
+                        if (f.getbIdDepartamento().isEmpty() != true) {
+                            psSelectConClave.setString(1, f.getbIdDepartamento());
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(2, f.getbIdPais());
+                            }
+                        } else {
+                            if (f.getbIdPais().isEmpty() != true) {
+                                psSelectConClave.setString(1, f.getbIdPais());
+                            }
+                        }
+                    }
+                }
             }
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -218,8 +356,12 @@ public class GestionPuerto extends ConeccionMySql {
 
                 bu = new BeanPuerto();
 
-                bu.setIdPuerto(rs.getObject("p.idPuerto"));
-                bu.setNombre(rs.getObject("p.nombre"));
+                bu.setIdPuerto(rs.getObject("p.id"));
+                bu.setNombreCorto(rs.getObject("p.nombre_corto"));
+                bu.setDescripcion(rs.getObject("p.descripcion"));
+                bu.setIdMunicipio(rs.getObject("p.pmunicipios_id"));
+                bu.setIdDepartamento(rs.getObject("p.pmunicipios_departamentos_id"));
+                bu.setIdPais(rs.getObject("p.pmunicipios_departamentos_ppaises_id"));
 
                 GR_PUERTO.add(bu);
 

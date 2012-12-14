@@ -65,7 +65,12 @@
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
             }); 
         </script>
-
+        <style>
+            .ui-jqgrid tr.jqgrow td {
+                white-space: pre-line !important;
+                word-wrap: break-word;
+            }
+        </style>
     </head>
     <body  bgcolor="#EFFBFB">
         <fieldset>
