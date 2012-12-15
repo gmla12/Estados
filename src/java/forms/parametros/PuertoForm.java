@@ -18,8 +18,17 @@ public class PuertoForm extends ActionForm{
     private String idMunicipio;
     private String idDepartamento;
     private String idPais;
+    private Integer idSucursal;
     private Integer idUsu;
     private String op;
+
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
+    }
 
     public int getIdPuerto() {
         return idPuerto;

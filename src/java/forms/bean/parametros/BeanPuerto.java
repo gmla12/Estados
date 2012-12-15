@@ -19,6 +19,15 @@ public class BeanPuerto implements Serializable{
     private Object idMunicipio;
     private Object idDepartamento;
     private Object idPais;
+    private Object idSucursal;
+
+    public Object getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Object idSucursal) {
+        this.idSucursal = idSucursal;
+    }
 
     public Object getIdPuerto() {
         return idPuerto;

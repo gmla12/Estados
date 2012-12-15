@@ -51,13 +51,14 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, psucursales_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getNombreCorto());
             psInsertar.setString(2, f.getDescripcion());
             psInsertar.setString(3, f.getIdMunicipio());
             psInsertar.setString(4, f.getIdDepartamento());
             psInsertar.setString(5, f.getIdPais());
-            psInsertar.setInt(6, f.getIdUsu());
+            psInsertar.setInt(6, f.getIdSucursal());
+            psInsertar.setInt(7, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -129,7 +130,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id FROM pPuerto p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, p.psucursales_id FROM pPuerto p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanPuerto bu;
@@ -142,6 +143,7 @@ public class GestionPuerto extends ConeccionMySql {
                 bu.setIdMunicipio(rs.getObject("p.pmunicipios_id"));
                 bu.setIdDepartamento(rs.getObject("p.pmunicipios_departamento_id"));
                 bu.setIdPais(rs.getObject("p.pmunicipios_departamento_ppaises_id"));
+                bu.setIdSucursal(rs.getObject("p.psucursales_id"));
 
                 GR_PUERTO.add(bu);
 
@@ -207,7 +209,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.id, p.nombre_corto, p.descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id ";
+            String query = "SELECT p.id, p.nombre_corto, p.descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departamentos_ppaises_id, psucursales_id ";
             query += "FROM pPuerto p ";
             String query2 = "";
             if (f.getbNombreCorto().isEmpty() != true) {
@@ -237,6 +239,12 @@ public class GestionPuerto extends ConeccionMySql {
                 }
                 query2 += "p.pmunicipios_departamentos_ppaises_id LIKE CONCAT('%',?,'%')";
             }
+            if (f.getbIdSucursal().isEmpty() != true) {
+                if (query2.isEmpty() != true) {
+                    query2 += "AND ";
+                }
+                query2 += "p.psucursales_id LIKE CONCAT('%',?,'%')";
+            }
             if (query2.isEmpty() != true) {
                 query += "WHERE " + query2;
             }
@@ -251,10 +259,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(4, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(5, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(6, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     } else {
@@ -262,10 +284,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(3, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     }
@@ -276,10 +312,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(3, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     } else {
@@ -287,10 +337,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(2, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     }
@@ -304,10 +368,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(3, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     } else {
@@ -315,10 +393,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(2, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     }
@@ -329,10 +421,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(2, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     } else {
@@ -340,10 +446,24 @@ public class GestionPuerto extends ConeccionMySql {
                             psSelectConClave.setString(1, f.getbIdDepartamento());
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(1, f.getbIdPais());
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                }
+                            } else {
+                                if (f.getbIdSucursal().isEmpty() != true) {
+                                    psSelectConClave.setInt(1, Integer.getInteger(f.getbIdSucursal()));
+                                }
                             }
                         }
                     }
@@ -362,6 +482,7 @@ public class GestionPuerto extends ConeccionMySql {
                 bu.setIdMunicipio(rs.getObject("p.pmunicipios_id"));
                 bu.setIdDepartamento(rs.getObject("p.pmunicipios_departamentos_id"));
                 bu.setIdPais(rs.getObject("p.pmunicipios_departamentos_ppaises_id"));
+                bu.setIdSucursal(rs.getObject("p.psucursales_id"));
 
                 GR_PUERTO.add(bu);
 
@@ -425,7 +546,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, susuarios_id = ?, fecha_modificacion = now";
+            String query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, psucursales_id = ?, susuarios_id = ?, fecha_modificacion = now";
             query += " WHERE id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombreCorto());
@@ -433,8 +554,9 @@ public class GestionPuerto extends ConeccionMySql {
             psUpdate.setString(3, f.getIdMunicipio());
             psUpdate.setString(4, f.getIdDepartamento());
             psUpdate.setString(5, f.getIdPais());
-            psUpdate.setInt(6, f.getIdUsu());
-            psUpdate.setInt(7, f.getIdPuerto());
+            psUpdate.setInt(6, f.getIdSucursal());
+            psUpdate.setInt(7, f.getIdUsu());
+            psUpdate.setInt(8, f.getIdPuerto());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -560,7 +682,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, fecha_modificacion FROM pPuerto p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, psucursales_id, susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, fecha_modificacion FROM pPuerto p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
             psSelectConClave.setInt(1, IdPuerto);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -574,6 +696,7 @@ public class GestionPuerto extends ConeccionMySql {
                 setIdMunicipio(rs.getObject("p.pmunicipios_id"));
                 setIdDepartamento(rs.getObject("p.pmunicipios_departamentos_id"));
                 setIdPais(rs.getObject("p.pmunicipios_departmentos_ppaises_id"));
+                setIdSucursal(rs.getObject("p.psucursales_id"));
                 setNombreUsu(rs.getObject("p.nombre_usu"));
                 setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
@@ -769,14 +892,23 @@ public class GestionPuerto extends ConeccionMySql {
     private Object idMunicipio;
     private Object idDepartamento;
     private Object idPais;
+    private Object idSucursal;
     private Object nombreUsu;
     private Object fechaModificacion;
+
+    public Object getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Object idSucursal) {
+        this.idSucursal = idSucursal;
+    }
 
     public Object getIdPuerto() {
         return idPuerto;
     }
 
-    public void setIdSucursal(Object idPuerto) {
+    public void setIdPuerto(Object idPuerto) {
         this.idPuerto = idPuerto;
     }
 
@@ -835,5 +967,4 @@ public class GestionPuerto extends ConeccionMySql {
     public void setFechaModificacion(Object fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
-
 }

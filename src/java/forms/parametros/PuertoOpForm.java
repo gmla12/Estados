@@ -18,8 +18,17 @@ public class PuertoOpForm extends ActionForm{
     private String bIdMunicipio;
     private String bIdDepartamento;
     private String bIdPais;
+    private String bIdSucursal;
     private String op;
     private int id;
+
+    public String getbIdSucursal() {
+        return bIdSucursal;
+    }
+
+    public void setbIdSucursal(String bIdSucursal) {
+        this.bIdSucursal = bIdSucursal;
+    }
 
     public String getOp() {
         return op;

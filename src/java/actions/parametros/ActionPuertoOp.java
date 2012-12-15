@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.parametros.GestionDepartamento;
+import modelo.parametros.GestionMunicipio;
+import modelo.parametros.GestionPais;
 import modelo.parametros.GestionPuerto;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -46,6 +49,9 @@ public class ActionPuertoOp extends Action {
 
         PuertoOpForm fo = (PuertoOpForm) form;
         GestionPuerto gr = new GestionPuerto();
+        GestionMunicipio gm = new GestionMunicipio();
+        GestionDepartamento gd = new GestionDepartamento();
+        GestionPais gp = new GestionPais();
         HttpSession session = request.getSession();
 
         System.out.println("********************************************");
@@ -66,10 +72,60 @@ public class ActionPuertoOp extends Action {
                 resultado = gr.MostrarPuertoFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    request.setAttribute("getIdPuerto", gr.getIdPuerto());
-                    request.setAttribute("getNombre", gr.getNombre());
+                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    resultado2 = gm.MostrarMunicipio((String) gr.getIdDepartamento(), (String) gr.getIdPais(), false, null);
+                    if ((Boolean) resultado2.get(0) == false) {
 
-                    return mapping.findForward("modificar");
+                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        resultado3 = gd.MostrarDepartamento((String) gr.getIdPais(), false, null);
+                        if ((Boolean) resultado3.get(0) == false) {
+
+                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            resultado4 = gp.MostrarPais(false, null);
+                            if ((Boolean) resultado4.get(0) == false) {
+
+                                request.setAttribute("getIdPuerto", gr.getIdPuerto());
+                                request.setAttribute("getNombreCorto", gr.getNombreCorto());
+                                request.setAttribute("getDescripcion", gr.getDescripcion());
+                                request.setAttribute("getIdMunicipio", gr.getIdMunicipio());
+                                request.setAttribute("getIdDepartamento", gr.getIdDepartamento());
+                                request.setAttribute("getIdPais", gr.getIdPais());
+                                request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                                request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                                //para validar si se modifico un campo
+                                session.setAttribute("getPuertoIdPuerto", gr.getIdPuerto());
+                                session.setAttribute("getPuertoNombreCorto", gr.getNombreCorto());
+                                session.setAttribute("getPuertoDescripcion", gr.getDescripcion());
+                                session.setAttribute("getPuertoIdMunicipio", gr.getIdMunicipio());
+                                session.setAttribute("getPuertoIdDepartamento", gr.getIdDepartamento());
+                                session.setAttribute("getPuertoIdPais", gr.getIdPais());
+
+                                session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                                session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                                session.setAttribute("CMB_PAIS", resultado4.get(1));
+
+                                return mapping.findForward("modificar");
+
+                            } else {
+
+                                request.setAttribute("error", resultado4.get(1));
+                                return mapping.findForward("error");
+
+                            }
+
+                        } else {
+
+                            request.setAttribute("error", resultado3.get(1));
+                            return mapping.findForward("error");
+
+                        }
+
+                    } else {
+
+                        request.setAttribute("error", resultado2.get(1));
+                        return mapping.findForward("error");
+
+                    }
 
                 } else {
 
@@ -80,20 +136,65 @@ public class ActionPuertoOp extends Action {
 
             } else if (fo.getOp().equals("buscar")) {
 
-                if (fo.getbNombre() == null) {
+                if (fo.getbNombreCorto() == null) {
                     fo.setbIdPuerto((String) session.getAttribute("getbIdPuerto"));
-                    fo.setbNombre((String) session.getAttribute("getbNombre"));
+                    fo.setbNombreCorto((String) session.getAttribute("getbNombreCorto"));
+                    fo.setbDescripcion((String) session.getAttribute("getbDescripcion"));
+                    fo.setbIdMunicipio((String) session.getAttribute("getbIdMunicipio"));
+                    fo.setbIdDepartamento((String) session.getAttribute("getbIdDepartamento"));
+                    fo.setbIdPais((String) session.getAttribute("getbIdPais"));
                 }
 
                 ArrayList<Object> resultado = new ArrayList<Object>();
                 resultado = gr.MostrarPuertoOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    session.setAttribute("getbIdPuerto", fo.getbIdPuerto());
-                    session.setAttribute("getbNombre", fo.getbNombre());
+                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    resultado2 = gm.MostrarMunicipio(fo.getbIdDepartamento(), fo.getbIdPais(), false, null);
+                    if ((Boolean) resultado2.get(0) == false) {
 
-                    session.setAttribute("GR_PUERTO", resultado.get(1));
-                    return mapping.findForward("ok");
+                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        resultado3 = gd.MostrarDepartamento(fo.getbIdPais(), false, null);
+                        if ((Boolean) resultado3.get(0) == false) {
+
+                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            resultado4 = gp.MostrarPais(false, null);
+                            if ((Boolean) resultado4.get(0) == false) {
+
+                                session.setAttribute("getbIdPuerto", fo.getbIdPuerto());
+                                session.setAttribute("getbNombreCorto", fo.getbNombreCorto());
+                                session.setAttribute("getbDescripcion", fo.getbDescripcion());
+                                session.setAttribute("getbIdMunicipio", fo.getbIdMunicipio());
+                                session.setAttribute("getbIdDepartamento", fo.getbIdDepartamento());
+                                session.setAttribute("getbIdPais", fo.getbIdPais());
+
+                                session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                                session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                                session.setAttribute("CMB_PAIS", resultado4.get(1));
+
+                                session.setAttribute("GR_PUERTO", resultado.get(1));
+                                return mapping.findForward("ok");
+
+                            } else {
+
+                                request.setAttribute("error", resultado4.get(1));
+                                return mapping.findForward("error");
+
+                            }
+
+                        } else {
+
+                            request.setAttribute("error", resultado3.get(1));
+                            return mapping.findForward("error");
+
+                        }
+
+                    } else {
+
+                        request.setAttribute("error", resultado2.get(1));
+                        return mapping.findForward("error");
+
+                    }
 
                 } else {
 
@@ -105,7 +206,13 @@ public class ActionPuertoOp extends Action {
             } else {
 
                 request.setAttribute("getIdPuerto", "");
-                request.setAttribute("getNombre", "");
+                request.setAttribute("getNombreCorto", "");
+                request.setAttribute("getDescripcion", "");
+                request.setAttribute("getIdMunicipio", "");
+                request.setAttribute("getIdDepartamento", "");
+                request.setAttribute("getIdPais", "");
+                request.setAttribute("getNombreUsu", "");
+                request.setAttribute("getFechaModificacion", "");
 
                 return mapping.findForward("nuevo");
 
@@ -114,15 +221,62 @@ public class ActionPuertoOp extends Action {
         } else {
 
             session.setAttribute("getbIdPuerto", "");
-            session.setAttribute("getbNombre", "");
-            fo.setbNombre("");
+            session.setAttribute("getbNombreCorto", "");
+            session.setAttribute("getbDescripcion", "");
+            session.setAttribute("getbIdMunicipio", "");
+            session.setAttribute("getbIdDepartamento", "");
+            session.setAttribute("getbIdPais", "");
+            session.setAttribute("getbIdSucursal", "");
+            fo.setbNombreCorto("");
+            fo.setbDescripcion("");
+            fo.setbIdMunicipio("");
+            fo.setbIdDepartamento("");
+            fo.setbIdPais("");
+            fo.setbIdSucursal("");
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.MostrarPuertoOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 
-                session.setAttribute("GR_PUERTO", resultado.get(1));
-                return mapping.findForward("ok");
+                ArrayList<Object> resultado2 = new ArrayList<Object>();
+                resultado2 = gm.MostrarMunicipio("", "", false, null);
+                if ((Boolean) resultado2.get(0) == false) {
+
+                    ArrayList<Object> resultado3 = new ArrayList<Object>();
+                    resultado3 = gd.MostrarDepartamento("", false, null);
+                    if ((Boolean) resultado3.get(0) == false) {
+
+                        ArrayList<Object> resultado4 = new ArrayList<Object>();
+                        resultado4 = gp.MostrarPais(false, null);
+                        if ((Boolean) resultado4.get(0) == false) {
+
+                            session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                            session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                            session.setAttribute("CMB_PAIS", resultado4.get(1));
+
+                            session.setAttribute("GR_PUERTO", resultado.get(1));
+                            return mapping.findForward("ok");
+
+                        } else {
+
+                            request.setAttribute("error", resultado4.get(1));
+                            return mapping.findForward("error");
+
+                        }
+
+                    } else {
+
+                        request.setAttribute("error", resultado3.get(1));
+                        return mapping.findForward("error");
+
+                    }
+
+                } else {
+
+                    request.setAttribute("error", resultado2.get(1));
+                    return mapping.findForward("error");
+
+                }
 
             } else {
 

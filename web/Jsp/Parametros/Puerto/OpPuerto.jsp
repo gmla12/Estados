@@ -100,9 +100,31 @@
                 <legend>Consulta de Puertos</legend>
                 <table>
                     <tr>
-                        <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
+                        <td>Nombre Corto<input type="text" name="bNombreCorto" value="<%= session.getAttribute("getbNombreCorto")%>"/> </td>
+                        <td>Descripcion<input type="text" name="bDescripcion" value="<%= session.getAttribute("getbDescripcion")%>"/> </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
+                        <td><a class="boton" href="javascript:historico()">Historico Eliminados</a></td>
+                    </tr>
+                    <tr>
+                        <td>Pais<html:select property="bIdPais" styleId="bIdPais" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdPais"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_PAIS}" var="cat">
+                                    <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select></td>
+                        <td>Departamento<html:select property="bIdDepartamento" styleId="bIdDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdDepartamento"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
+                                    <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select></td>
+                        <td>Municipio<html:select property="bIdMunicipio" styleId="bIdMunicipio" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdMunicipio"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_MUNICIPIO}" var="cat">
+                                    <html:option value="${cat.idMunicipio}"><c:out value='${cat.nombre}'/></html:option>
+                                </c:forEach>
+                            </html:select></td>
                     </tr>
                 </table>
             </fieldset>
