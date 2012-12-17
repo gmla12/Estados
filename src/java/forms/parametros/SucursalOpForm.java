@@ -13,7 +13,8 @@ import org.apache.struts.action.ActionForm;
  */
 public class SucursalOpForm extends ActionForm{
     private String bIdSucursal;
-    private String bNombre;
+    private String bNombreCorto;
+    private String bDescripcion;
     private String op;
     private int id;
 
@@ -41,12 +42,20 @@ public class SucursalOpForm extends ActionForm{
         this.bIdSucursal = bIdSucursal;
     }
 
-    public String getbNombre() {
-        return bNombre;
+    public String getbNombreCorto() {
+        return bNombreCorto;
     }
 
-    public void setbNombre(String bNombre) {
-        this.bNombre = bNombre;
+    public void setbNombreCorto(String bNombreCorto) {
+        this.bNombreCorto = bNombreCorto;
+    }
+
+    public String getbDescripcion() {
+        return bDescripcion;
+    }
+
+    public void setbDescripcion(String bDescripcion) {
+        this.bDescripcion = bDescripcion;
     }
 
 }

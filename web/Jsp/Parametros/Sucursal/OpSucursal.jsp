@@ -16,7 +16,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="niceforms_files/niceforms-default.css">
         <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
         <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="Js/i18n/grid.locale-es.js" type="text/javascript"></script>
@@ -44,18 +43,23 @@
         }
         %>
         <script type="text/javascript">
+            $(document).ready(function(){
+                anchoPantalla = document.body.offsetWidth - 50;
+            })
+
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Sucursal/getGriddahico.jsp?op=bus',
+                    url:'Jsp/Parametros/Sucursal/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre', 'Editar'],
+                    colNames:['ID', 'Nombre Corto', 'Descripcion', 'Editar'],
                     colModel:[
                         {name:'idSucursal',index:'idSucursal', width:50, sortable:false},
-                        {name:'nombre',index:'nombre', width:160, sortable:false},
+                        {name:'nombreCorto',index:'nombreCorto', width:160, sortable:false},
+                        {name:'descripcion',index:'descripcion', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 550,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
@@ -81,8 +85,12 @@
                 document.forms[0].id.value="";
                 document.forms[0].submit();
             }
-        </script>
 
+            function historico(){
+                var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria2.jsp?getOp=buscar&accion=eliminadas&formulario=sucursal&num=1','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
+                emer.focus();
+            }
+        </script>
     </head>
     <body  bgcolor="#EFFBFB">
         <html:form action="/OpSucursal.do" method="post">
@@ -92,9 +100,11 @@
                 <legend>Consulta de Sucursales</legend>
                 <table>
                     <tr>
-                        <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
+                        <td>Nombre Corto<input type="text" name="bNombreCorto" value="<%= session.getAttribute("getbNombreCorto")%>"/> </td>
+                        <td>Descripcion<input type="text" name="bDescripcion" value="<%= session.getAttribute("getbNombreCorto")%>"/> </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
+                        <td><a class="boton" href="javascript:historico()">Historico Eliminados</a></td>
                     </tr>
                 </table>
             </fieldset>

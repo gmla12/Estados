@@ -14,7 +14,8 @@ import java.io.Serializable;
 public class BeanSucursal implements Serializable{
 
     private Object idSucursal;
-    private Object nombre;
+    private Object nombreCorto;
+    private Object descripcion;
 
     public Object getIdSucursal() {
         return idSucursal;
@@ -24,12 +25,20 @@ public class BeanSucursal implements Serializable{
         this.idSucursal = idSucursal;
     }
 
-    public Object getNombre() {
-        return nombre;
+    public Object getNombreCorto() {
+        return nombreCorto;
     }
 
-    public void setNombre(Object nombre) {
-        this.nombre = nombre;
+    public void setNombreCorto(Object nombreCorto) {
+        this.nombreCorto = nombreCorto;
+    }
+
+    public Object getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
     }
 
 }

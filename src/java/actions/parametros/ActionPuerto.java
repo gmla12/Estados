@@ -84,7 +84,7 @@ public class ActionPuerto extends Action {
                                         resultado7 = gr.MostrarPuertoFormulario(fo.getIdPuerto(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
-                                            request.setAttribute("getIdPuerto", resultado.get(1));
+                                            request.setAttribute("getIdPuerto", resultado2.get(1));
                                             request.setAttribute("getNombreCorto", fo.getNombreCorto());
                                             request.setAttribute("getDescripcion", fo.getDescripcion());
                                             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());

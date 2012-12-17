@@ -43,6 +43,10 @@
         %>
 
         <script type="text/javascript">
+            $(document).ready(function(){
+                anchoPantalla = document.body.offsetWidth - 50;
+            })
+
             $(function(){ 
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Parametros/Pais/getGriddahico.jsp?op=bus',
@@ -54,7 +58,7 @@
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 550,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,

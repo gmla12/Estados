@@ -67,7 +67,14 @@ public class ActionSucursalOp extends Action {
                 if ((Boolean) resultado.get(0) == false) {
 
                     request.setAttribute("getIdSucursal", gr.getIdSucursal());
-                    request.setAttribute("getNombre", gr.getNombre());
+                    request.setAttribute("getNombreCorto", gr.getNombreCorto());
+                    request.setAttribute("getDescripcion", gr.getDescripcion());
+                    request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                    request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                    //para validar si se modifico un campo
+                    session.setAttribute("getSucursalIdSucursal", gr.getIdSucursal());
+                    session.setAttribute("getSucursalNombreCorto", gr.getNombreCorto());
+                    session.setAttribute("getSucursalDescripcion", gr.getDescripcion());
 
                     return mapping.findForward("modificar");
 
@@ -80,9 +87,10 @@ public class ActionSucursalOp extends Action {
 
             } else if (fo.getOp().equals("buscar")) {
 
-                if (fo.getbNombre() == null) {
+                if (fo.getbNombreCorto() == null) {
                     fo.setbIdSucursal((String) session.getAttribute("getbIdSucursal"));
-                    fo.setbNombre((String) session.getAttribute("getbNombre"));
+                    fo.setbNombreCorto((String) session.getAttribute("getbNombreCorto"));
+                    fo.setbDescripcion((String) session.getAttribute("getbDescripcion"));
                 }
 
                 ArrayList<Object> resultado = new ArrayList<Object>();
@@ -90,7 +98,8 @@ public class ActionSucursalOp extends Action {
                 if ((Boolean) resultado.get(0) == false) {
 
                     session.setAttribute("getbIdSucursal", fo.getbIdSucursal());
-                    session.setAttribute("getbNombre", fo.getbNombre());
+                    session.setAttribute("getbNombreCorto", fo.getbNombreCorto());
+                    session.setAttribute("getbDescripcion", fo.getbDescripcion());
 
                     session.setAttribute("GR_SUCURSAL", resultado.get(1));
                     return mapping.findForward("ok");
@@ -105,7 +114,10 @@ public class ActionSucursalOp extends Action {
             } else {
 
                 request.setAttribute("getIdSucursal", "");
-                request.setAttribute("getNombre", "");
+                request.setAttribute("getNombreCorto", "");
+                request.setAttribute("getDescripcion", "");
+                request.setAttribute("getNombreUsu", "");
+                request.setAttribute("getFechaModificacion", "");
 
                 return mapping.findForward("nuevo");
 
@@ -114,8 +126,10 @@ public class ActionSucursalOp extends Action {
         } else {
 
             session.setAttribute("getbIdSucursal", "");
-            session.setAttribute("getbNombre", "");
-            fo.setbNombre("");
+            session.setAttribute("getbNombreCorto", "");
+            session.setAttribute("getbDescripcion", "");
+            fo.setbNombreCorto("");
+            fo.setbDescripcion("");
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             resultado = gr.MostrarSucursalOP(fo, false, null);

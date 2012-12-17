@@ -42,6 +42,10 @@
         <%            }
         %>
         <script type="text/javascript">
+            $(document).ready(function(){
+                anchoPantalla = document.body.offsetWidth - 50;
+            })
+
             $(function(){ 
                 jQuery("#list4").jqGrid({
                     url:'Jsp/Parametros/Departamento/getGriddahico.jsp?op=bus',
@@ -54,7 +58,7 @@
                         {name:'editar',index:'editar', width:50, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 550,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
@@ -107,7 +111,7 @@
                                 <c:forEach items="${CMB_PAIS}" var="cat">
                                     <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                        </html:select></td>
+                            </html:select></td>
                         <td>Nombre<input type="text" name="bNombre" value="<%= session.getAttribute("getbNombre")%>"/> </td>
                         <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
                         <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>

@@ -43,6 +43,10 @@
         <%            }
         %>
         <script type="text/javascript">
+            $(document).ready(function(){
+                anchoPantalla = document.body.offsetWidth - 50;
+            })
+
             $(function(){ 
                 jQuery("#list4").jqGrid({
                     url:'getGriddahico2.jsp?op=bus',
@@ -56,7 +60,7 @@
                         {name:'valorNuevo',index:'valorNuevo', width:200, sortable:false}
                     ],
                     pager: '#prowed1',
-                    width: 900,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
@@ -75,7 +79,7 @@
                         {name:'valorNuevo',index:'valorNuevo', width:200, sortable:false}
                     ],
                     pager: '#prowed2',
-                    width: 900,
+                    width: anchoPantalla,
                     height: "100%",
                     rowNum:10,
                     viewrecords: true,
