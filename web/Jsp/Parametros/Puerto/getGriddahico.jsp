@@ -7,7 +7,7 @@
 
 <%@page import="java.lang.Object"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="forms.bean.BeanPuerto"%>
+<%@page import="forms.bean.parametros.BeanPuerto"%>
 <%
     String usuario = "";
     HttpSession sesionOk = request.getSession();
@@ -103,7 +103,12 @@
             json = json + "\n{";
             json = json + "\"id\":\"" + i + "\",";
             json = json + "\"cell\":[\"" + buPuerto2.getIdPuerto() + "\"";
-            json = json + ",\"" + buPuerto2.getNombre() + "\"";
+            json = json + ",\"" + buPuerto2.getNombreCorto() + "\"";
+            json = json + ",\"" + buPuerto2.getDescripcion() + "\"";
+            json = json + ",\"" + buPuerto2.getIdPais() + "\"";
+            json = json + ",\"" + buPuerto2.getIdDepartamento() + "\"";
+            json = json + ",\"" + buPuerto2.getIdMunicipio() + "\"";
+            json = json + ",\"" + buPuerto2.getIdSucursal() + "\"";
             String aux2 = "<a href='javascript:modifica(&quot;" + buPuerto2.getIdPuerto() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";

@@ -13,6 +13,7 @@ import modelo.parametros.GestionDepartamento;
 import modelo.parametros.GestionMunicipio;
 import modelo.parametros.GestionPais;
 import modelo.parametros.GestionPuerto;
+import modelo.parametros.GestionSucursal;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -52,6 +53,7 @@ public class ActionPuertoOp extends Action {
         GestionMunicipio gm = new GestionMunicipio();
         GestionDepartamento gd = new GestionDepartamento();
         GestionPais gp = new GestionPais();
+        GestionSucursal gs = new GestionSucursal();
         HttpSession session = request.getSession();
 
         System.out.println("********************************************");
@@ -84,27 +86,41 @@ public class ActionPuertoOp extends Action {
                             resultado4 = gp.MostrarPais(false, null);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                request.setAttribute("getIdPuerto", gr.getIdPuerto());
-                                request.setAttribute("getNombreCorto", gr.getNombreCorto());
-                                request.setAttribute("getDescripcion", gr.getDescripcion());
-                                request.setAttribute("getIdMunicipio", gr.getIdMunicipio());
-                                request.setAttribute("getIdDepartamento", gr.getIdDepartamento());
-                                request.setAttribute("getIdPais", gr.getIdPais());
-                                request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
-                                request.setAttribute("getNombreUsu", gr.getNombreUsu());
-                                //para validar si se modifico un campo
-                                session.setAttribute("getPuertoIdPuerto", gr.getIdPuerto());
-                                session.setAttribute("getPuertoNombreCorto", gr.getNombreCorto());
-                                session.setAttribute("getPuertoDescripcion", gr.getDescripcion());
-                                session.setAttribute("getPuertoIdMunicipio", gr.getIdMunicipio());
-                                session.setAttribute("getPuertoIdDepartamento", gr.getIdDepartamento());
-                                session.setAttribute("getPuertoIdPais", gr.getIdPais());
+                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                resultado5 = gs.MostrarSucursal(false, null);
+                                if ((Boolean) resultado5.get(0) == false) {
 
-                                session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
-                                session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
-                                session.setAttribute("CMB_PAIS", resultado4.get(1));
+                                    request.setAttribute("getIdPuerto", gr.getIdPuerto());
+                                    request.setAttribute("getNombreCorto", gr.getNombreCorto());
+                                    request.setAttribute("getDescripcion", gr.getDescripcion());
+                                    request.setAttribute("getIdMunicipio", gr.getIdMunicipio());
+                                    request.setAttribute("getIdDepartamento", gr.getIdDepartamento());
+                                    request.setAttribute("getIdPais", gr.getIdPais());
+                                    request.setAttribute("getIdSucursal", gr.getIdSucursal());
+                                    request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                                    request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                                    //para validar si se modifico un campo
+                                    session.setAttribute("getPuertoIdPuerto", gr.getIdPuerto());
+                                    session.setAttribute("getPuertoNombreCorto", gr.getNombreCorto());
+                                    session.setAttribute("getPuertoDescripcion", gr.getDescripcion());
+                                    session.setAttribute("getPuertoIdMunicipio", gr.getIdMunicipio());
+                                    session.setAttribute("getPuertoIdDepartamento", gr.getIdDepartamento());
+                                    session.setAttribute("getPuertoIdPais", gr.getIdPais());
+                                    session.setAttribute("getPuertoIdSucursal", gr.getIdSucursal());
 
-                                return mapping.findForward("modificar");
+                                    session.setAttribute("CMB_SUCURSAL", resultado5.get(1));
+                                    session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                                    session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                                    session.setAttribute("CMB_PAIS", resultado4.get(1));
+
+                                    return mapping.findForward("modificar");
+
+                                } else {
+
+                                    request.setAttribute("error", resultado5.get(1));
+                                    return mapping.findForward("error");
+
+                                }
 
                             } else {
 
@@ -143,6 +159,7 @@ public class ActionPuertoOp extends Action {
                     fo.setbIdMunicipio((String) session.getAttribute("getbIdMunicipio"));
                     fo.setbIdDepartamento((String) session.getAttribute("getbIdDepartamento"));
                     fo.setbIdPais((String) session.getAttribute("getbIdPais"));
+                    fo.setbIdSucursal((String) session.getAttribute("getbIdSucursal"));
                 }
 
                 ArrayList<Object> resultado = new ArrayList<Object>();
@@ -161,19 +178,32 @@ public class ActionPuertoOp extends Action {
                             resultado4 = gp.MostrarPais(false, null);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                session.setAttribute("getbIdPuerto", fo.getbIdPuerto());
-                                session.setAttribute("getbNombreCorto", fo.getbNombreCorto());
-                                session.setAttribute("getbDescripcion", fo.getbDescripcion());
-                                session.setAttribute("getbIdMunicipio", fo.getbIdMunicipio());
-                                session.setAttribute("getbIdDepartamento", fo.getbIdDepartamento());
-                                session.setAttribute("getbIdPais", fo.getbIdPais());
+                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                resultado5 = gs.MostrarSucursal(false, null);
+                                if ((Boolean) resultado5.get(0) == false) {
 
-                                session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
-                                session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
-                                session.setAttribute("CMB_PAIS", resultado4.get(1));
+                                    session.setAttribute("getbIdPuerto", fo.getbIdPuerto());
+                                    session.setAttribute("getbNombreCorto", fo.getbNombreCorto());
+                                    session.setAttribute("getbDescripcion", fo.getbDescripcion());
+                                    session.setAttribute("getbIdMunicipio", fo.getbIdMunicipio());
+                                    session.setAttribute("getbIdDepartamento", fo.getbIdDepartamento());
+                                    session.setAttribute("getbIdPais", fo.getbIdPais());
+                                    session.setAttribute("getbIdSucursal", fo.getbIdSucursal());
 
-                                session.setAttribute("GR_PUERTO", resultado.get(1));
-                                return mapping.findForward("ok");
+                                    session.setAttribute("CMB_SUCURSAL", resultado5.get(1));
+                                    session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                                    session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                                    session.setAttribute("CMB_PAIS", resultado4.get(1));
+
+                                    session.setAttribute("GR_PUERTO", resultado.get(1));
+                                    return mapping.findForward("ok");
+
+                                } else {
+
+                                    request.setAttribute("error", resultado5.get(1));
+                                    return mapping.findForward("error");
+
+                                }
 
                             } else {
 
@@ -211,6 +241,7 @@ public class ActionPuertoOp extends Action {
                 request.setAttribute("getIdMunicipio", "");
                 request.setAttribute("getIdDepartamento", "");
                 request.setAttribute("getIdPais", "");
+                request.setAttribute("getIdSucursal", "");
                 request.setAttribute("getNombreUsu", "");
                 request.setAttribute("getFechaModificacion", "");
 
@@ -250,12 +281,24 @@ public class ActionPuertoOp extends Action {
                         resultado4 = gp.MostrarPais(false, null);
                         if ((Boolean) resultado4.get(0) == false) {
 
-                            session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
-                            session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
-                            session.setAttribute("CMB_PAIS", resultado4.get(1));
+                            ArrayList<Object> resultado5 = new ArrayList<Object>();
+                            resultado5 = gs.MostrarSucursal(false, null);
+                            if ((Boolean) resultado5.get(0) == false) {
 
-                            session.setAttribute("GR_PUERTO", resultado.get(1));
-                            return mapping.findForward("ok");
+                                session.setAttribute("CMB_MUNICIPIO", resultado2.get(1));
+                                session.setAttribute("CMB_DEPARTAMENTO", resultado3.get(1));
+                                session.setAttribute("CMB_PAIS", resultado4.get(1));
+                                session.setAttribute("CMB_SUCURSAL", resultado5.get(1));
+
+                                session.setAttribute("GR_PUERTO", resultado.get(1));
+                                return mapping.findForward("ok");
+
+                            } else {
+
+                                request.setAttribute("error", resultado5.get(1));
+                                return mapping.findForward("error");
+
+                            }
 
                         } else {
 

@@ -48,6 +48,7 @@ public class ActionPuerto extends Action {
             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
             request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
             request.setAttribute("getIdPais", fo.getIdPais());
+            request.setAttribute("getIdSucursal", fo.getIdSucursal());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             Connection cn = null;
@@ -68,7 +69,7 @@ public class ActionPuerto extends Action {
                         if ((Boolean) resultado3.get(0) == false) {
 
                             ArrayList<Object> resultado4 = new ArrayList<Object>();
-                            String valor_nuevo = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio();
+                            String valor_nuevo = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio() + "id_Sucursal=" + fo.getIdSucursal();
                             resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais() + fo.getIdDepartamento() + fo.getIdMunicipio(), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
@@ -90,6 +91,7 @@ public class ActionPuerto extends Action {
                                             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
                                             request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
                                             request.setAttribute("getIdPais", fo.getIdPais());
+                                            request.setAttribute("getIdSucursal", fo.getIdSucursal());
                                             request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
                                             //para validar si se modifico un campo
@@ -99,6 +101,7 @@ public class ActionPuerto extends Action {
                                             session.setAttribute("getPuertoIdMunicipio", gr.getIdMunicipio());
                                             session.setAttribute("getPuertoIdDepartamento", gr.getIdDepartamento());
                                             session.setAttribute("getPuertoIdPais", gr.getIdPais());
+                                            session.setAttribute("getPuertoIdSucursal", gr.getIdSucursal());
 
                                             request.setAttribute("respuesta", "Registro ingresado correctamente.");
                                             System.out.println("Action Ingreso Puerto");
@@ -168,6 +171,7 @@ public class ActionPuerto extends Action {
             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
             request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
             request.setAttribute("getIdPais", fo.getIdPais());
+            request.setAttribute("getIdSucursal", fo.getIdSucursal());
 
             ArrayList<Object> resultado = new ArrayList<Object>();
             Connection cn = null;
@@ -196,12 +200,14 @@ public class ActionPuerto extends Action {
                             String NIdMunicipio = fo.getIdMunicipio();
                             String NIdDepartamento = fo.getIdDepartamento();
                             String NIdPais = fo.getIdPais();
+                            String NIdSucursal = fo.getIdSucursal().toString();
                             String AIdPuerto = session.getAttribute("getPuertoIdPuerto").toString();
                             String ANombreCorto = session.getAttribute("getPuertoNombreCorto").toString();
                             String ADescripcion = session.getAttribute("getPuertoDescripcion").toString();
                             String AIdMunicipio = session.getAttribute("getPuertoIdMunicipio").toString();
                             String AIdDepartamento = session.getAttribute("getPuertoIdDepartamento").toString();
                             String AIdPais = session.getAttribute("getPuertoIdPais").toString();
+                            String AIdSucursal = session.getAttribute("getPuertoIdSucursal").toString();
                             String valor_anterior = "";
                             String valor_nuevo = "";
                             if (NIdPuerto.toString().equals(AIdPuerto) == false) {
@@ -248,6 +254,14 @@ public class ActionPuerto extends Action {
                                 valor_nuevo = "id_pais='" + NIdPais + "'";
                                 valor_anterior = "id_pais='" + AIdPais + "'";
                             }
+                            if (NIdSucursal.equals(AIdSucursal) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "id_sucursal='" + NIdSucursal + "'";
+                                valor_anterior = "id_sucursal='" + AIdSucursal + "'";
+                            }
 
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
@@ -270,6 +284,7 @@ public class ActionPuerto extends Action {
                                             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
                                             request.setAttribute("getIdDepartamento", fo.getIdDepartamento());
                                             request.setAttribute("getIdPais", fo.getIdPais());
+                                            request.setAttribute("getIdSucursal", fo.getIdSucursal());
                                             request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
                                             //para validar si se modifico un campo
@@ -278,6 +293,7 @@ public class ActionPuerto extends Action {
                                             session.setAttribute("getPuertoDescripcion", gr.getDescripcion());
                                             session.setAttribute("getPuertoIdMunicipio", gr.getIdMunicipio());
                                             session.setAttribute("getPuertoIdDepartamento", gr.getIdDepartamento());
+                                            session.setAttribute("getPuertoIdSucursal", gr.getIdSucursal());
                                             session.setAttribute("getPuertoIdPais", gr.getIdPais());
 
                                             request.setAttribute("respuesta", "Registro modificado correctamente.");
@@ -355,6 +371,7 @@ public class ActionPuerto extends Action {
             request.setAttribute("getIdMunicipio", "");
             request.setAttribute("getIdDepartamento", "");
             request.setAttribute("getIdPais", "");
+            request.setAttribute("getIdSucursal", "");
             request.setAttribute("getFechaModificacion", "");
             request.setAttribute("getNombreUsu", "");
 
@@ -377,7 +394,7 @@ public class ActionPuerto extends Action {
                         if ((Boolean) resultado3.get(0) == false) {
 
                             ArrayList<Object> resultado4 = new ArrayList<Object>();
-                            String valor_anterior = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio();
+                            String valor_anterior = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "&id_Municipio=" + fo.getIdMunicipio() + "&id_Sucursal=" + fo.getIdSucursal().toString();
                             resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 

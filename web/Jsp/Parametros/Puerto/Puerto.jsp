@@ -90,6 +90,7 @@
                 document.forms[0].idDepartamento.disabled=false;
                 document.forms[0].idPais.value="";
                 document.forms[0].idPais.disabled=false;
+                document.forms[0].idSucursal.value="";
                 document.getElementById('nombreUsu').innerHTML = "";
                 document.getElementById('fechaModificacion').innerHTML = "";
             }
@@ -170,13 +171,13 @@
                 <div>
                     <label for="txtNombreCorto">Nombre Corto</label>
                     <html:text property="nombreCorto" value='<%= String.valueOf(request.getAttribute("getNombreCorto"))%>'></html:text>
-                </div>
-                <div>
-                    <label for="txtDescripcion">Descripcion</label>
+                    </div>
+                    <div>
+                        <label for="txtDescripcion">Descripcion</label>
                     <html:text property="descripcion" value='<%= String.valueOf(request.getAttribute("getDescripcion"))%>'></html:text>
-                </div>
-                <div>
-                    <label for="txtIdPais">Pais</label>
+                    </div>
+                    <div>
+                        <label for="txtIdPais">Pais</label>
                     <% if (request.getAttribute("getIdPuerto") != "") {%> 
                     <html:select property="idPais" styleId="idPais" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
                         <c:forEach items="${CMB_PAIS}" var="cat">
@@ -223,15 +224,22 @@
                     </html:select>
                     <% }%> 
                 </div>
-
-                    <fieldset>
-                        <legend>
-                            [<a class="linkin" href="javascript:toggleLayer('auditoria')">
-                                Auditoría
-                            </a>]
-                        </legend>
-                        <div id="auditoria" style="display: none;">
-                            <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
+                <div>
+                    <label for="txtIdSucursal">Sucursal</label>
+                    <html:select property="idSucursal" styleId="idSucursal" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdSucursal"))%>'>
+                        <c:forEach items="${CMB_SUCURSAL}" var="cat">
+                            <html:option value="${cat.idSucursal}"><c:out value='${cat.nombre}'/></html:option>
+                        </c:forEach>
+                    </html:select>
+                </div>
+                <fieldset>
+                    <legend>
+                        [<a class="linkin" href="javascript:toggleLayer('auditoria')">
+                            Auditoría
+                        </a>]
+                    </legend>
+                    <div id="auditoria" style="display: none;">
+                        <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
                         <label for="txtFechaModificacion">Fecha de Modificación: </label><strong><div id="fechaModificacion"><%= String.valueOf(request.getAttribute("getFechaModificacion"))%></div></strong>
                         <div><br>
                         </div>

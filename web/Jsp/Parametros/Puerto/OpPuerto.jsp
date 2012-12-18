@@ -34,13 +34,12 @@
             }
         %>
         <%
-        if (request.getAttribute("getOp") == "buscar") {
+            if (request.getAttribute("getOp") == "buscar") {
         %>
         <jsp:forward page="/OpPuerto.do">
             <jsp:param name="getOp" value="buscar"/>
         </jsp:forward>
-        <%
-        }
+        <%            }
         %>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -49,9 +48,9 @@
 
             $(function(){ 
                 jQuery("#list4").jqGrid({
-                    url:'Jsp/Puerto/getGriddahico.jsp?op=bus',
+                    url:'Jsp/Parametros/Puerto/getGriddahico.jsp?op=bus',
                     datatype: "json",
-                    colNames:['ID', 'Nombre Corto', 'Descripcion', 'Pais', 'Departamento', 'Municipio', 'Editar'],
+                    colNames:['ID', 'Nombre Corto', 'Descripcion', 'Pais', 'Departamento', 'Municipio', 'Sucursal', 'Editar'],
                     colModel:[
                         {name:'idPuerto',index:'idPuerto', width:50, sortable:false},
                         {name:'nombreCorto',index:'nombreCorto', width:160, sortable:false},
@@ -59,6 +58,7 @@
                         {name:'pais',index:'pais', width:160, sortable:false},
                         {name:'departamento',index:'departamento', width:160, sortable:false},
                         {name:'municipio',index:'municipio', width:160, sortable:false},
+                        {name:'sucursal',index:'sucursal', width:160, sortable:false},
                         {name:'editar',index:'editar', width:110, formatter:'showlink', sortable:false}
                     ],
                     pager: '#prowed1',
@@ -69,6 +69,12 @@
                     caption: "Lista de Puertos"
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
+                $("#bIdPais").change(function(){
+                    $.post("Jsp/Comun/getDepartamentoOp.jsp",{ id:$(this).val() },function(data){$("#bIdDepartamento").html(data);})
+                });
+                $("#bIdDepartamento").change(function(){
+                    $.post("Jsp/Comun/getMunicipioOp.jsp",{ id:$(this).val(), id2:$("#bIdPais").val() },function(data){$("#bIdMunicipio").html(data);})
+                });
             }); 
 
             function buscar(){
@@ -106,9 +112,7 @@
                     <tr>
                         <td>Nombre Corto<input type="text" name="bNombreCorto" value="<%= session.getAttribute("getbNombreCorto")%>"/> </td>
                         <td>Descripcion<input type="text" name="bDescripcion" value="<%= session.getAttribute("getbDescripcion")%>"/> </td>
-                        <td><a class="boton" href="javascript:buscar()">Buscar</a></td>
-                        <td><a class="boton" href="javascript:nuevo()">Nuevo</a></td>
-                        <td><a class="boton" href="javascript:historico()">Historico Eliminados</a></td>
+                        <td colspan="2"><a class="boton" href="javascript:buscar()">Buscar</a> <a class="boton" href="javascript:nuevo()">Nuevo</a> <a class="boton" href="javascript:historico()">Historico Eliminados</a></td>
                     </tr>
                     <tr>
                         <td>Pais<html:select property="bIdPais" styleId="bIdPais" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdPais"))%>'>
@@ -116,19 +120,29 @@
                                 <c:forEach items="${CMB_PAIS}" var="cat">
                                     <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                            </html:select></td>
+                            </html:select>
+                        </td>
                         <td>Departamento<html:select property="bIdDepartamento" styleId="bIdDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdDepartamento"))%>'>
                                 <html:option value=""><c:out value='[Todos]'/></html:option>    
                                 <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
                                     <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                            </html:select></td>
+                            </html:select>
+                        </td>
                         <td>Municipio<html:select property="bIdMunicipio" styleId="bIdMunicipio" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdMunicipio"))%>'>
                                 <html:option value=""><c:out value='[Todos]'/></html:option>    
                                 <c:forEach items="${CMB_MUNICIPIO}" var="cat">
                                     <html:option value="${cat.idMunicipio}"><c:out value='${cat.nombre}'/></html:option>
                                 </c:forEach>
-                            </html:select></td>
+                            </html:select>
+                        </td>
+                        <td>Sucursal<html:select property="bIdSucursal" styleId="bIdSucursal" size="1" style="width:240px;" value='<%= String.valueOf(session.getAttribute("getbIdSucursal"))%>'>
+                                <html:option value=""><c:out value='[Todos]'/></html:option>    
+                                <c:forEach items="${CMB_SUCURSAL}" var="cat">
+                                    <html:option value="${cat.idSucursal}"><c:out value='${cat.descripcion}'/></html:option>
+                                </c:forEach>
+                            </html:select>
+                        </td>
                     </tr>
                 </table>
             </fieldset>
