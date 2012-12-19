@@ -43,7 +43,6 @@
         } else {
             out.print(false);
         }
-        out.close();
     } else {
         op = request.getParameter("identificacion");
         op2 = request.getParameter("idTipoDocumento");
@@ -63,7 +62,6 @@
             } else {
                 out.print(true);
             }
-            out.close();
         }
     }
 %>

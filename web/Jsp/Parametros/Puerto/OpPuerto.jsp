@@ -70,10 +70,28 @@
                 }); 
                 jQuery("#list4").jqGrid('navGrid',"#prowed1",{edit:false,add:false,del:false,search:false});
                 $("#bIdPais").change(function(){
-                    $.post("Jsp/Comun/getDepartamentoOp.jsp",{ id:$(this).val() },function(data){$("#bIdDepartamento").html(data);})
+                    $.post("Jsp/Comun/getDepartamentoOp.jsp",{ 
+                        id:$(this).val() 
+                    },
+                    function(data){
+                        $("#bIdDepartamento").html(data);
+                        $.post("Jsp/Comun/getMunicipioOp.jsp",{
+                            id:document.forms[0].bIdDepartamento.value,
+                            id2:document.forms[0].bIdPais.value 
+                        },
+                        function(data){
+                            $("#bIdMunicipio").html(data);
+                        })
+                    })
                 });
                 $("#bIdDepartamento").change(function(){
-                    $.post("Jsp/Comun/getMunicipioOp.jsp",{ id:$(this).val(), id2:$("#bIdPais").val() },function(data){$("#bIdMunicipio").html(data);})
+                    $.post("Jsp/Comun/getMunicipioOp.jsp",{
+                        id:$(this).val(), 
+                        id2:$("#bIdPais").val() 
+                    },
+                    function(data){
+                        $("#bIdMunicipio").html(data);
+                    })
                 });
             }); 
 

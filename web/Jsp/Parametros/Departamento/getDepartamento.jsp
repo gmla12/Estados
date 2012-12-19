@@ -43,6 +43,5 @@
         } else {
             out.print(false);
         }
-        out.close();
     }
 %>

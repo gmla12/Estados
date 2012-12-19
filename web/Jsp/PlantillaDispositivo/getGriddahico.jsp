@@ -119,7 +119,6 @@
             json = json + "}";
 
             out.print(json);
-            out.close();
         }
     } else {
         String oper = request.getParameter("oper");

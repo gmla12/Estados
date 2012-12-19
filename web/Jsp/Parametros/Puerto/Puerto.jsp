@@ -17,10 +17,9 @@
         <title>Puertos</title>
         <link type="text/css" href="css/ui.all.css" rel="stylesheet" />
         <link type="text/css" href="css/comun.css" rel="stylesheet" />
-        <script type="text/javascript" src="Js/ui/ui.core.js"></script>
-        <script type="text/javascript" src="Js/jquery-1.7.2.min.js"></script>
+        <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="Js/jquery.validate.js"></script>
-        <script type="text/javascript" src="Js/i18n/messages_es.js"></script>
+        <script src="Js/i18n/messages_es.js" type="text/javascript"></script>
         <%
             String usuario = "";
             HttpSession sesionOk = request.getSession();
@@ -76,6 +75,30 @@
                         form.submit();
                         //alert('El formulario ha sido validado correctamente!');
                     }
+                });
+                $("#idPais").change(function(){
+                    $.post("Jsp/Comun/getDepartamento.jsp",{ 
+                        id:$(this).val() 
+                    },
+                    function(data){
+                        $("#idDepartamento").html(data);
+                        $.post("Jsp/Comun/getMunicipio.jsp",{
+                            id:document.forms[0].idDepartamento.value,
+                            idPais:document.forms[0].idPais.value 
+                        },
+                        function(data){
+                            $("#idMunicipio").html(data);
+                        })
+                    })
+                });
+                $("#idDepartamento").change(function(){
+                    $.post("Jsp/Comun/getMunicipio.jsp",{ 
+                        id:$(this).val(), 
+                        idPais:$("#idPais").val() 
+                    },
+                    function(data){
+                        $("#idMunicipio").html(data);
+                    })
                 });
             });
 
@@ -161,74 +184,46 @@
 
                 <input type="hidden" name="op" value=""> 
                 <input type="hidden" name="idPuerto" value='<%= String.valueOf(request.getAttribute("getIdPuerto"))%>'> 
-                <% if (request.getAttribute("getIdPuerto") != "") {%> 
-                <input type="hidden" name="idMunicipio" value='<%= String.valueOf(request.getAttribute("getIdMunicipio"))%>'> 
-                <input type="hidden" name="idDepartamento" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'> 
-                <input type="hidden" name="idPais" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'> 
-                <% }%> 
 
                 <h1>Puertos</h1>
                 <div>
                     <label for="txtNombreCorto">Nombre Corto</label>
                     <html:text property="nombreCorto" value='<%= String.valueOf(request.getAttribute("getNombreCorto"))%>'></html:text>
-                    </div>
-                    <div>
-                        <label for="txtDescripcion">Descripcion</label>
+                </div>
+                <div>
+                    <label for="txtDescripcion">Descripcion</label>
                     <html:text property="descripcion" value='<%= String.valueOf(request.getAttribute("getDescripcion"))%>'></html:text>
-                    </div>
-                    <div>
-                        <label for="txtIdPais">Pais</label>
-                    <% if (request.getAttribute("getIdPuerto") != "") {%> 
-                    <html:select property="idPais" styleId="idPais" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
-                        <c:forEach items="${CMB_PAIS}" var="cat">
-                            <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
-                        </c:forEach>
-                    </html:select>
-                    <% } else {%> 
+                </div>
+                <div>
+                    <label for="txtIdPais">Pais</label>
                     <html:select property="idPais" styleId="idPais" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdPais"))%>'>
                         <c:forEach items="${CMB_PAIS}" var="cat">
                             <html:option value="${cat.idPais}"><c:out value='${cat.nombre}'/></html:option>
                         </c:forEach>
                     </html:select>
-                    <% }%> 
                 </div>
                 <div>
                     <label for="txtIdDepartamento">Departamento</label>
-                    <% if (request.getAttribute("getIdPuerto") != "") {%> 
-                    <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'>
-                        <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
-                            <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
-                        </c:forEach>
-                    </html:select>
-                    <% } else {%> 
                     <html:select property="idDepartamento" styleId="idDepartamento" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdDepartamento"))%>'>
                         <c:forEach items="${CMB_DEPARTAMENTO}" var="cat">
                             <html:option value="${cat.idDepartamento}"><c:out value='${cat.nombre}'/></html:option>
                         </c:forEach>
                     </html:select>
-                    <% }%> 
                 </div>
                 <div>
                     <label for="txtIdMunicipio">Municipio</label>
-                    <% if (request.getAttribute("getIdPuerto") != "") {%> 
-                    <html:select property="idMunicipio" styleId="idMunicipio" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdMunicipio"))%>'>
-                        <c:forEach items="${CMB_MUNICIPIO}" var="cat">
-                            <html:option value="${cat.idMunicipio}"><c:out value='${cat.nombre}'/></html:option>
-                        </c:forEach>
-                    </html:select>
-                    <% } else {%> 
                     <html:select property="idMunicipio" styleId="idMunicipio" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdMunicipio"))%>'>
                         <c:forEach items="${CMB_MUNICIPIO}" var="cat">
                             <html:option value="${cat.idMunicipio}"><c:out value='${cat.nombre}'/></html:option>
                         </c:forEach>
                     </html:select>
-                    <% }%> 
                 </div>
                 <div>
                     <label for="txtIdSucursal">Sucursal</label>
                     <html:select property="idSucursal" styleId="idSucursal" size="1" style="width:240px;" value='<%= String.valueOf(request.getAttribute("getIdSucursal"))%>'>
+                            <html:option value=""><c:out value='[Seleccione]'/></html:option>
                         <c:forEach items="${CMB_SUCURSAL}" var="cat">
-                            <html:option value="${cat.idSucursal}"><c:out value='${cat.nombre}'/></html:option>
+                            <html:option value="${cat.idSucursal}"><c:out value='${cat.nombreCorto}'/></html:option>
                         </c:forEach>
                     </html:select>
                 </div>

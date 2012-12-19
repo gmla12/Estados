@@ -116,7 +116,6 @@
         json = json + "}";
 
         out.print(json);
-        out.close();
     } else {
         int id = Integer.valueOf(request.getParameter("id"));
         String column = String.valueOf(request.getParameter("column"));

@@ -98,7 +98,7 @@ public class GestionPuerto extends ConeccionMySql {
     }
     private ArrayList<Object> GR_PUERTO;
 
-    public ArrayList<Object> MostrarSucursal(Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarPuerto(Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave = null;
@@ -260,22 +260,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(5, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(6, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(6, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(5, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(5, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -285,22 +285,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(5, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -313,22 +313,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(5, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -338,22 +338,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(2, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -369,22 +369,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(4, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(5, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(5, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -394,22 +394,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(2, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -422,22 +422,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(3, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(4, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(4, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(2, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }
@@ -447,22 +447,22 @@ public class GestionPuerto extends ConeccionMySql {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(2, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(3, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(3, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(2, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         } else {
                             if (f.getbIdPais().isEmpty() != true) {
                                 psSelectConClave.setString(1, f.getbIdPais());
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(2, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(2, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             } else {
                                 if (f.getbIdSucursal().isEmpty() != true) {
-                                    psSelectConClave.setInt(1, Integer.getInteger(f.getbIdSucursal()));
+                                    psSelectConClave.setInt(1, Integer.parseInt(f.getbIdSucursal()));
                                 }
                             }
                         }

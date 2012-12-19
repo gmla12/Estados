@@ -118,7 +118,6 @@
             json = json + "}";
 
             out.print(json);
-            out.close();
         } else {
             if (op.equals("del")) {
                 int id = Integer.parseInt(String.valueOf(request.getParameter("id")));

@@ -47,10 +47,8 @@
 
             }
 
-            out.close();
         } else {
             out.print(false);
         }
-        out.close();
     }
 %>
