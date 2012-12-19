@@ -184,6 +184,7 @@
 
                 <input type="hidden" name="op" value=""> 
                 <input type="hidden" name="idPuerto" value='<%= String.valueOf(request.getAttribute("getIdPuerto"))%>'> 
+                <input type="hidden" name="idUsu" value=""> 
 
                 <h1>Puertos</h1>
                 <div>
