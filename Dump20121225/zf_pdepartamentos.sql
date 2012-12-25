@@ -1,0 +1,60 @@
+CREATE DATABASE  IF NOT EXISTS `zf` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `zf`;
+-- MySQL dump 10.13  Distrib 5.5.28, for debian-linux-gnu (i686)
+--
+-- Host: localhost    Database: zf
+-- ------------------------------------------------------
+-- Server version	5.5.28-0ubuntu0.12.10.2
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `pdepartamentos`
+--
+
+DROP TABLE IF EXISTS `pdepartamentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pdepartamentos` (
+  `id` varchar(2) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `pPaises_id` varchar(3) NOT NULL,
+  `sUsuarios_id` int(11) NOT NULL,
+  `fecha_modificacion` datetime NOT NULL,
+  PRIMARY KEY (`id`,`pPaises_id`),
+  KEY `fk_departamentos_pPaises1_idx` (`pPaises_id`),
+  KEY `fk_departamentos_sUsuarios1_idx` (`sUsuarios_id`),
+  CONSTRAINT `fk_departamentos_pPaises1` FOREIGN KEY (`pPaises_id`) REFERENCES `ppaises` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_departamentos_sUsuarios1` FOREIGN KEY (`sUsuarios_id`) REFERENCES `susuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pdepartamentos`
+--
+
+LOCK TABLES `pdepartamentos` WRITE;
+/*!40000 ALTER TABLE `pdepartamentos` DISABLE KEYS */;
+INSERT INTO `pdepartamentos` VALUES ('05','ANTIOQUIA','090',1,'2012-11-29 03:33:00'),('08','ATLANTICO','090',1,'2012-11-29 03:33:00'),('11','BOGOTA','090',1,'2012-11-29 03:33:00'),('13','BOLIVAR','090',1,'2012-11-29 03:33:00'),('15','BOYACA','090',1,'2012-11-29 03:33:00'),('17','CALDAS','090',1,'2012-11-29 03:33:00'),('18','CAQUETA','090',1,'2012-11-29 03:33:00'),('19','CAUCA','090',1,'2012-11-29 03:33:00'),('20','CESAR','090',1,'2012-11-29 03:33:00'),('23','CORDOBA','090',1,'2012-11-29 03:33:00'),('25','CUNDINAMARCA','090',1,'2012-11-29 03:33:00'),('27','CHOCO','090',1,'2012-11-29 03:33:00'),('41','HUILA','090',1,'2012-11-29 03:33:00'),('44','GUAJIRA','090',1,'2012-11-29 03:33:00'),('47','MAGDALENA','090',1,'2012-11-29 03:33:00'),('50','META','090',1,'2012-11-29 03:33:00'),('52','NARIÑO','090',1,'2012-11-29 03:33:00'),('54','NORTE DE SANTANDER','090',1,'2012-11-29 03:33:00'),('63','QUINDIO','090',1,'2012-11-29 03:33:00'),('66','RISARALDA','090',1,'2012-11-29 03:33:00'),('68','SANTANDER','090',1,'2012-11-29 03:33:00'),('70','SUCRE','090',1,'2012-11-29 03:33:00'),('73','TOLIMA','090',1,'2012-11-29 03:33:00'),('76','VALLE DEL CAUCA','090',1,'2012-11-29 03:33:00'),('81','ARAUCA','090',1,'2012-11-29 03:33:00'),('85','CASANARE','090',1,'2012-11-29 03:33:00'),('86','PUTUMAYO','090',1,'2012-11-29 03:33:00'),('88','SAN ANDRES','090',1,'2012-11-29 03:33:00'),('91','AMAZONAS','090',1,'2012-11-29 03:33:00'),('94','GUAINIA','090',1,'2012-11-29 03:33:00'),('95','GUAVIARE','090',1,'2012-11-29 03:33:00'),('97','VAUPES','090',1,'2012-11-29 03:33:00'),('99','VICHADA','090',1,'2012-11-29 03:33:00');
+/*!40000 ALTER TABLE `pdepartamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-12-25 11:39:54
