@@ -13,19 +13,19 @@ import java.io.Serializable;
  */
 public class BeanDO implements Serializable{
 
-    private Object idDO;
+    private Object idDOs;
     private Object DO;
     private Object idCliente;
     private Object pedido;
     private Object referencia;
     private Object descripcion;
 
-    public Object getIdDO() {
-        return idDO;
+    public Object getIdDOs() {
+        return idDOs;
     }
 
-    public void setIdDO(Object idDO) {
-        this.idDO = idDO;
+    public void setIdDOs(Object idDOs) {
+        this.idDOs = idDOs;
     }
 
     public Object getPedido() {

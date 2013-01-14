@@ -166,7 +166,7 @@ public class ActionDOOp extends Action {
             } else {
                 System.out.println("Nuevo ActionDOOP");
 
-                request.setAttribute("getOp2", "nuevo"); //valida si se modifica o es nuevo
+                request.setAttribute("getIdDOs", "");
                 request.setAttribute("getDO", "");
                 request.setAttribute("getIdCliente", "");
                 request.setAttribute("getCliente", "");
@@ -175,7 +175,7 @@ public class ActionDOOp extends Action {
                 request.setAttribute("getBL", "");
                 request.setAttribute("getIdPuerto", "");
                 request.setAttribute("getObservaciones", "");
-
+                //Pendiente: colocar los campos de los items en vacio
                 return mapping.findForward("nuevo");
 
             }

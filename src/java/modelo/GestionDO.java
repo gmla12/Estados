@@ -50,15 +50,50 @@ public class GestionDO extends ConeccionMySql {
                 cn = tCn;
 
             }
-
-            psInsertar = cn.prepareStatement("insert into DOs (do, idCliente, idSucursal, lote, bl, idPuerto, observaciones, idDO) values (?,?,?,?,?,?,?,null)", PreparedStatement.RETURN_GENERATED_KEYS);
+            String query = "insert into DOs (do, lote, bl, observaciones";
+            String query2 = "values (?,?,?,?";
+            if(f.getIdCliente() != 0){
+                query += ", entidades_id";
+                query2 += ",?";
+            }
+            if(f.getIdSucursal() != 0){
+                query += ", sucursal_id";
+                query2 += ",?";
+            }
+            if(f.getIdPuerto() != 0){
+                query += ", puerto_id";
+                query2 += ",?";
+            }
+            if(f.getIdTipoMercancia() != 0){
+                query += ", tipo_mercancia_id";
+                query2 += ",?";
+            }
+            query += ", sUsuarios_id, fecha_modificacion, id) ";
+            query2 += ",?,now(),null)";
+            query = query + query2;
+            psInsertar = cn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             psInsertar.setString(1, f.getDO());
-            psInsertar.setInt(2, f.getIdCliente());
-            psInsertar.setInt(3, f.getIdSucursal());
-            psInsertar.setString(4, f.getLote());
-            psInsertar.setString(5, f.getBL());
-            psInsertar.setInt(6, f.getIdPuerto());
-            psInsertar.setString(7, f.getObservaciones());
+            psInsertar.setString(2, f.getLote());
+            psInsertar.setString(3, f.getBL());
+            psInsertar.setString(4, f.getObservaciones());
+            int i = 5;
+            if(f.getIdCliente() != 0){
+                psInsertar.setInt(i, f.getIdCliente());
+                i++;
+            }
+            if(f.getIdSucursal() != 0){
+                psInsertar.setInt(i, f.getIdSucursal());
+                i++;
+            }
+            if(f.getIdPuerto() != 0){
+                psInsertar.setInt(i, f.getIdPuerto());
+                i++;
+            }
+            if(f.getIdTipoMercancia() != 0){
+                psInsertar.setInt(i, f.getIdTipoMercancia());
+                i++;
+            }
+            psInsertar.setInt(i, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -130,7 +165,7 @@ public class GestionDO extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.DO, p.idCliente FROM DOs p");
+            psSelectConClave = cn.prepareStatement("SELECT p.DO, p.entidades_id FROM DOs p");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanDO bu;
@@ -138,7 +173,7 @@ public class GestionDO extends ConeccionMySql {
                 bu = new BeanDO();
 
                 bu.setDO(rs.getObject("p.DO"));
-                bu.setIdCliente(rs.getObject("p.idCliente"));
+                bu.setIdCliente(rs.getObject("p.entidades_id"));
 
                 GR_DO.add(bu);
 
@@ -203,8 +238,8 @@ public class GestionDO extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idDO, p.DO, p.idCliente, IF(r.pedido <> NULL, r.pedido, '') as 'r.pedido', IF(r.referencia <> NULL, r.referencia, '') as 'r.referencia', IF(r.descripcion <> NULL, r.descripcion, '') as 'r.descripcion' ";
-            query += "FROM DOs p LEFT JOIN itemsDOs r ON p.idDO = r.idDO ";
+            String query = "SELECT p.id, p.DO, p.entidades_id, IF(r.pedido <> NULL, r.pedido, '') as 'r.pedido', IF(r.referencia <> NULL, r.referencia, '') as 'r.referencia', IF(r.descripcion <> NULL, r.descripcion, '') as 'r.descripcion' ";
+            query += "FROM DOs p LEFT JOIN items_DOs r ON p.id = r.DOs_id ";
             String query2 = "";
             if (f.getbDO().isEmpty() != true) {
                 query2 = "p.DO = ?";
@@ -213,7 +248,7 @@ public class GestionDO extends ConeccionMySql {
                 if (query2.equals("") != true) {
                     query2 = query2 + " AND ";
                 }
-                query2 = query2 + "p.idCliente = ?";
+                query2 = query2 + "p.entidades_id = ?";
             }
 
             if (query2.isEmpty() != true) {
@@ -236,9 +271,9 @@ public class GestionDO extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanDO();
 
-                bu.setIdDO(rs.getObject("p.idDO"));
+                bu.setIdDOs(rs.getObject("p.id"));
                 bu.setDO(rs.getObject("p.DO"));
-                bu.setIdCliente(rs.getObject("p.idCliente"));
+                bu.setIdCliente(rs.getObject("p.entidades_id"));
                 bu.setPedido(rs.getObject("r.pedido"));
                 bu.setReferencia(rs.getObject("r.referencia"));
                 bu.setDescripcion(rs.getObject("r.descripcion"));
@@ -376,8 +411,8 @@ public class GestionDO extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM DOs WHERE  idDO = ?");
-            psDelete.setInt(1, f.getIdDO());
+            psDelete = cn.prepareStatement("DELETE FROM DOs WHERE id = ?");
+            psDelete.setInt(1, f.getIdDOs());
             psDelete.executeUpdate();
 
             mod = psDelete.getUpdateCount();
@@ -439,19 +474,23 @@ public class GestionDO extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.DO, p.idCliente, p.idSucursal, p.lote, p.BL, p.idPuerto, p.observaciones FROM DOs p WHERE p.idDO = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.DO, p.entidades_id, p.sucursal_id, p.lote, p.BL, p.puerto_id, p.tipo_mercancia_id, p.observaciones, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM DOs p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
             psSelectConClave.setString(1, DO);
             ResultSet rs = psSelectConClave.executeQuery();
 
             while (rs.next()) {
 
+                setIdDOs(rs.getObject("p.id"));
                 setDO(rs.getObject("p.DO"));
-                setIdCliente(rs.getObject("p.idCliente"));
-                setIdSucursal(rs.getObject("p.idSucursal"));
+                setIdCliente(rs.getObject("p.entidades_id"));
+                setIdSucursal(rs.getObject("p.sucursal_id"));
                 setLote(rs.getObject("p.lote"));
                 setBL(rs.getObject("p.BL"));
-                setIdPuerto(rs.getObject("p.idPuerto"));
+                setIdPuerto(rs.getObject("p.puerto_id"));
+                setIdTipoMercancia(rs.getObject("p.tipo_mercancia_id"));
                 setObservaciones(rs.getObject("p.observaciones"));
+                setNombreUsu(rs.getObject("nombre_usu"));
+                setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
             }
 
@@ -639,13 +678,49 @@ public class GestionDO extends ConeccionMySql {
 //        return GR_USUARIOS2;
 //    }
 //}
+    private Object idDOs;
     private Object DO;
     private Object idCliente;
     private Object idSucursal;
     private Object Lote;
     private Object BL;
     private Object idPuerto;
+    private Object idTipoMercancia;
     private Object observaciones;
+    private Object nombreUsu;
+    private Object fechaModificacion;
+
+    public Object getIdTipoMercancia() {
+        return idTipoMercancia;
+    }
+
+    public void setIdTipoMercancia(Object idTipoMercancia) {
+        this.idTipoMercancia = idTipoMercancia;
+    }
+
+    public Object getNombreUsu() {
+        return nombreUsu;
+    }
+
+    public void setNombreUsu(Object nombreUsu) {
+        this.nombreUsu = nombreUsu;
+    }
+
+    public Object getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Object fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Object getIdDOs() {
+        return idDOs;
+    }
+
+    public void setIdDOs(Object idDOs) {
+        this.idDOs = idDOs;
+    }
     
     public Object getObservaciones() {
         return observaciones;

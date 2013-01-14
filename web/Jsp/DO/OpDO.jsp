@@ -107,16 +107,16 @@
                     <tr>
                         <td>Sucursal<html:select property="bSucursal"  size="1" style="width:150px;" value='<%= String.valueOf(session.getAttribute("getbSucursal"))%>'>
                                 <html:option value=""><c:out value='[Todos]'/></html:option>    
-                                <c:forEach items="${CMB_SUCURSAL}" var="cat">
+                                <%--<c:forEach items="${CMB_SUCURSAL}" var="cat">
                                     <html:option value="${cat.idSucursal}"><c:out value='${cat.nombre}'/></html:option>
-                                </c:forEach>
+                                </c:forEach>--%>
                             </html:select>
                         </td>
                         <td>Puerto<html:select property="bPuerto"  size="1" style="width:150px;" value='<%= String.valueOf(session.getAttribute("getbPuerto"))%>'>
                                 <html:option value=""><c:out value='[Todos]'/></html:option>    
-                                <c:forEach items="${CMB_PUERTO}" var="cat">
+                                <%--<c:forEach items="${CMB_PUERTO}" var="cat">
                                     <html:option value="${cat.idPuerto}"><c:out value='${cat.nombre}'/></html:option>
-                                </c:forEach>
+                                </c:forEach>--%>
                             </html:select>
                         </td>
                         <td>

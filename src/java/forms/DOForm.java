@@ -13,15 +13,33 @@ import org.apache.struts.action.ActionForm;
  * @author Mario
  */
 public class DOForm extends ActionForm{
-    private int idDO;
+    private int idDOs;
     private String DO;
     private int idCliente;
     private int idSucursal;
     private String lote;
     private String BL;
     private int idPuerto;
+    private int idTipoMercancia;
     private String observaciones;
     private String op;
+    private int idUsu;
+
+    public int getIdTipoMercancia() {
+        return idTipoMercancia;
+    }
+
+    public void setIdTipoMercancia(int idTipoMercancia) {
+        this.idTipoMercancia = idTipoMercancia;
+    }
+
+    public int getIdUsu() {
+        return idUsu;
+    }
+
+    public void setIdUsu(int idUsu) {
+        this.idUsu = idUsu;
+    }
 
     public String getOp() {
         return op;
@@ -31,12 +49,12 @@ public class DOForm extends ActionForm{
         this.op = op;
     }
 
-    public int getIdDO() {
-        return idDO;
+    public int getIdDOs() {
+        return idDOs;
     }
 
-    public void setIdDO(int idDO) {
-        this.idDO = idDO;
+    public void setIdDOs(int idDOs) {
+        this.idDOs = idDOs;
     }
 
     public String getObservaciones() {

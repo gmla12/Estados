@@ -304,8 +304,8 @@ public class GestionEntidad extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idEntidad, IF(primernombre <> NULL AND primerapellido <> NULL, razonSocial, CONCAT(IF(primernombre <> NULL,'',CONCAT(primernombre,' ')), IF(segundonombre <> NULL,'',CONCAT(segundonombre,' ')), IF(primerapellido <> NULL,'',CONCAT(primerapellido,' ')), IF(segundoapellido <> NULL,'',CONCAT(segundoapellido,' ')))) as nombre, p.idTipoDocumento, p.identificacion, r.nombre ";
-            query += "FROM entidad p INNER JOIN tipoDocumento r ON p.idTipoDocumento = r.idTipoDocumento ";
+            String query = "SELECT p.id, IF(primernombre <> NULL AND primerapellido <> NULL, razonSocial, CONCAT(IF(primernombre <> NULL,'',CONCAT(primernombre,' ')), IF(segundonombre <> NULL,'',CONCAT(segundonombre,' ')), IF(primerapellido <> NULL,'',CONCAT(primerapellido,' ')), IF(segundoapellido <> NULL,'',CONCAT(segundoapellido,' ')))) as nombre, p.idTipoDocumento, p.identificacion, r.nombre ";
+            query += "FROM entidades p INNER JOIN tipoDocumento r ON p.idTipoDocumento = r.idTipoDocumento ";
             String query2 = "";
             if (f.getbNombre().isEmpty() != true) {
                 query2 += "(p.primernombre LIKE CONCAT('%',?,'%')";
@@ -437,8 +437,8 @@ public class GestionEntidad extends ConeccionMySql {
 
             }
 
-            String query = "SELECT p.idEntidad, IF(primernombre <> NULL AND primerapellido <> NULL, razonSocial, CONCAT(IF(primernombre <> NULL,'',CONCAT(primernombre,' ')), IF(segundonombre <> NULL,'',CONCAT(segundonombre,' ')), IF(primerapellido <> NULL,'',CONCAT(primerapellido,' ')), IF(segundoapellido <> NULL,'',CONCAT(segundoapellido,' ')))) as nombre ";
-            query += "FROM entidad p";
+            String query = "SELECT p.id, IF(primer_nombre <> NULL AND primer_apellido <> NULL, razon_Social, CONCAT(IF(primer_nombre <> NULL,'',CONCAT(primer_nombre,' ')), IF(segundo_nombre <> NULL,'',CONCAT(segundo_nombre,' ')), IF(primer_apellido <> NULL,'',CONCAT(primer_apellido,' ')), IF(segundo_apellido <> NULL,'',CONCAT(segundo_apellido,' ')))) as nombre ";
+            query += "FROM entidades p";
 
             System.out.println("***********************************************");
             System.out.println("*****       Cargando grilla  GR_ENTIDAD  *****");
@@ -450,7 +450,7 @@ public class GestionEntidad extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanEntidad();
 
-                bu.setIdEntidad(rs.getObject("p.idEntidad"));
+                bu.setIdEntidad(rs.getObject("p.id"));
                 bu.setNombre(rs.getObject("nombre"));
 
                 GR_ENTIDAD.add(bu);
