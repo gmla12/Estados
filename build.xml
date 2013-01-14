@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Estados_de_Mercancia" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Estados de Mercancia.</description>
+<project name="ZF" default="default" basedir=".">
+    <description>Builds, tests, and runs the project ZF.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
