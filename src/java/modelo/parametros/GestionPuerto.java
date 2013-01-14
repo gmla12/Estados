@@ -51,14 +51,22 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, psucursales_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            if (f.getIdSucursal() == 0) {
+                psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departamentos_ppaises_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            } else {
+                psInsertar = cn.prepareStatement("insert into pPuerto (id, nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departamentos_ppaises_id, psucursales_id, susuarios_id, fecha_modificacion) values (null,?,?,?,?,?,?,?, now())", PreparedStatement.RETURN_GENERATED_KEYS);
+            }
             psInsertar.setString(1, f.getNombreCorto());
             psInsertar.setString(2, f.getDescripcion());
             psInsertar.setString(3, f.getIdMunicipio());
             psInsertar.setString(4, f.getIdDepartamento());
             psInsertar.setString(5, f.getIdPais());
-            psInsertar.setInt(6, f.getIdSucursal());
-            psInsertar.setInt(7, f.getIdUsu());
+            if (f.getIdSucursal() != 0) {
+                psInsertar.setInt(6, f.getIdSucursal());
+                psInsertar.setInt(7, f.getIdUsu());
+            } else {
+                psInsertar.setInt(6, f.getIdUsu());
+            }
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -130,7 +138,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, p.psucursales_id FROM pPuerto p ");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, descripcion, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departamentos_ppaises_id, p.psucursales_id FROM pPuerto p ");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanPuerto bu;
@@ -546,7 +554,12 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            String query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, psucursales_id = ?, susuarios_id = ?, fecha_modificacion = now";
+            String query;
+            if (f.getIdSucursal() != 0) {
+                query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, psucursales_id = ?, susuarios_id = ?, fecha_modificacion = now()";
+            } else {
+                query = "UPDATE pPuerto SET nombre_corto = ?, descripcion = ?, pmunicipios_id = ?, pmunicipios_departamentos_id = ?, pmunicipios_departamentos_ppaises_id = ?, susuarios_id = ?, fecha_modificacion = now()";
+            }
             query += " WHERE id = ?";
             psUpdate = cn.prepareStatement(query);
             psUpdate.setString(1, f.getNombreCorto());
@@ -554,9 +567,15 @@ public class GestionPuerto extends ConeccionMySql {
             psUpdate.setString(3, f.getIdMunicipio());
             psUpdate.setString(4, f.getIdDepartamento());
             psUpdate.setString(5, f.getIdPais());
-            psUpdate.setInt(6, f.getIdSucursal());
-            psUpdate.setInt(7, f.getIdUsu());
-            psUpdate.setInt(8, f.getIdPuerto());
+            if (f.getIdSucursal() != 0) {
+                psUpdate.setInt(6, f.getIdSucursal());
+                psUpdate.setInt(7, f.getIdUsu());
+                psUpdate.setInt(8, f.getIdPuerto());
+            } else {
+                psUpdate.setInt(6, f.getIdUsu());
+                psUpdate.setInt(7, f.getIdPuerto());
+
+            }
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -682,7 +701,7 @@ public class GestionPuerto extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, pmunicipios_id, pmunicipios_departamentos_id, pmunicipios_departmentos_ppaises_id, psucursales_id, susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, fecha_modificacion FROM pPuerto p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.nombre_corto, p.descripcion, p.pmunicipios_id, p.pmunicipios_departamentos_id, p.pmunicipios_departamentos_ppaises_id, p.psucursales_id, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM pPuerto p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
             psSelectConClave.setInt(1, IdPuerto);
             ResultSet rs = psSelectConClave.executeQuery();
 
@@ -690,14 +709,14 @@ public class GestionPuerto extends ConeccionMySql {
             while (rs.next()) {
                 bu = new BeanPuerto();
 
-                setIdSucursal(rs.getObject("p.id"));
+                setIdPuerto(rs.getObject("p.id"));
                 setNombreCorto(rs.getObject("p.nombre_corto"));
                 setDescripcion(rs.getObject("p.descripcion"));
                 setIdMunicipio(rs.getObject("p.pmunicipios_id"));
                 setIdDepartamento(rs.getObject("p.pmunicipios_departamentos_id"));
-                setIdPais(rs.getObject("p.pmunicipios_departmentos_ppaises_id"));
+                setIdPais(rs.getObject("p.pmunicipios_departamentos_ppaises_id"));
                 setIdSucursal(rs.getObject("p.psucursales_id"));
-                setNombreUsu(rs.getObject("p.nombre_usu"));
+                setNombreUsu(rs.getObject("nombre_usu"));
                 setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
             }

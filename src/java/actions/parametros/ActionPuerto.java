@@ -63,14 +63,16 @@ public class ActionPuerto extends Action {
                     ArrayList<Object> resultado2 = new ArrayList<Object>();
                     resultado2 = gr.IngresaPuerto(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
+                        
+                        fo.setIdPuerto(Integer.valueOf(resultado2.get(1).toString()));
 
                         ArrayList<Object> resultado3 = new ArrayList<Object>();
                         resultado3 = gA.BuscarFormulario("puerto", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
                             ArrayList<Object> resultado4 = new ArrayList<Object>();
-                            String valor_nuevo = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio() + "id_Sucursal=" + fo.getIdSucursal();
-                            resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais() + fo.getIdDepartamento() + fo.getIdMunicipio(), true, cn);
+                            String valor_nuevo = "id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio() + "id_Sucursal=" + fo.getIdSucursal();
+                            resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
                                 ArrayList<Object> resultado5 = new ArrayList<Object>();
@@ -85,7 +87,7 @@ public class ActionPuerto extends Action {
                                         resultado7 = gr.MostrarPuertoFormulario(fo.getIdPuerto(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
-                                            request.setAttribute("getIdPuerto", resultado2.get(1));
+                                            request.setAttribute("getIdPuerto", fo.getIdPuerto());
                                             request.setAttribute("getNombreCorto", fo.getNombreCorto());
                                             request.setAttribute("getDescripcion", fo.getDescripcion());
                                             request.setAttribute("getIdMunicipio", fo.getIdMunicipio());
@@ -394,7 +396,7 @@ public class ActionPuerto extends Action {
                         if ((Boolean) resultado3.get(0) == false) {
 
                             ArrayList<Object> resultado4 = new ArrayList<Object>();
-                            String valor_anterior = "&id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "&id_Municipio=" + fo.getIdMunicipio() + "&id_Sucursal=" + fo.getIdSucursal().toString();
+                            String valor_anterior = "id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "&id_Municipio=" + fo.getIdMunicipio() + "&id_Sucursal=" + fo.getIdSucursal().toString();
                             resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
