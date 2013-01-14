@@ -34,6 +34,7 @@
         <form-bean name="OpFactura" type="forms.FacturaOpForm"/>
         <form-bean name="DO" type="forms.DOForm"/>
         <form-bean name="OpDO" type="forms.DOOpForm"/>
+        <form-bean name="FMM" type="forms.FMMForm"/>
         <form-bean name="Auditoria" type="forms.log.AuditoriaForm"/>
         <form-bean name="Auditoria2" type="forms.log.AuditoriaForm"/>
     </form-beans>
@@ -193,6 +194,17 @@
             <forward name="ok" path="/Jsp/DO/OpDO.jsp"/>
             <forward name="modificar" path="/Jsp/DO/DO.jsp"/>
             <forward name="nuevo" path="/Jsp/DO/DO.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/FMM/FMM.jsp" name="FMM" path="/FMM" scope="session" type="actions.ActionFMM">
+            <forward name="ok" path="/Jsp/FMM/FMM.jsp"/>
+            <forward name="atras" path="/Jsp/FMM/OpFMM.jsp"/>
+            <forward name="error" path="/Jsp/error.jsp" />
+        </action>
+        <action input="/Jsp/FMM/OpFMM.jsp" name="OpFMM" path="/OpFMM" scope="request" type="actions.ActionFMMOp" validate="false">
+            <forward name="ok" path="/Jsp/FMM/OpFMM.jsp"/>
+            <forward name="modificar" path="/Jsp/FMM/FMM.jsp"/>
+            <forward name="nuevo" path="/Jsp/FMM/FMM.jsp"/>
             <forward name="error" path="/Jsp/error.jsp" />
         </action>
         <action input="/Jsp/Log/Auditoria/Auditoria.jsp" name="Auditoria" path="/Auditoria" scope="request" type="actions.log.ActionAuditoria" validate="false">
