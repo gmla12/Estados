@@ -208,11 +208,6 @@
                     addTab("DOs", "OpDO.do");
                 }); 
                 
-                $('#fmm').click(function(e) {
-                    e.preventDefault();
-                    addTab("FMMs", "OpFMM.do");
-                }); 
-                
                 $('#cerrar').click(function(e) {
                     e.preventDefault();
                     window.parent.location.href = 'Jsp/CerrarSesion.jsp';
@@ -261,7 +256,6 @@
                     <ul>
                         <li><a id="do" href='#'><span>DOs</span></a></li>
                         <li><a id="factura" href='#'><span>Factura</span></a></li>
-                        <li><a id="fmm" href='#'><span>FMMs</span></a></li>
                     </ul>
                 </li>
                 <li class='has-sub'><a href='#'><span>Seguridad</span></a>
