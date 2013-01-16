@@ -107,7 +107,7 @@
             json = json + ",\"" + buDO2.getPedido() + "\"";
             json = json + ",\"" + buDO2.getReferencia() + "\"";
             json = json + ",\"" + buDO2.getDescripcion() + "\"";
-            String aux2 = "<a href='javascript:modifica(&quot;" + buDO2.getIdDO() + "&quot;)'>Modificar</a>";
+            String aux2 = "<a href='javascript:modifica(&quot;" + buDO2.getIdDOs() + "&quot;)'>Modificar</a>";
             json = json + ",\"" + aux2 + "\"]";
             json = json + "}";
 

@@ -71,14 +71,27 @@ public class ActionDOOp extends Action {
                 resultado = gr.MostrarDOFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    request.setAttribute("getOp2", "modificar"); //valida si se modifica o es nuevo
+                    request.setAttribute("getIdDOs", gr.getIdDOs());
                     request.setAttribute("getDO", gr.getDO());
                     request.setAttribute("getIdCliente", gr.getIdCliente());
+                    request.setAttribute("getIdSucursal", gr.getIdSucursal());
+                    request.setAttribute("getIdPuerto", gr.getIdPuerto());
                     request.setAttribute("getLote", gr.getLote());
                     request.setAttribute("getBL", gr.getBL());
-                    request.setAttribute("getIdPuerto", gr.getIdPuerto());
-                    session.setAttribute("getIdSucursal", gr.getIdSucursal());
-                    session.setAttribute("getObservaciones", gr.getObservaciones());
+                    request.setAttribute("getIdTipoMercancia", gr.getIdTipoMercancia());
+                    request.setAttribute("getObservaciones", gr.getObservaciones());
+                    request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                    request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                    //para validar si se modifico un campo
+                    session.setAttribute("getDOIdDOs", gr.getIdDOs());
+                    session.setAttribute("getDODO", gr.getDO());
+                    session.setAttribute("getDOIdCliente", gr.getIdCliente());
+                    session.setAttribute("getDOIdSucursal", gr.getIdSucursal());
+                    session.setAttribute("getDOIdPuerto", gr.getIdPuerto());
+                    session.setAttribute("getDOLote", gr.getLote());
+                    session.setAttribute("getDOBL", gr.getBL());
+                    session.setAttribute("getDOIdTipoMercancia", gr.getIdTipoMercancia());
+                    session.setAttribute("getDOObservaciones", gr.getObservaciones());
 
 //                    ArrayList<Object> GR_CARACTERISTICAPLANTILLA;
 //                    ArrayList<Object> GR_PlantillaDisponible;
