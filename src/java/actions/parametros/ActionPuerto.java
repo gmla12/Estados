@@ -299,7 +299,7 @@ public class ActionPuerto extends Action {
                                             session.setAttribute("getPuertoIdPais", gr.getIdPais());
 
                                             request.setAttribute("respuesta", "Registro modificado correctamente.");
-                                            System.out.println("Action Modicar Puerto");
+                                            System.out.println("Action Modificar Puerto");
                                             return mapping.findForward("ok");
 
                                         } else {

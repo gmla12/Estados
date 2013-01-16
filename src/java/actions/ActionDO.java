@@ -101,6 +101,7 @@ public class ActionDO extends Action {
                                             request.setAttribute("getLote", gr.getLote());
                                             request.setAttribute("getBL", gr.getBL());
                                             request.setAttribute("getIdTipoMercancia", gr.getIdTipoMercancia());
+                                            request.setAttribute("getObservaciones", gr.getObservaciones());
                                             request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
                                             request.setAttribute("getNombreUsu", gr.getNombreUsu());
                                             //para validar si se modifico un campo
@@ -111,7 +112,8 @@ public class ActionDO extends Action {
                                             session.setAttribute("getDOIdPuerto", gr.getIdPuerto());
                                             session.setAttribute("getDOLote", gr.getLote());
                                             session.setAttribute("getDOBL", gr.getBL());
-                                            request.setAttribute("getDOIdTipoMercancia", gr.getIdTipoMercancia());
+                                            session.setAttribute("getDOIdTipoMercancia", gr.getIdTipoMercancia());
+                                            session.setAttribute("getDOObservaciones", gr.getObservaciones());
                                             request.setAttribute("respuesta", "Registro ingresado correctamente.");
                                             System.out.println("Action Ingreso DO");
                                             return mapping.findForward("ok");
@@ -182,205 +184,214 @@ public class ActionDO extends Action {
             request.setAttribute("getIdPuerto", fo.getIdPuerto());
             request.setAttribute("getLote", fo.getLote());
             request.setAttribute("getBL", fo.getBL());
+            request.setAttribute("getIdTipoMercancia", fo.getIdTipoMercancia());
             request.setAttribute("getObservaciones", fo.getObservaciones());
-//
-//            ArrayList<Object> resultado;
-//            resultado = (ArrayList) grCaract.ObtenerConexion();
-//            if ((Boolean) resultado.get(0) == false) {
-//
-//                Connection cn = (Connection) resultado.get(1);
-//
-//                ArrayList<Object> resultado2;
-//                resultado2 = (ArrayList) grCaract.autoCommint(false, cn);
-//                if ((Boolean) resultado2.get(0) == false) {
-//
-//                    //Graba si hay caracteristicas nuevas o modificadas
-//                    if (GR_CARACTERISTICAPLANTILLA != null) {
-//
-//                        BeanCaracteristicaPlantilla buCaracteristicaPlantilla1;
-//                        BeanCaracteristicaPlantilla buCaracteristicaPlantilla2;
-//
-//                        for (int i = 0; i < GR_CARACTERISTICAPLANTILLA.size(); i++) {
-//
-//                            buCaracteristicaPlantilla2 = (BeanCaracteristicaPlantilla) GR_CARACTERISTICAPLANTILLA.get(i);
-//
-//                            if (buCaracteristicaPlantilla2.getIdCaracteristicaPlantilla() == null) {
-//                                ArrayList<Object> resultado3;
-//                                resultado3 = (ArrayList) grCaract.IngresaCaracteristicaPlantilla(fo.getIdPlantillaDispositivo(), String.valueOf(buCaracteristicaPlantilla2.getNombre()), Boolean.parseBoolean(String.valueOf(buCaracteristicaPlantilla2.getObligatorio())), Boolean.parseBoolean(String.valueOf(buCaracteristicaPlantilla2.getHabilitar())), true, cn);
-//                                if ((Boolean) resultado3.get(0) == true) {
-//
-//                                    request.setAttribute("error", resultado3.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//                            } else {
-//
-//
-//                                ArrayList<Object> resultado4;
-//                                resultado4 = (ArrayList) grCaract.MostrarCaracteristicaPlantilla(Integer.parseInt(String.valueOf(buCaracteristicaPlantilla2.getIdCaracteristicaPlantilla())), fo.getIdPlantillaDispositivo(), true, cn);
-//                                if ((Boolean) resultado4.get(0) == false) {
-//
-//                                    buCaracteristicaPlantilla1 = (BeanCaracteristicaPlantilla) resultado4.get(1);
-//
-//                                    if (buCaracteristicaPlantilla1.getIdCaracteristicaPlantilla() == buCaracteristicaPlantilla2.getIdCaracteristicaPlantilla()) {
-//
-//                                        ArrayList<Object> resultado5;
-//                                        resultado5 = (ArrayList) grCaract.ModificaCaracteristicaPlantilla(Integer.parseInt(String.valueOf(buCaracteristicaPlantilla2.getIdCaracteristicaPlantilla())), fo.getIdPlantillaDispositivo(), String.valueOf(buCaracteristicaPlantilla2.getNombre()), Boolean.parseBoolean(String.valueOf(buCaracteristicaPlantilla2.getObligatorio())), Boolean.parseBoolean(String.valueOf(buCaracteristicaPlantilla2.getHabilitar())), true, cn);
-//                                        if ((Boolean) resultado5.get(0) == true) {
-//
-//                                            request.setAttribute("error", resultado5.get(1));
-//                                            return mapping.findForward("error");
-//
-//                                        }
-//
-//                                    }
-//
-//                                } else {
-//
-//                                    request.setAttribute("error", resultado4.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//                            }
-//
-//                        }
-//
-//                        // Elimina si fue eliminada alguna caracteristica
-//                        if (GR_Eliminados != null) {
-//
-//                            for (int i = 0; i < GR_Eliminados.size(); i++) {
-//
-//                                buCaracteristicaPlantilla1 = (BeanCaracteristicaPlantilla) GR_Eliminados.get(i);
-//
-//                                ArrayList<Object> resultado6;
-//                                resultado6 = (ArrayList) grCaract.EliminaCaracteristicaPlantilla(Integer.parseInt(String.valueOf(buCaracteristicaPlantilla1.getIdCaracteristicaPlantilla())), fo.getIdPlantillaDispositivo(), true, cn);
-//                                if ((Boolean) resultado6.get(0) == true) {
-//
-//                                    request.setAttribute("error", resultado6.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//
-//                            }
-//                        }
-//
-//                    }
-//
-//                    //Se graba si hay plantillas hijas nuevas
-//                    if (GR_PlantillaHija != null) {
-//
-//                        BeanPlantillaDispositivoHija buPlantillaDispositivoHija1;
-//
-//                        for (int i = 0; i < GR_PlantillaHija.size(); i++) {
-//
-//                            buPlantillaDispositivoHija1 = (BeanPlantillaDispositivoHija) GR_PlantillaHija.get(i);
-//
-//                            if (buPlantillaDispositivoHija1.getIdPlantillaDispositivo() == null) {
-//                                ArrayList<Object> resultado3;
-//                                resultado3 = (ArrayList) grHija.IngresaPlantillaDispositivoHija(fo.getIdPlantillaDispositivo(), Integer.parseInt(String.valueOf(buPlantillaDispositivoHija1.getIdPlantillaDispositivoHija())), true, cn);
-//                                if ((Boolean) resultado3.get(0) == true) {
-//
-//                                    request.setAttribute("error", resultado3.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//                            }
-//
-//                        }
-//
-//                        // Elimina si fue eliminada alguna caracteristica
-//                        if (GR_EliminadosHija != null) {
-//
-//                            for (int i = 0; i < GR_EliminadosHija.size(); i++) {
-//
-//                                buPlantillaDispositivoHija1 = (BeanPlantillaDispositivoHija) GR_EliminadosHija.get(i);
-//
-//                                ArrayList<Object> resultado6;
-//                                resultado6 = (ArrayList) grHija.EliminaPlantillaDispositivoHija(fo.getIdPlantillaDispositivo(), Integer.parseInt(String.valueOf(buPlantillaDispositivoHija1.getIdPlantillaDispositivoHija())), true, cn);
-//                                if ((Boolean) resultado6.get(0) == true) {
-//
-//                                    request.setAttribute("error", resultado6.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//
-//                            }
-//                        }
-//
-//                    }
-//
-//                    ArrayList<Object> resultado7;
-//                    resultado7 = (ArrayList) gr.ModificaPlantillaDispositivo(fo, true, cn);
-//                    if ((Boolean) resultado7.get(0) == false) {
-//
-//                        ArrayList<Object> resultado8;
-//                        resultado8 = (ArrayList) grCaract.commint(cn);
-//                        if ((Boolean) resultado8.get(0) == false) {
-//
-//                            ArrayList<Object> resultado9;
-//                            resultado9 = (ArrayList) grCaract.autoCommint(true, cn);
-//                            if ((Boolean) resultado9.get(0) == false) {
-//
-//                                ArrayList<Object> resultado10;
-//                                resultado10 = grCaract.MostrarCaracteristicaPlantilla(fo.getIdPlantillaDispositivo(), false, null);
-//                                if ((Boolean) resultado10.get(0) == false) {
-//
-//                                    GR_CARACTERISTICAPLANTILLA = (ArrayList) resultado10.get(1);
-//                                    session.setAttribute("GR_CARACTERISTICAPLANTILLA", GR_CARACTERISTICAPLANTILLA);
-//                                    session.setAttribute("GR_Eliminados", null);
-//                                    session.setAttribute("GR_EliminadosHija", null);
-//
-//                                    request.setAttribute("respuesta", "Registro modificado correctamente.");
-//                                    System.out.println("Action Modicar Plantilla Dispositivo");
-//
-            return mapping.findForward("ok");
-//
-//                                } else {
-//
-//                                    request.setAttribute("error", resultado10.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//                            } else {
-//
-//                                request.setAttribute("error", resultado9.get(1));
-//                                return mapping.findForward("error");
-//
-//                            }
-//
-//                        } else {
-//
-//                            request.setAttribute("error", resultado8.get(1));
-//                            return mapping.findForward("error");
-//
-//                        }
-//
-//                    } else {
-//
-//                        request.setAttribute("error", resultado7.get(1));
-//                        return mapping.findForward("error");
-//
-//                    }
-//
-//                } else {
-//
-//                    request.setAttribute("error", resultado2.get(1));
-//                    return mapping.findForward("error");
-//
-//                }
-//
-//            } else {
-//
-//                request.setAttribute("error", resultado.get(1));
-//                return mapping.findForward("error");
-//
-//            }
+
+            ArrayList<Object> resultado = new ArrayList<Object>();
+            java.sql.Connection cn = null;
+            resultado = gr.ObtenerConexion();
+            if ((Boolean) resultado.get(0) == false) {
+
+                cn = (java.sql.Connection) resultado.get(1);
+                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                resultado1 = gr.autoCommint(false, cn);
+                if ((Boolean) resultado1.get(0) == false) {
+
+                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    resultado2 = gr.ModificaDO(fo, true, cn);
+                    if ((Boolean) resultado2.get(0) == false) {
+
+                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        resultado3 = gA.BuscarFormulario("do", true, cn);
+                        if ((Boolean) resultado3.get(0) == false) {
+
+                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+
+                            //valida si hubo un cambio en algun campo
+                            Integer NIdDOs = fo.getIdDOs();
+                            String NDO = fo.getDO();
+                            String NIdCliente = String.valueOf(fo.getIdCliente());
+                            String NIdSucursal = String.valueOf(fo.getIdSucursal());
+                            String NIdPuerto = String.valueOf(fo.getIdPuerto());
+                            String NLote = fo.getLote();
+                            String NBL = fo.getBL();
+                            String NIdTipoMercancia = String.valueOf(fo.getIdTipoMercancia());
+                            String NObservaciones = fo.getObservaciones();
+                            String AIdDOs = session.getAttribute("getDOIdDOs").toString();
+                            String ADO = session.getAttribute("getDODO").toString();
+                            String AIdCliente = session.getAttribute("getDOIdCliente").toString();
+                            String AIdSucursal = session.getAttribute("getDOIdSucursal").toString();
+                            String AIdPuerto = session.getAttribute("getDOIdPuerto").toString();
+                            String ALote = session.getAttribute("getDOLote").toString();
+                            String ABL = session.getAttribute("getDOBL").toString();
+                            String AIdTipoMercancia = session.getAttribute("getDOIdTipoMercancia").toString();
+                            String AObservaciones = session.getAttribute("getDOObservaciones").toString();
+                            String valor_anterior = "";
+                            String valor_nuevo = "";
+                            if (NIdDOs.toString().equals(AIdDOs) == false) {
+                                valor_nuevo = "id='" + NIdDOs.toString() + "'";
+                                valor_anterior = "id='" + AIdDOs + "'";
+                            }
+                            if (NDO.equals(ADO) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "do='" + NDO + "'";
+                                valor_anterior = "do='" + ADO + "'";
+                            }
+                            if (NIdCliente.equals(AIdCliente) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "idCliente='" + NIdCliente + "'";
+                                valor_anterior = "idCliente='" + AIdCliente + "'";
+                            }
+                            if (NIdSucursal.equals(AIdSucursal) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "idSucursal='" + NIdSucursal + "'";
+                                valor_anterior = "idSucursal='" + AIdSucursal + "'";
+                            }
+                            if (NIdPuerto.equals(AIdPuerto) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "idPuerto='" + NIdPuerto + "'";
+                                valor_anterior = "idPuerto='" + AIdPuerto + "'";
+                            }
+                            if (NLote.equals(ALote) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "lote='" + NLote + "'";
+                                valor_anterior = "lote='" + ALote + "'";
+                            }
+                            if (NBL.equals(ABL) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "bl='" + NBL + "'";
+                                valor_anterior = "bl='" + ABL + "'";
+                            }
+                            if (NIdTipoMercancia.equals(AIdTipoMercancia) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "idTipoMercancia='" + NIdTipoMercancia + "'";
+                                valor_anterior = "idTipoMercancia='" + AIdTipoMercancia + "'";
+                            }
+                            if (NObservaciones.equals(AObservaciones) == false) {
+                                if (!valor_nuevo.equals("")) {
+                                    valor_nuevo = valor_nuevo + "&";
+                                    valor_anterior = valor_anterior + "&";
+                                }
+                                valor_nuevo = "observaciones='" + NObservaciones + "'";
+                                valor_anterior = "observaciones='" + AObservaciones + "'";
+                            }
+
+                            resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdDOs()), true, cn);
+                            if ((Boolean) resultado4.get(0) == false) {
+
+                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                resultado5 = gr.commint(cn);
+                                if ((Boolean) resultado5.get(0) == false) {
+
+                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    resultado6 = gr.autoCommint(true, cn);
+                                    if ((Boolean) resultado6.get(0) == false) {
+
+                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        resultado7 = gr.MostrarDOFormulario(String.valueOf(fo.getIdDOs()), false, null);
+                                        if ((Boolean) resultado7.get(0) == false) {
+
+                                            request.setAttribute("getIdDOs", gr.getIdDOs());
+                                            request.setAttribute("getDO", gr.getDO());
+                                            request.setAttribute("getIdCliente", gr.getIdCliente());
+                                            request.setAttribute("getIdSucursal", gr.getIdSucursal());
+                                            request.setAttribute("getIdPuerto", gr.getIdPuerto());
+                                            request.setAttribute("getLote", gr.getLote());
+                                            request.setAttribute("getBL", gr.getBL());
+                                            request.setAttribute("getIdTipoMercancia", gr.getIdTipoMercancia());
+                                            request.setAttribute("getObservaciones", gr.getObservaciones());
+                                            request.setAttribute("getFechaModificacion", gr.getFechaModificacion());
+                                            request.setAttribute("getNombreUsu", gr.getNombreUsu());
+                                            //para validar si se modifico un campo
+                                            session.setAttribute("getDOIdDOs", gr.getIdDOs());
+                                            session.setAttribute("getDODO", gr.getDO());
+                                            session.setAttribute("getDOIdCliente", gr.getIdCliente());
+                                            session.setAttribute("getDOIdSucursal", gr.getIdSucursal());
+                                            session.setAttribute("getDOIdPuerto", gr.getIdPuerto());
+                                            session.setAttribute("getDOLote", gr.getLote());
+                                            session.setAttribute("getDOBL", gr.getBL());
+                                            session.setAttribute("getDOIdTipoMercancia", gr.getIdTipoMercancia());
+                                            session.setAttribute("getDOObservaciones", gr.getObservaciones());
+                                            request.setAttribute("respuesta", "Registro modificado correctamente.");
+                                            System.out.println("Action Modificar DO");
+                                            return mapping.findForward("ok");
+
+                                        } else {
+
+                                            request.setAttribute("error", resultado7.get(1));
+                                            return mapping.findForward("error");
+
+                                        }
+
+                                    } else {
+
+                                        request.setAttribute("error", resultado6.get(1));
+                                        return mapping.findForward("error");
+
+                                    }
+
+                                } else {
+
+                                    request.setAttribute("error", resultado5.get(1));
+                                    return mapping.findForward("error");
+
+                                }
+
+                            } else {
+
+                                request.setAttribute("error", resultado4.get(1));
+                                return mapping.findForward("error");
+
+                            }
+
+                        } else {
+
+                            request.setAttribute("error", resultado3.get(1));
+                            return mapping.findForward("error");
+
+                        }
+
+                    } else {
+
+                        request.setAttribute("error", resultado2.get(1));
+                        return mapping.findForward("error");
+
+                    }
+
+                } else {
+
+                    request.setAttribute("error", resultado1.get(1));
+                    return mapping.findForward("error");
+
+                }
+
+            } else {
+
+                request.setAttribute("error", resultado.get(1));
+                return mapping.findForward("error");
+
+            }
 
         } else if (fo.getOp().equals("eliminar")) {
             System.out.println("Eliminar ActionDO");

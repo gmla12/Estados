@@ -309,76 +309,106 @@ public class GestionDO extends ConeccionMySql {
 
     }
 
-//    public ArrayList<Object> ModificaFactura(FacturaForm f, Boolean transac, Connection tCn) {
-//
-//        int mod = -99;
-//        ArrayList<Object> resultado = new ArrayList<Object>();
-//        PreparedStatement psUpdate = null;
-//
-//        try {
-//
-//            if (transac == false) { //si no es una transaccion busca una nueva conexion
-//
-//                ArrayList<Object> resultad;
-//                resultad = (ArrayList) getConection();
-//
-//                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
-//
-//                    cn = (Connection) resultad.get(1);
-//
-//                } else { //si hubo error al obtener la conexion retorna el error para visualizar
-//
-//                    resultado.add(true);
-//                    resultado.add(resultad.get(1));
-//                    return resultado;
-//
-//                }
-//
-//            } else { //si es una transaccion asigna la conexion utilizada
-//
-//                cn = tCn;
-//
-//            }
-//
-//            String query = "UPDATE factura SET idEntidad = ?";
-//            query += ", descripcion = ?";
-//            query += ", serHija = ?";
-//            query += " WHERE idPlantillaDispositivo = ?";
-//            psUpdate = cn.prepareStatement(query);
-//            psUpdate.setString(1, f.getNombre());
-//            psUpdate.setString(2, f.getDescripcion());
-//            psUpdate.setBoolean(3, f.getHija());
-//            psUpdate.setInt(4, f.getIdPlantillaDispositivo());
-//            psUpdate.executeUpdate();
-//
-//            mod = psUpdate.getUpdateCount();
-//
-//            if (transac == false) { // si no es una transaccion cierra la conexion
-//
-//                cn.close();
-//
-//            }
-//
-//            resultado.add(false); //si no hubo un error asigna false
-//            resultado.add(mod); // y el numero de registros consultados
-//
-//        } catch (Exception e) {
-//
-//            resultado.add(true); //si hubo error asigna true
-//            resultado.add(e); //y asigna el error para retornar y visualizar
-//
-//            if (cn != null) {
-//                cn.rollback();
-//                cn.close();
-//            }
-//
-//        } finally {
-//
-//            return resultado;
-//
-//        }
-//
-//    }
+    public ArrayList<Object> ModificaDO(DOForm f, Boolean transac, Connection tCn) {
+
+        int mod = -99;
+        ArrayList<Object> resultado = new ArrayList<Object>();
+        PreparedStatement psUpdate;
+
+        try {
+
+            if (transac == false) { //si no es una transaccion busca una nueva conexion
+
+                ArrayList<Object> resultad;
+                resultad = (ArrayList) getConection();
+
+                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
+
+                    cn = (Connection) resultad.get(1);
+
+                } else { //si hubo error al obtener la conexion retorna el error para visualizar
+
+                    resultado.add(true);
+                    resultado.add(resultad.get(1));
+                    return resultado;
+
+                }
+
+            } else { //si es una transaccion asigna la conexion utilizada
+
+                cn = tCn;
+
+            }
+
+            String query = "UPDATE DOs SET  do = ?, lote = ?, bl = ?, observaciones = ?";
+            if(f.getIdCliente() != 0){
+                query += ", entidades_id = ?";
+            }
+            if(f.getIdSucursal() != 0){
+                query += ", sucursal_id = ?";
+            }
+            if(f.getIdPuerto() != 0){
+                query += ", puerto_id = ?";
+            }
+            if(f.getIdTipoMercancia() != 0){
+                query += ", tipo_mercancia_id = ?";
+            }
+            query += ", sUsuarios_id = ?, fecha_modificacion = now() WHERE id = ?";
+            psUpdate = cn.prepareStatement(query);
+            psUpdate.setString(1, f.getDO());
+            psUpdate.setString(2, f.getLote());
+            psUpdate.setString(3, f.getBL());
+            psUpdate.setString(4, f.getObservaciones());
+            int i = 5;
+            if(f.getIdCliente() != 0){
+                psUpdate.setInt(i, f.getIdCliente());
+                i++;
+            }
+            if(f.getIdSucursal() != 0){
+                psUpdate.setInt(i, f.getIdSucursal());
+                i++;
+            }
+            if(f.getIdPuerto() != 0){
+                psUpdate.setInt(i, f.getIdPuerto());
+                i++;
+            }
+            if(f.getIdTipoMercancia() != 0){
+                psUpdate.setInt(i, f.getIdTipoMercancia());
+                i++;
+            }
+            psUpdate.setInt(i, f.getIdUsu());
+            i++;
+            psUpdate.setInt(i, f.getIdDOs());
+            psUpdate.executeUpdate();
+
+            mod = psUpdate.getUpdateCount();
+
+            if (transac == false) { // si no es una transaccion cierra la conexion
+
+                cn.close();
+
+            }
+
+            resultado.add(false); //si no hubo un error asigna false
+            resultado.add(mod); // y el numero de registros consultados
+
+        } catch (Exception e) {
+
+            resultado.add(true); //si hubo error asigna true
+            resultado.add(e); //y asigna el error para retornar y visualizar
+
+            if (cn != null) {
+                cn.rollback();
+                cn.close();
+            }
+
+        } finally {
+
+            return resultado;
+
+        }
+
+    }
 
     public ArrayList<Object> EliminaDO(DOForm f, Boolean transac, Connection tCn) {
 
