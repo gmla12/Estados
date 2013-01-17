@@ -62,7 +62,7 @@ public class ActionSucursalOp extends Action {
 
             if (fo.getOp().equals("modificar")) {
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarSucursalFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
@@ -93,7 +93,7 @@ public class ActionSucursalOp extends Action {
                     fo.setbDescripcion((String) session.getAttribute("getbDescripcion"));
                 }
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarSucursalOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
@@ -131,7 +131,7 @@ public class ActionSucursalOp extends Action {
             fo.setbNombreCorto("");
             fo.setbDescripcion("");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
+            ArrayList<Object> resultado;
             resultado = gr.MostrarSucursalOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 

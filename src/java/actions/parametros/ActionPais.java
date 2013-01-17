@@ -45,38 +45,38 @@ public class ActionPais extends Action {
             request.setAttribute("getIdPais", fo.getIdPais());
             request.setAttribute("getNombre", fo.getNombre());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.IngresaPais(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("pais", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             String valor_nuevo = "id=" + fo.getIdPais() + "&nombre=" + fo.getNombre();
                             resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais(), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarPaisFormulario(fo.getIdPais(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -153,25 +153,25 @@ public class ActionPais extends Action {
             request.setAttribute("getIdPais", fo.getIdPais());
             request.setAttribute("getNombre", fo.getNombre());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.ModificaPais(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("pais", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
 
                             //valida si hubo un cambio en algun campo
                             String NIdPais = fo.getIdPais();
@@ -196,15 +196,15 @@ public class ActionPais extends Action {
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais(), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarPaisFormulario(fo.getIdPais(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -283,34 +283,34 @@ public class ActionPais extends Action {
             request.setAttribute("getFechaModificacion", "");
             request.setAttribute("getNombreUsu", "");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.EliminaPais(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("pais", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             String valor_anterior = "id=" + fo.getIdPais() + "&nombre=" + fo.getNombre();
                             resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), fo.getIdPais(), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 

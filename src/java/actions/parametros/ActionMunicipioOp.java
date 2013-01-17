@@ -66,15 +66,15 @@ public class ActionMunicipioOp extends Action {
 
             if (fo.getOp().equals("modificar")) {
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarMunicipioFormulario(fo.getId(), fo.getId2(), fo.getId3(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gd.MostrarDepartamento((String) gr.getIdPais(), false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gp.MostrarPais(false, null);
                         if ((Boolean) resultado3.get(0) == false) {
 
@@ -124,15 +124,15 @@ public class ActionMunicipioOp extends Action {
                     fo.setbNombre((String) session.getAttribute("getbNombre"));
                 }
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarMunicipioOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gd.MostrarDepartamento(fo.getbIdPais(), false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gp.MostrarPais(false, null);
                         if ((Boolean) resultado3.get(0) == false) {
 
@@ -191,15 +191,15 @@ public class ActionMunicipioOp extends Action {
             fo.setbIdPais("");
             fo.setbNombre("");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
+            ArrayList<Object> resultado;
             resultado = gr.MostrarMunicipioOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 
-                ArrayList<Object> resultado2 = new ArrayList<Object>();
+                ArrayList<Object> resultado2;
                 resultado2 = gd.MostrarDepartamento("", false, null);
                 if ((Boolean) resultado2.get(0) == false) {
 
-                    ArrayList<Object> resultado3 = new ArrayList<Object>();
+                    ArrayList<Object> resultado3;
                     resultado3 = gp.MostrarPais(false, null);
                     if ((Boolean) resultado3.get(0) == false) {
 

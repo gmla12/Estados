@@ -70,23 +70,23 @@ public class ActionPuertoOp extends Action {
 
             if (fo.getOp().equals("modificar")) {
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarPuertoFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gm.MostrarMunicipio((String) gr.getIdDepartamento(), (String) gr.getIdPais(), false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gd.MostrarDepartamento((String) gr.getIdPais(), false, null);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             resultado4 = gp.MostrarPais(false, null);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gs.MostrarSucursal(false, null);
                                 if ((Boolean) resultado5.get(0) == false) {
 
@@ -162,23 +162,23 @@ public class ActionPuertoOp extends Action {
                     fo.setbIdSucursal((String) session.getAttribute("getbIdSucursal"));
                 }
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarPuertoOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gm.MostrarMunicipio(fo.getbIdDepartamento(), fo.getbIdPais(), false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gd.MostrarDepartamento(fo.getbIdPais(), false, null);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             resultado4 = gp.MostrarPais(false, null);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gs.MostrarSucursal(false, null);
                                 if ((Boolean) resultado5.get(0) == false) {
 
@@ -265,23 +265,23 @@ public class ActionPuertoOp extends Action {
             fo.setbIdPais("");
             fo.setbIdSucursal("");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
+            ArrayList<Object> resultado;
             resultado = gr.MostrarPuertoOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 
-                ArrayList<Object> resultado2 = new ArrayList<Object>();
+                ArrayList<Object> resultado2;
                 resultado2 = gm.MostrarMunicipio("", "", false, null);
                 if ((Boolean) resultado2.get(0) == false) {
 
-                    ArrayList<Object> resultado3 = new ArrayList<Object>();
+                    ArrayList<Object> resultado3;
                     resultado3 = gd.MostrarDepartamento("", false, null);
                     if ((Boolean) resultado3.get(0) == false) {
 
-                        ArrayList<Object> resultado4 = new ArrayList<Object>();
+                        ArrayList<Object> resultado4;
                         resultado4 = gp.MostrarPais(false, null);
                         if ((Boolean) resultado4.get(0) == false) {
 
-                            ArrayList<Object> resultado5 = new ArrayList<Object>();
+                            ArrayList<Object> resultado5;
                             resultado5 = gs.MostrarSucursal(false, null);
                             if ((Boolean) resultado5.get(0) == false) {
 

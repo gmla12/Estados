@@ -187,44 +187,36 @@ public class ActionDO extends Action {
             request.setAttribute("getIdTipoMercancia", fo.getIdTipoMercancia());
             request.setAttribute("getObservaciones", fo.getObservaciones());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            java.sql.Connection cn = null;
+            ArrayList<Object> resultado;
+            java.sql.Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (java.sql.Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.ModificaDO(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("do", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
 
                             //valida si hubo un cambio en algun campo
                             Integer NIdDOs = fo.getIdDOs();
                             String NDO = fo.getDO();
-                            String NIdCliente = String.valueOf(fo.getIdCliente());
-                            String NIdSucursal = String.valueOf(fo.getIdSucursal());
-                            String NIdPuerto = String.valueOf(fo.getIdPuerto());
                             String NLote = fo.getLote();
                             String NBL = fo.getBL();
-                            String NIdTipoMercancia = String.valueOf(fo.getIdTipoMercancia());
                             String NObservaciones = fo.getObservaciones();
                             String AIdDOs = session.getAttribute("getDOIdDOs").toString();
                             String ADO = session.getAttribute("getDODO").toString();
-                            String AIdCliente = session.getAttribute("getDOIdCliente").toString();
-                            String AIdSucursal = session.getAttribute("getDOIdSucursal").toString();
-                            String AIdPuerto = session.getAttribute("getDOIdPuerto").toString();
                             String ALote = session.getAttribute("getDOLote").toString();
                             String ABL = session.getAttribute("getDOBL").toString();
-                            String AIdTipoMercancia = session.getAttribute("getDOIdTipoMercancia").toString();
                             String AObservaciones = session.getAttribute("getDOObservaciones").toString();
                             String valor_anterior = "";
                             String valor_nuevo = "";
@@ -237,78 +229,94 @@ public class ActionDO extends Action {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "do='" + NDO + "'";
-                                valor_anterior = "do='" + ADO + "'";
+                                valor_nuevo += "do='" + NDO + "'";
+                                valor_anterior += "do='" + ADO + "'";
                             }
-                            if (NIdCliente.equals(AIdCliente) == false) {
-                                if (!valor_nuevo.equals("")) {
-                                    valor_nuevo = valor_nuevo + "&";
-                                    valor_anterior = valor_anterior + "&";
+                            if (session.getAttribute("getDOIdCliente") != null) {
+                                String AIdCliente = session.getAttribute("getDOIdCliente").toString();
+                                String NIdCliente = String.valueOf(fo.getIdCliente());
+                                if (NIdCliente.equals(AIdCliente) == false) {
+                                    if (!valor_nuevo.equals("")) {
+                                        valor_nuevo = valor_nuevo + "&";
+                                        valor_anterior = valor_anterior + "&";
+                                    }
+                                    valor_nuevo += "idCliente='" + NIdCliente + "'";
+                                    valor_anterior += "idCliente='" + AIdCliente + "'";
                                 }
-                                valor_nuevo = "idCliente='" + NIdCliente + "'";
-                                valor_anterior = "idCliente='" + AIdCliente + "'";
                             }
-                            if (NIdSucursal.equals(AIdSucursal) == false) {
-                                if (!valor_nuevo.equals("")) {
-                                    valor_nuevo = valor_nuevo + "&";
-                                    valor_anterior = valor_anterior + "&";
+                            if (session.getAttribute("getDOIdSucursal") != null) {
+                                String AIdSucursal = session.getAttribute("getDOIdSucursal").toString();
+                                String NIdSucursal = String.valueOf(fo.getIdSucursal());
+                                if (NIdSucursal.equals(AIdSucursal) == false) {
+                                    if (!valor_nuevo.equals("")) {
+                                        valor_nuevo = valor_nuevo + "&";
+                                        valor_anterior = valor_anterior + "&";
+                                    }
+                                    valor_nuevo += "idSucursal='" + NIdSucursal + "'";
+                                    valor_anterior += "idSucursal='" + AIdSucursal + "'";
                                 }
-                                valor_nuevo = "idSucursal='" + NIdSucursal + "'";
-                                valor_anterior = "idSucursal='" + AIdSucursal + "'";
                             }
-                            if (NIdPuerto.equals(AIdPuerto) == false) {
-                                if (!valor_nuevo.equals("")) {
-                                    valor_nuevo = valor_nuevo + "&";
-                                    valor_anterior = valor_anterior + "&";
+                            if (session.getAttribute("getDOIdPuerto") != null) {
+                                String AIdPuerto = session.getAttribute("getDOIdPuerto").toString();
+                                String NIdPuerto = String.valueOf(fo.getIdPuerto());
+                                if (NIdPuerto.equals(AIdPuerto) == false) {
+                                    if (!valor_nuevo.equals("")) {
+                                        valor_nuevo = valor_nuevo + "&";
+                                        valor_anterior = valor_anterior + "&";
+                                    }
+                                    valor_nuevo += "idPuerto='" + NIdPuerto + "'";
+                                    valor_anterior += "idPuerto='" + AIdPuerto + "'";
                                 }
-                                valor_nuevo = "idPuerto='" + NIdPuerto + "'";
-                                valor_anterior = "idPuerto='" + AIdPuerto + "'";
                             }
                             if (NLote.equals(ALote) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "lote='" + NLote + "'";
-                                valor_anterior = "lote='" + ALote + "'";
+                                valor_nuevo += "lote='" + NLote + "'";
+                                valor_anterior += "lote='" + ALote + "'";
                             }
                             if (NBL.equals(ABL) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "bl='" + NBL + "'";
-                                valor_anterior = "bl='" + ABL + "'";
+                                valor_nuevo += "bl='" + NBL + "'";
+                                valor_anterior += "bl='" + ABL + "'";
                             }
-                            if (NIdTipoMercancia.equals(AIdTipoMercancia) == false) {
-                                if (!valor_nuevo.equals("")) {
-                                    valor_nuevo = valor_nuevo + "&";
-                                    valor_anterior = valor_anterior + "&";
+                            if (session.getAttribute("getDOIdTipoMercancia") != null) {
+                                String AIdTipoMercancia = session.getAttribute("getDOIdTipoMercancia").toString();
+                                String NIdTipoMercancia = String.valueOf(fo.getIdTipoMercancia());
+                                if (NIdTipoMercancia.equals(AIdTipoMercancia) == false) {
+                                    if (!valor_nuevo.equals("")) {
+                                        valor_nuevo = valor_nuevo + "&";
+                                        valor_anterior = valor_anterior + "&";
+                                    }
+                                    valor_nuevo += "idTipoMercancia='" + NIdTipoMercancia + "'";
+                                    valor_anterior += "idTipoMercancia='" + AIdTipoMercancia + "'";
                                 }
-                                valor_nuevo = "idTipoMercancia='" + NIdTipoMercancia + "'";
-                                valor_anterior = "idTipoMercancia='" + AIdTipoMercancia + "'";
                             }
                             if (NObservaciones.equals(AObservaciones) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "observaciones='" + NObservaciones + "'";
-                                valor_anterior = "observaciones='" + AObservaciones + "'";
+                                valor_nuevo += "observaciones='" + NObservaciones + "'";
+                                valor_anterior += "observaciones='" + AObservaciones + "'";
                             }
 
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdDOs()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarDOFormulario(String.valueOf(fo.getIdDOs()), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -395,102 +403,102 @@ public class ActionDO extends Action {
 
         } else if (fo.getOp().equals("eliminar")) {
             System.out.println("Eliminar ActionDO");
+            request.setAttribute("getIdDOs", "");
+            request.setAttribute("getDO", "");
+            request.setAttribute("getIdCliente", "");
+            request.setAttribute("getIdSucursal", "");
+            request.setAttribute("getIdPuerto", "");
+            request.setAttribute("getLote", "");
+            request.setAttribute("getBL", "");
+            request.setAttribute("getIdTipoMercancia", "");
+            request.setAttribute("getObservaciones", "");
+            request.setAttribute("getFechaModificacion", "");
+            request.setAttribute("getNombreUsu", "");
 
-//            ArrayList<Object> resultado;
-//            resultado = (ArrayList) grCaract.ObtenerConexion();
-//            if ((Boolean) resultado.get(0) == false) {
-//
-//                Connection cn = (Connection) resultado.get(1);
-//
-//                ArrayList<Object> resultado2;
-//                resultado2 = (ArrayList) grCaract.autoCommint(false, cn);
-//                if ((Boolean) resultado2.get(0) == false) {
+            ArrayList<Object> resultado;
+            java.sql.Connection cn;
+            resultado = gr.ObtenerConexion();
+            if ((Boolean) resultado.get(0) == false) {
 
-            ArrayList<Object> resultado3;
-            resultado3 = (ArrayList) gr.EliminaDO(fo, false, null);
-//                    resultado3 = (ArrayList) gr.EliminaPlantillaDispositivo(fo, true, cn);
+                cn = (java.sql.Connection) resultado.get(1);
+                ArrayList<Object> resultado1;
+                resultado1 = gr.autoCommint(false, cn);
+                if ((Boolean) resultado1.get(0) == false) {
 
-            if ((Boolean) resultado3.get(0) == false) {
+                    ArrayList<Object> resultado2;
+                    resultado2 = (ArrayList) gr.EliminaDO(fo, false, null);
+                    if ((Boolean) resultado2.get(0) == false) {
 
-//                        ArrayList<Object> resultado4;
-//                        resultado4 = (ArrayList) grCaract.EliminaCaracteristicaPlantilla(Integer.valueOf(fo.getIdPlantillaDispositivo()), true, cn);
-//
-//                        if ((Boolean) resultado4.get(0) == false) {
-//
-//                            ArrayList<Object> resultado5;
-//                            resultado5 = (ArrayList) grHija.EliminaPlantillaDispositivoHija(Integer.valueOf(fo.getIdPlantillaDispositivo()), true, cn);
-//
-//                            if ((Boolean) resultado5.get(0) == false) {
-//
-//                                ArrayList<Object> resultado6;
-//                                resultado6 = (ArrayList) grCaract.commint(cn);
-//
-//                                if ((Boolean) resultado6.get(0) == false) {
-//
-//                                    ArrayList<Object> resultado7;
-//                                    resultado7 = (ArrayList) grCaract.autoCommint(true, cn);
-//
-//                                    if ((Boolean) resultado7.get(0) == false) {
+                        ArrayList<Object> resultado3;
+                        resultado3 = gA.BuscarFormulario("do", true, cn);
+                        if ((Boolean) resultado3.get(0) == false) {
 
-                request.setAttribute("getIdFactura", "");
-                request.setAttribute("getIdEntidad", "");
-                request.setAttribute("getNumFactura", "");
-                request.setAttribute("getFecha", "");
-                request.setAttribute("getTotal", "");
+                            ArrayList<Object> resultado4;
+                            String valor_anterior = "id=" + fo.getIdDOs() + "&do=" + fo.getDO() + "&idCliente=" + fo.getIdCliente() + "&idSucursal=" + fo.getIdSucursal() + "&idPuerto=" + fo.getIdPuerto() + "&lote=" + fo.getLote() + "&bl=" + fo.getBL() + "&idTipoMercancia=" + fo.getIdTipoMercancia() + "&observaciones=" + fo.getObservaciones();
+                            resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdDOs()), true, cn);
+                            if ((Boolean) resultado4.get(0) == false) {
 
-                request.setAttribute("respuesta", "Registro eliminado correctamente.");
-                System.out.println("Action Eliminar Factura");
+                                ArrayList<Object> resultado5;
+                                resultado5 = gr.commint(cn);
+                                if ((Boolean) resultado5.get(0) == false) {
 
-                return mapping.findForward("ok");
+                                    ArrayList<Object> resultado6;
+                                    resultado6 = gr.autoCommint(true, cn);
+                                    if ((Boolean) resultado6.get(0) == false) {
 
-//                                    } else {
-//
-//                                        request.setAttribute("error", resultado7.get(1));
-//                                        return mapping.findForward("error");
-//
-//                                    }
-//
-//                                } else {
-//
-//                                    request.setAttribute("error", resultado6.get(1));
-//                                    return mapping.findForward("error");
-//
-//                                }
-//
-//                            } else {
-//
-//                                request.setAttribute("error", resultado5.get(1));
-//                                return mapping.findForward("error");
-//
-//                            }
-//
-//                        } else {
-//
-//                            request.setAttribute("error", resultado4.get(1));
-//                            return mapping.findForward("error");
-//
-//                        }
+                                        request.setAttribute("respuesta", "Registro eliminado correctamente.");
+                                        System.out.println("Action Eliminar DO");
+
+                                        return mapping.findForward("ok");
+
+                                    } else {
+
+                                        request.setAttribute("error", resultado6.get(1));
+                                        return mapping.findForward("error");
+
+                                    }
+
+                                } else {
+
+                                    request.setAttribute("error", resultado5.get(1));
+                                    return mapping.findForward("error");
+
+                                }
+
+                            } else {
+
+                                request.setAttribute("error", resultado4.get(1));
+                                return mapping.findForward("error");
+
+                            }
+
+                        } else {
+
+                            request.setAttribute("error", resultado3.get(1));
+                            return mapping.findForward("error");
+
+                        }
+
+                    } else {
+
+                        request.setAttribute("error", resultado2.get(1));
+                        return mapping.findForward("error");
+
+                    }
+
+                } else {
+
+                    request.setAttribute("error", resultado1.get(1));
+                    return mapping.findForward("error");
+
+                }
 
             } else {
 
-                request.setAttribute("error", resultado3.get(1));
+                request.setAttribute("error", resultado.get(1));
                 return mapping.findForward("error");
 
             }
-
-//                } else {
-//
-//                    request.setAttribute("error", resultado2.get(1));
-//                    return mapping.findForward("error");
-//
-//                }
-//
-//            } else {
-//
-//                request.setAttribute("error", resultado.get(1));
-//                return mapping.findForward("error");
-//
-//            }
 
         } else {
             System.out.println("Volver ActionDO");

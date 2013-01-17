@@ -62,7 +62,7 @@ public class ActionPaisOp extends Action {
 
             if (fo.getOp().equals("modificar")) {
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarPaisFormulario(fo.getId(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
@@ -90,7 +90,7 @@ public class ActionPaisOp extends Action {
                     fo.setbNombre((String) session.getAttribute("getbNombre"));
                 }
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarPaisOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
@@ -125,7 +125,7 @@ public class ActionPaisOp extends Action {
             fo.setbIdPais("");
             fo.setbNombre("");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
+            ArrayList<Object> resultado;
             resultado = gr.MostrarPaisOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 

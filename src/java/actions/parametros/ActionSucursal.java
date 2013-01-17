@@ -46,40 +46,40 @@ public class ActionSucursal extends Action {
             request.setAttribute("getNombre", fo.getNombreCorto());
             request.setAttribute("getDescripcion", fo.getDescripcion());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.IngresaSucursal(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
                         fo.setIdSucursal(Integer.valueOf(resultado2.get(1).toString()));
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("sucursal", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             String valor_nuevo = "id=" + fo.getIdSucursal() + "&nombrCorto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion();
                             resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdSucursal()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarSucursalFormulario(fo.getIdSucursal(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -166,25 +166,25 @@ public class ActionSucursal extends Action {
             request.setAttribute("getNombreCorto", fo.getNombreCorto());
             request.setAttribute("getDescripcion", fo.getDescripcion());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.ModificaSucursal(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("sucursal", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
 
                             //valida si hubo un cambio en algun campo
                             String NIdSucursal = String.valueOf(fo.getIdSucursal());
@@ -219,15 +219,15 @@ public class ActionSucursal extends Action {
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdSucursal()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarSucursalFormulario(fo.getIdSucursal(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -316,34 +316,34 @@ public class ActionSucursal extends Action {
             request.setAttribute("getFechaModificacion", "");
             request.setAttribute("getNombreUsu", "");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.EliminaSucursal(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("sucursal", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             String valor_anterior = "id=" + fo.getIdSucursal() + "&nombreCorto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion();
                             resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdSucursal()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 

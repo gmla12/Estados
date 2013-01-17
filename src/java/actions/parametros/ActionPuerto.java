@@ -50,40 +50,40 @@ public class ActionPuerto extends Action {
             request.setAttribute("getIdPais", fo.getIdPais());
             request.setAttribute("getIdSucursal", fo.getIdSucursal());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.IngresaPuerto(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
                         
                         fo.setIdPuerto(Integer.valueOf(resultado2.get(1).toString()));
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("puerto", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
                             String valor_nuevo = "id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "id_Municipio=" + fo.getIdMunicipio() + "id_Sucursal=" + fo.getIdSucursal();
                             resultado4 = gA.IngresaAuditoria("Nuevo", "", valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarPuertoFormulario(fo.getIdPuerto(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -175,25 +175,25 @@ public class ActionPuerto extends Action {
             request.setAttribute("getIdPais", fo.getIdPais());
             request.setAttribute("getIdSucursal", fo.getIdSucursal());
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.ModificaPuerto(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("puerto", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
+                            ArrayList<Object> resultado4;
 
                             //valida si hubo un cambio en algun campo
                             Integer NIdPuerto = fo.getIdPuerto();
@@ -221,62 +221,62 @@ public class ActionPuerto extends Action {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "nombre_corto='" + NNombreCorto + "'";
-                                valor_anterior = "nombre_corto='" + ANombreCorto + "'";
+                                valor_nuevo += "nombre_corto='" + NNombreCorto + "'";
+                                valor_anterior += "nombre_corto='" + ANombreCorto + "'";
                             }
                             if (NDescripcion.equals(ADescripcion) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "descripcion='" + NDescripcion + "'";
-                                valor_anterior = "descripcion='" + ADescripcion + "'";
+                                valor_nuevo += "descripcion='" + NDescripcion + "'";
+                                valor_anterior += "descripcion='" + ADescripcion + "'";
                             }
                             if (NIdMunicipio.equals(AIdMunicipio) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "id='" + NIdMunicipio + "'";
-                                valor_anterior = "id='" + AIdMunicipio + "'";
+                                valor_nuevo += "id='" + NIdMunicipio + "'";
+                                valor_anterior += "id='" + AIdMunicipio + "'";
                             }
                             if (NIdDepartamento.equals(AIdDepartamento) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "id_departamento='" + NIdDepartamento + "'";
-                                valor_anterior = "id_departamento='" + AIdDepartamento + "'";
+                                valor_nuevo += "id_departamento='" + NIdDepartamento + "'";
+                                valor_anterior += "id_departamento='" + AIdDepartamento + "'";
                             }
                             if (NIdPais.equals(AIdPais) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "id_pais='" + NIdPais + "'";
-                                valor_anterior = "id_pais='" + AIdPais + "'";
+                                valor_nuevo += "id_pais='" + NIdPais + "'";
+                                valor_anterior += "id_pais='" + AIdPais + "'";
                             }
                             if (NIdSucursal.equals(AIdSucursal) == false) {
                                 if (!valor_nuevo.equals("")) {
                                     valor_nuevo = valor_nuevo + "&";
                                     valor_anterior = valor_anterior + "&";
                                 }
-                                valor_nuevo = "id_sucursal='" + NIdSucursal + "'";
-                                valor_anterior = "id_sucursal='" + AIdSucursal + "'";
+                                valor_nuevo += "id_sucursal='" + NIdSucursal + "'";
+                                valor_anterior += "id_sucursal='" + AIdSucursal + "'";
                             }
 
                             resultado4 = gA.IngresaAuditoria("Modificar", valor_anterior, valor_nuevo, fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 
-                                        ArrayList<Object> resultado7 = new ArrayList<Object>();
+                                        ArrayList<Object> resultado7;
                                         resultado7 = gr.MostrarPuertoFormulario(fo.getIdPuerto(), false, null);
                                         if ((Boolean) resultado7.get(0) == false) {
 
@@ -377,34 +377,34 @@ public class ActionPuerto extends Action {
             request.setAttribute("getFechaModificacion", "");
             request.setAttribute("getNombreUsu", "");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
-            Connection cn = null;
+            ArrayList<Object> resultado;
+            Connection cn;
             resultado = gr.ObtenerConexion();
             if ((Boolean) resultado.get(0) == false) {
 
                 cn = (Connection) resultado.get(1);
-                ArrayList<Object> resultado1 = new ArrayList<Object>();
+                ArrayList<Object> resultado1;
                 resultado1 = gr.autoCommint(false, cn);
                 if ((Boolean) resultado1.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gr.EliminaPuerto(fo, true, cn);
                     if ((Boolean) resultado2.get(0) == false) {
 
-                        ArrayList<Object> resultado3 = new ArrayList<Object>();
+                        ArrayList<Object> resultado3;
                         resultado3 = gA.BuscarFormulario("puerto", true, cn);
                         if ((Boolean) resultado3.get(0) == false) {
 
-                            ArrayList<Object> resultado4 = new ArrayList<Object>();
-                            String valor_anterior = "id=" + resultado.get(1) + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "&id_Municipio=" + fo.getIdMunicipio() + "&id_Sucursal=" + fo.getIdSucursal().toString();
+                            ArrayList<Object> resultado4;
+                            String valor_anterior = "id=" + fo.getIdPuerto() + "&nombre_corto=" + fo.getNombreCorto() + "&descripcion=" + fo.getDescripcion() + "&id_departamento=" + fo.getIdDepartamento() + "&id_pais=" + fo.getIdPais() + "&id_Municipio=" + fo.getIdMunicipio() + "&id_Sucursal=" + fo.getIdSucursal().toString();
                             resultado4 = gA.IngresaAuditoria("Eliminar", valor_anterior, "", fo.getIdUsu(), Integer.valueOf(gA.getIdFormulario().toString()), String.valueOf(fo.getIdPuerto()), true, cn);
                             if ((Boolean) resultado4.get(0) == false) {
 
-                                ArrayList<Object> resultado5 = new ArrayList<Object>();
+                                ArrayList<Object> resultado5;
                                 resultado5 = gr.commint(cn);
                                 if ((Boolean) resultado5.get(0) == false) {
 
-                                    ArrayList<Object> resultado6 = new ArrayList<Object>();
+                                    ArrayList<Object> resultado6;
                                     resultado6 = gr.autoCommint(true, cn);
                                     if ((Boolean) resultado6.get(0) == false) {
 

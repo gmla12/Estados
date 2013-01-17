@@ -93,54 +93,7 @@ public class ActionDOOp extends Action {
                     session.setAttribute("getDOIdTipoMercancia", gr.getIdTipoMercancia());
                     session.setAttribute("getDOObservaciones", gr.getObservaciones());
 
-//                    ArrayList<Object> GR_CARACTERISTICAPLANTILLA;
-//                    ArrayList<Object> GR_PlantillaDisponible;
-//                    ArrayList<Object> GR_PlantillaHija;
-//
-//                    ArrayList<Object> resultado2;
-//                    resultado2 = grCaract.MostrarCaracteristicaPlantilla(Integer.valueOf(String.valueOf(gr.getIdPlantillaDispositivo())), false, null);
-//                    if ((Boolean) resultado2.get(0) == false) {
-//
-//                        GR_CARACTERISTICAPLANTILLA = (ArrayList) resultado2.get(1);
-//
-//                        ArrayList<Object> resultado3;
-//                        resultado3 = gr.MostrarPlantillaDispositivoHija(Integer.valueOf(String.valueOf(gr.getIdPlantillaDispositivo())), false, null);
-//                        if ((Boolean) resultado3.get(0) == false) {
-//
-//                            GR_PlantillaDisponible = (ArrayList) resultado3.get(1);
-//
-//                            ArrayList<Object> resultado4;
-//                            resultado4 = grHija.MostrarPlantillaDispositivoHija(Integer.valueOf(String.valueOf(gr.getIdPlantillaDispositivo())), false, null);
-//                            if ((Boolean) resultado4.get(0) == false) {
-//
-//                                GR_PlantillaHija = (ArrayList) resultado4.get(1);
-//
-//                                session.setAttribute("GR_CARACTERISTICAPLANTILLA", GR_CARACTERISTICAPLANTILLA);
-//                                session.setAttribute("GR_PlantillaDisponible", GR_PlantillaDisponible);
-//                                session.setAttribute("GR_PlantillaHija", GR_PlantillaHija);
-
                     return mapping.findForward("modificar");
-
-//                            } else {
-//
-//                                request.setAttribute("error", resultado4.get(1));
-//                                return mapping.findForward("error");
-//
-//                            }
-//
-//                        } else {
-//
-//                            request.setAttribute("error", resultado3.get(1));
-//                            return mapping.findForward("error");
-//
-//                        }
-//
-//                    } else {
-//
-//                        request.setAttribute("error", resultado2.get(1));
-//                        return mapping.findForward("error");
-//
-//                    }
 
                 } else {
 

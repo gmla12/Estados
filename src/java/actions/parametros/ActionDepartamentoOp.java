@@ -64,11 +64,11 @@ public class ActionDepartamentoOp extends Action {
 
             if (fo.getOp().equals("modificar")) {
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarDepartamentoFormulario(fo.getId(), fo.getId2(), false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gp.MostrarPais(false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
@@ -107,11 +107,11 @@ public class ActionDepartamentoOp extends Action {
                     fo.setbNombre((String) session.getAttribute("getbNombre"));
                 }
 
-                ArrayList<Object> resultado = new ArrayList<Object>();
+                ArrayList<Object> resultado;
                 resultado = gr.MostrarDepartamentoOP(fo, false, null);
                 if ((Boolean) resultado.get(0) == false) {
 
-                    ArrayList<Object> resultado2 = new ArrayList<Object>();
+                    ArrayList<Object> resultado2;
                     resultado2 = gp.MostrarPais(false, null);
                     if ((Boolean) resultado2.get(0) == false) {
 
@@ -145,7 +145,7 @@ public class ActionDepartamentoOp extends Action {
                 request.setAttribute("getNombreUsu", "");
                 request.setAttribute("getFechaModificacion", "");
 
-                ArrayList<Object> resultado2 = new ArrayList<Object>();
+                ArrayList<Object> resultado2;
                 resultado2 = gp.MostrarPais(false, null);
                 if ((Boolean) resultado2.get(0) == false) {
 
@@ -170,11 +170,11 @@ public class ActionDepartamentoOp extends Action {
             fo.setbIdPais("");
             fo.setbNombre("");
 
-            ArrayList<Object> resultado = new ArrayList<Object>();
+            ArrayList<Object> resultado;
             resultado = gr.MostrarDepartamentoOP(fo, false, null);
             if ((Boolean) resultado.get(0) == false) {
 
-                ArrayList<Object> resultado2 = new ArrayList<Object>();
+                ArrayList<Object> resultado2;
                 resultado2 = gp.MostrarPais(false, null);
                 if ((Boolean) resultado2.get(0) == false) {
 
