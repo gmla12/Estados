@@ -194,7 +194,19 @@
                         }
                         $("#forma").submit(); 
                     }); 
-
+                    
+                    $('#submitItem').click(function(e) {
+                        e.preventDefault();
+                        document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
+                        if(document.forms[0].idItem.value==""){
+                            document.forms[0].op.value="nuevoItem";
+                        }
+                        else {
+                            document.forms[0].op.value="modificarItem";
+                        }
+                        $("#forma").submit(); 
+                    }); 
+                    
                     $('input').filter('.datepicker').datepicker({
                         changeMonth: true,
                         changeYear: true,
@@ -217,10 +229,10 @@
                     document.forms[0].idPuerto.value="";
                     document.forms[0].idTipoMercancia.value="";
                     document.forms[0].observaciones.value="";
-                    <%-- Pendiente: incluir los campos de los items --%>
+            <%-- Pendiente: incluir los campos de los items --%>
                     document.getElementById('nombreUsu').innerHTML = "";
                     document.getElementById('fechaModificacion').innerHTML = "";
-                document.getElementById('divItems').style.display="none";
+                    document.getElementById('divItems').style.display="none";
                 }
 
                 function eliminar(){
@@ -233,6 +245,75 @@
                     document.forms[0].op.value="atras";
                     document.forms[0].submit();
                 }
+                
+                function consultaVin(id){
+                    document.forms[0].op.value="consultaItem";
+                    document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
+                    document.forms[0].op2.value=id;
+                    $("#forma").submit(); 
+                }
+            
+                function nuevoVin(){
+                    document.forms[0].op2.value="";
+                    document.forms[0].idItems.value="";
+                    document.forms[0].checkFeferencia.value=false;
+                    document.forms[0].referencia.value="";
+                    document.forms[0].referencia.readOnly=false;
+                    document.forms[0].checkPedido.value="";
+                    document.forms[0].pedido.value="";
+                    document.forms[0].checkDescripcion.value="";
+                    document.forms[0].descripcion.value="";
+                    document.forms[0].checkClienteFinal.value="";
+                    document.forms[0].clienteFinal.value="";
+                    document.forms[0].checkIdProveedor.value="";
+                    document.forms[0].idProveedor.value="";
+                    document.forms[0].checkFechaEstimadaArribo.value="";
+                    document.forms[0].fechaEstimadaArribo.value="";
+                    document.forms[0].checkFechaLlegada.value="";
+                    document.forms[0].fechaLlegada.value="";
+                    document.forms[0].checkFechaDocumentos.value="";
+                    document.forms[0].fechaDocumentos.value="";
+                    document.forms[0].checkFechaDocumentosOK.value="";
+                    document.forms[0].fechaDocumentosOK.value="";
+                    document.forms[0].checkFechaAceptacion.value="";
+                    document.forms[0].fechaAceptacion.value="";
+                    document.forms[0].checkFechaSolicitudAnticipo.value="";
+                    document.forms[0].fechaSolicitudAnticipo.value="";
+                    document.forms[0].checkFechaPagoTributo.value="";
+                    document.forms[0].fechaPagoTributo.value="";
+                    document.forms[0].checkFechaLevante.value="";
+                    document.forms[0].fechaLevante.value="";
+                    document.forms[0].checkFechaPoder.value="";
+                    document.forms[0].fechaPoder.value="";
+                    document.forms[0].checkFechaEnvioDocumentos.value="";
+                    document.forms[0].fechaEnvioDocumentos.value="";
+                    document.forms[0].checkFechaAutenticacion.value="";
+                    document.forms[0].fechaAutenticacion.value="";
+                    document.forms[0].checkFechaLiberacionBL.value="";
+                    document.forms[0].fechaLiberacionBL.value="";
+                    document.forms[0].checkFechaPlanilla.value="";
+                    document.forms[0].fechaPlanilla.value="";
+                    document.forms[0].checkFechaSOAT.value="";
+                    document.forms[0].fechaSOAT.value="";
+                    document.forms[0].checkFechaTransitoLibre.value="";
+                    document.forms[0].fechaTransitoLibre.value="";
+                    document.forms[0].checkFechaDespacho.value="";
+                    document.forms[0].fechaDespacho.value="";
+                    document.forms[0].checkFechaEntregaFacturacion.value="";
+                    document.forms[0].fechaEntregaFacturacion.value="";
+                    document.forms[0].checkFechaFacturacion.value="";
+                    document.forms[0].fechaFacturacion.value="";
+                    document.forms[0].checkNumeroFactura.value="";
+                    document.forms[0].numeroFactura.value="";
+                    document.getElementById('eliminarItem').style.display="none";
+                }
+
+                function eliminarVin(){
+                    document.forms[0].op.value="eliminarItem";
+                    document.forms[0].idUsu.value=<%= session.getAttribute("idusu")%>
+                    document.forms[0].submit();
+                }
+            
                 function historico(){
                     var emer = window.open('../Estados/Jsp/Log/Auditoria/Auditoria.jsp?getOp=buscar&accion=referencia&formulario=do&referencia='+'<%=request.getAttribute("getIdDOs")%>','Auditoria','width=950,height=500,top=100%,left=100%,scrollbars=yes,resizable=yes');
                     emer.focus();
@@ -390,7 +471,7 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkReferencia" value="true"> Referencia
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="referencia" styleId="referencia" readonly="true" value='<%= String.valueOf(request.getAttribute("getReferencia"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="referencia" styleId="referencia" value='<%= String.valueOf(request.getAttribute("getReferencia"))%>'></html:text></td>
@@ -398,7 +479,7 @@
                                                                 <td colspan="2">
                                                                     <input type="checkbox" name="checkPedido" value="true"> Pedido
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="pedido" styleId="pedido" readonly="true" value='<%= String.valueOf(request.getAttribute("getPedido"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="pedido" styleId="pedido" value='<%= String.valueOf(request.getAttribute("getPedido"))%>'></html:text></td>
@@ -408,17 +489,17 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkDescripcion" value="true"> Descripcion
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="descripcion" styleId="descripcion" readonly="true" value='<%= String.valueOf(request.getAttribute("getDescripcion"))%>'></html:text></td>
                                                                 <% } else {%> 
-                                                                <td colspan="2"><html:text property="referencia" styleId="referencia" value='<%= String.valueOf(request.getAttribute("getReferencia"))%>'></html:text></td>
+                                                                <td colspan="2"><html:text property="descripcion" styleId="descripcion" value='<%= String.valueOf(request.getAttribute("getDescripcion"))%>'></html:text></td>
                                                                 <% }%> 
                                                             </tr>
                                                             <tr>
                                                                 <td>
                                                                     <input type="checkbox" name="checkClienteFinal" value="true"> Cliente Final
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="clienteFinal" styleId="clienteFinal" readonly="true" value='<%= String.valueOf(request.getAttribute("getClienteFinal"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="clienteFinal" styleId="clienteFinal" value='<%= String.valueOf(request.getAttribute("getClienteFinal"))%>'></html:text></td>
@@ -428,7 +509,7 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkProveedor" value="true"> Proveedor
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:select property="idProveedor" styleId="idProveedor" size="1" style="width:240px;" disabled="true" value='<%= String.valueOf(request.getAttribute("getIdProveedor"))%>'>
                                                                         <c:forEach items="${CMB_PROVEEDOR}" var="cat">
                                                                             <html:option value="${cat.idProveedor}"><c:out value='${cat.nombre}'/></html:option>
@@ -443,9 +524,9 @@
                                                                     </html:select></td>
                                                                     <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaEstimadaArribo" value="true"> Fecha Estimada de Arribo
+                                                                    <input type="checkbox" name="checkFechaEstimadaArribo" value="true"> Fecha Estimada de Arribo
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaEstimadaArribo"  styleClass="datepicker" styleId="fechaEstimadaArribo" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaEstimadaArribo"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaEstimadaArribo" styleClass="datepicker" styleId="fechaEstimadaArribo" value='<%= String.valueOf(request.getAttribute("getFechaEstimadaArribo"))%>'></html:text></td>
@@ -455,7 +536,7 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaLlegada" value="true"> Fecha de Llegada
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaLlegada" styleClass="datepicker" styleId="fechaLlegada" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaLlegada"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaLlegada" styleClass="datepicker" styleId="fechaLlegada" value='<%= String.valueOf(request.getAttribute("getFechaLlegada"))%>'></html:text></td>
@@ -463,7 +544,7 @@
                                                                 <td colspan="2">
                                                                     <input type="checkbox" name="checFechaDocumentos" value="true"> Fecha Documentos
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaDocumentos" styleClass="datepicker" styleId="fechaDocumentos" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaDocumentos"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaDocumentos" styleClass="datepicker" styleId="fechaDocumentos" value='<%= String.valueOf(request.getAttribute("getFechaDocumentos"))%>'></html:text></td>
@@ -473,15 +554,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaDocumentosOK" value="true"> Fecha de Documentos OK
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaDocumentosOK" styleClass="datepicker" styleId="fechaDocumentosOK" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaDocuemtnosOK"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaDocumentosOK" styleClass="datepicker" styleId="fechaDocumentosOK" value='<%= String.valueOf(request.getAttribute("getFechaDocuemtnosOK"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaAceptacion" value="true"> Fecha de Aceptacion
+                                                                    <input type="checkbox" name="checkFechaAceptacion" value="true"> Fecha de Aceptacion
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaAceptacion" styleClass="datepicker" styleId="fechaAceptacion" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaAceptacion"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaAceptacion" styleClass="datepicker" styleId="fechaAceptacion" value='<%= String.valueOf(request.getAttribute("getFechaAceptacion"))%>'></html:text></td>
@@ -491,15 +572,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaSolicitudAnticipo" value="true"> Fecha de Solicitud de Anticipo
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaSolicitudAnticipo" styleClass="datepicker" styleId="fechaSolicitudAnticipo" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaSolicitudAnticipo"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaSolicitudAnticipo" styleClass="datepicker" styleId="fechaSolicitudAnticipo" value='<%= String.valueOf(request.getAttribute("getFechaSolicitudAnticipo"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaPagoTributo" value="true"> Fecha de Pago de Tributos
+                                                                    <input type="checkbox" name="checkFechaPagoTributo" value="true"> Fecha de Pago de Tributos
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaPagoTributo" styleClass="datepicker" styleId="fechaPagoTributo" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaPagoTributo"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaPagoTributo" styleClass="datepicker" styleId="fechaPagoTributo" value='<%= String.valueOf(request.getAttribute("getFechaPagoTributo"))%>'></html:text></td>
@@ -509,15 +590,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaLevante" value="true"> Fecha de Levante
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaLevante" styleClass="datepicker" styleId="fechaLevante" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaLevante"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaLevante" styleClass="datepicker" styleId="fechaLevante" value='<%= String.valueOf(request.getAttribute("getFechaLevante"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaPoder" value="true"> Fecha del Poder
+                                                                    <input type="checkbox" name="checkFechaPoder" value="true"> Fecha del Poder
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaPoder" styleClass="datepicker" styleId="fechaPoder" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaPoder"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaPoder" styleClass="datepicker" styleId="fechaPoder" value='<%= String.valueOf(request.getAttribute("getFechaPoder"))%>'></html:text></td>
@@ -527,15 +608,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaEnvioDocumentos" value="true"> Fecha de Envio Documentos
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaEnvioDocumentos" styleClass="datepicker" styleId="fechaEnvioDocumentos" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaEnvioDocumentos"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaEnvioDocumentos" styleClass="datepicker" styleId="fechaEnvioDocumentos" value='<%= String.valueOf(request.getAttribute("getFechaEnvioDocumentos"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaAutenticacion" value="true"> Fecha de Autenticacion
+                                                                    <input type="checkbox" name="checkFechaAutenticacion" value="true"> Fecha de Autenticacion
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaAutenticacion" styleClass="datepicker" styleId="fechaAutenticacion" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaAutenticacion"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaAutenticacion" styleClass="datepicker" styleId="fechaAutenticacion" value='<%= String.valueOf(request.getAttribute("getFechaAutenticacion"))%>'></html:text></td>
@@ -545,15 +626,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaLiberacionBL" value="true"> Fecha de Liberacion BL
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaLiberacionBL" styleClass="datepicker" styleId="fechaLiberacionBL" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaLiberacionBL"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaLiberacionBL" styleClass="datepicker" styleId="fechaLiberacionBL" value='<%= String.valueOf(request.getAttribute("getFechaLiberacionBL"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaPlanilla" value="true"> Fecha de Planilla
+                                                                    <input type="checkbox" name="checkFechaPlanilla" value="true"> Fecha de Planilla
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaPlanilla" styleClass="datepicker" styleId="fechaPlanilla" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaPlanilla"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaPlanilla" styleClass="datepicker" styleId="fechaPlanilla" value='<%= String.valueOf(request.getAttribute("getFechaPlanilla"))%>'></html:text></td>
@@ -563,15 +644,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaSOAT" value="true"> Fecha del SOAT
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaSOAT" styleClass="datepicker" styleId="fechaSOAT" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaSOAT"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaSOAT" styleClass="datepicker" styleId="fechaSOAT" value='<%= String.valueOf(request.getAttribute("getFechaSOAT"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaTransitoLibre" value="true"> Fecha de Transito Libre
+                                                                    <input type="checkbox" name="checkFechaTransitoLibre" value="true"> Fecha de Transito Libre
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaTransitoLibre" styleClass="datepicker" styleId="fechaTransitoLibre" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaTransitoLibre"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaTransitoLibre" styleClass="datepicker" styleId="fechaTransitoLibre" value='<%= String.valueOf(request.getAttribute("getFechaTransitoLibre"))%>'></html:text></td>
@@ -581,15 +662,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaDespacho" value="true"> Fecha de Despacho
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaDespacho" styleClass="datepicker" styleId="fechaDespacho" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaDespacho"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaDespacho" styleClass="datepicker" styleId="fechaDespacho" value='<%= String.valueOf(request.getAttribute("getFechaDespacho"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checFechaEntregaFacturacion" value="true"> Fecha de Entrega a Facturacion
+                                                                    <input type="checkbox" name="checkFechaEntregaFacturacion" value="true"> Fecha de Entrega a Facturacion
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaEntregaFacturacion" styleClass="datepicker" styleId="fechaEntregaFacturacion" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaEntregaFacturacion"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaEntregaFacturacion" styleClass="datepicker" styleId="fechaEntregaFacturacion" value='<%= String.valueOf(request.getAttribute("getFechaEntregaFacturacion"))%>'></html:text></td>
@@ -599,15 +680,15 @@
                                                                 <td>
                                                                     <input type="checkbox" name="checkFechaFacturacion" value="true"> Fecha de Facturacion
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="fechaFacturacion" styleClass="datepicker" styleId="fechaFacturacion" readonly="true" value='<%= String.valueOf(request.getAttribute("getFechaFacturacion"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="fechaFacturacion" styleClass="datepicker" styleId="fechaFacturacion" value='<%= String.valueOf(request.getAttribute("getFechaFacturacion"))%>'></html:text></td>
                                                                 <% }%>
                                                                 <td colspan="2">
-                                                                    <input type="checkbox" name="checNumeroFactura" value="true"> Numero de Factura
+                                                                    <input type="checkbox" name="checkNumeroFactura" value="true"> Numero de Factura
                                                                 </td>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:text property="numeroFactura" styleId="numeroFactura" readonly="true" value='<%= String.valueOf(request.getAttribute("getNumeroFactura"))%>'></html:text></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:text property="numeroFactura" styleId="numeroFactura" value='<%= String.valueOf(request.getAttribute("getNumeroFactura"))%>'></html:text></td>
@@ -617,14 +698,14 @@
                                                                 <td class="text">Comentarios</td>
                                                             </tr>
                                                             <tr>
-                                                                <% if (request.getAttribute("getOp2") != "nuevo") {%> 
+                                                                <% if (request.getAttribute("getIdItems") != "") {%> 
                                                                 <td colspan="2"><html:textarea property="comentarios" styleId="comentarios" readonly="true" value='<%= String.valueOf(request.getAttribute("getComentarios"))%>'></html:textarea></td>
                                                                 <% } else {%> 
                                                                 <td colspan="2"><html:textarea property="comentarios" styleId="comentarios" value='<%= String.valueOf(request.getAttribute("getComentarios"))%>'></html:textarea></td>
                                                                 <% }%> 
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="3"><a class="boton" href="javascript:nuevoItem();">Nuevo</a> <a class="boton" id="submit2" href="javascript:guardarItem();">Guardar</a> <% if (request.getAttribute("getOp2") != "nuevo") {%> <a class="boton" href="javascript:eliminarItem();">Eliminar</a> <% }%></td>
+                                                                <td colspan="3"><a class="boton" href="javascript:nuevoItem();">Nuevo</a> <a class="boton" id="submit2" href="javascript:guardarItem();">Guardar</a> <% if (request.getAttribute("getIdItems") != "") {%> <a class="boton" href="javascript:eliminarItem();">Eliminar</a> <% }%></td>
                                                             </tr>
                                                         </table>
                                                     </fieldset>
@@ -653,16 +734,16 @@
                 <div>
                     <label class="texto" for="txtObservaciones">Observaciones</label>
                     <html:textarea property="observaciones" styleId="observaciones" cols="100" value='<%= String.valueOf(request.getAttribute("getObservaciones"))%>'></html:textarea>
-                    </div>
-                    <div>
-                        <fieldset>
-                            <legend>
-                                [<a class="linkin" href="javascript:toggleLayer('auditoria')">
-                                    Auditoría
-                                </a>]
-                            </legend>
-                            <div id="auditoria" style="display: none;">
-                                <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>
+                            [<a class="linkin" href="javascript:toggleLayer('auditoria')">
+                                Auditoría
+                            </a>]
+                        </legend>
+                        <div id="auditoria" style="display: none;">
+                            <label for="txtUsu">Usuario: </label><strong><div id="nombreUsu"><%= String.valueOf(request.getAttribute("getNombreUsu"))%></div></strong>
                             <label for="txtFechaModificacion">Fecha de Modificación: </label><strong><div id="fechaModificacion"><%= String.valueOf(request.getAttribute("getFechaModificacion"))%></div></strong>
                             <div><br>
                             </div>

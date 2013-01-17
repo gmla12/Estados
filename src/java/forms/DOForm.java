@@ -22,8 +22,215 @@ public class DOForm extends ActionForm{
     private int idPuerto;
     private int idTipoMercancia;
     private String observaciones;
+    private String referencia;
+    private String pedido;
+    private String descripcion;
+    private String clienteFinal;
+    private int idProveedor;
+    private String fechaEstimadaArribo;
+    private String fechaLlegada;
+    private String fechaDocumentos;
+    private String fechaDocumentosOK;
+    private String fechaAceptacion;
+    private String fechaSolicitudAnticipo;
+    private String fechaPagoTributo;
+    private String fechaLevante;
+    private String fechaPoder;
+    private String fechaEnvioDocumentos;
+    private String fechaAutenticacion;
+    private String fechaLiberacionBL;
+    private String fechaPlanilla;
+    private String fechaSOAT;
+    private String fechaTransitoLibre;
+    private String fechaDespacho;
+    private String fechaFacturacion;
+    private String numeroFactura;
     private String op;
     private int idUsu;
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(String pedido) {
+        this.pedido = pedido;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getClienteFinal() {
+        return clienteFinal;
+    }
+
+    public void setClienteFinal(String clienteFinal) {
+        this.clienteFinal = clienteFinal;
+    }
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public String getFechaEstimadaArribo() {
+        return fechaEstimadaArribo;
+    }
+
+    public void setFechaEstimadaArribo(String fechaEstimadaArribo) {
+        this.fechaEstimadaArribo = fechaEstimadaArribo;
+    }
+
+    public String getFechaLlegada() {
+        return fechaLlegada;
+    }
+
+    public void setFechaLlegada(String fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
+    public String getFechaDocumentos() {
+        return fechaDocumentos;
+    }
+
+    public void setFechaDocumentos(String fechaDocumentos) {
+        this.fechaDocumentos = fechaDocumentos;
+    }
+
+    public String getFechaDocumentosOK() {
+        return fechaDocumentosOK;
+    }
+
+    public void setFechaDocumentosOK(String fechaDocumentosOK) {
+        this.fechaDocumentosOK = fechaDocumentosOK;
+    }
+
+    public String getFechaAceptacion() {
+        return fechaAceptacion;
+    }
+
+    public void setFechaAceptacion(String fechaAceptacion) {
+        this.fechaAceptacion = fechaAceptacion;
+    }
+
+    public String getFechaSolicitudAnticipo() {
+        return fechaSolicitudAnticipo;
+    }
+
+    public void setFechaSolicitudAnticipo(String fechaSolicitudAnticipo) {
+        this.fechaSolicitudAnticipo = fechaSolicitudAnticipo;
+    }
+
+    public String getFechaPagoTributo() {
+        return fechaPagoTributo;
+    }
+
+    public void setFechaPagoTributo(String fechaPagoTributo) {
+        this.fechaPagoTributo = fechaPagoTributo;
+    }
+
+    public String getFechaLevante() {
+        return fechaLevante;
+    }
+
+    public void setFechaLevante(String fechaLevante) {
+        this.fechaLevante = fechaLevante;
+    }
+
+    public String getFechaPoder() {
+        return fechaPoder;
+    }
+
+    public void setFechaPoder(String fechaPoder) {
+        this.fechaPoder = fechaPoder;
+    }
+
+    public String getFechaEnvioDocumentos() {
+        return fechaEnvioDocumentos;
+    }
+
+    public void setFechaEnvioDocumentos(String fechaEnvioDocumentos) {
+        this.fechaEnvioDocumentos = fechaEnvioDocumentos;
+    }
+
+    public String getFechaAutenticacion() {
+        return fechaAutenticacion;
+    }
+
+    public void setFechaAutenticacion(String fechaAutenticacion) {
+        this.fechaAutenticacion = fechaAutenticacion;
+    }
+
+    public String getFechaLiberacionBL() {
+        return fechaLiberacionBL;
+    }
+
+    public void setFechaLiberacionBL(String fechaLiberacionBL) {
+        this.fechaLiberacionBL = fechaLiberacionBL;
+    }
+
+    public String getFechaPlanilla() {
+        return fechaPlanilla;
+    }
+
+    public void setFechaPlanilla(String fechaPlanilla) {
+        this.fechaPlanilla = fechaPlanilla;
+    }
+
+    public String getFechaSOAT() {
+        return fechaSOAT;
+    }
+
+    public void setFechaSOAT(String fechaSOAT) {
+        this.fechaSOAT = fechaSOAT;
+    }
+
+    public String getFechaTransitoLibre() {
+        return fechaTransitoLibre;
+    }
+
+    public void setFechaTransitoLibre(String fechaTransitoLibre) {
+        this.fechaTransitoLibre = fechaTransitoLibre;
+    }
+
+    public String getFechaDespacho() {
+        return fechaDespacho;
+    }
+
+    public void setFechaDespacho(String fechaDespacho) {
+        this.fechaDespacho = fechaDespacho;
+    }
+
+    public String getFechaFacturacion() {
+        return fechaFacturacion;
+    }
+
+    public void setFechaFacturacion(String fechaFacturacion) {
+        this.fechaFacturacion = fechaFacturacion;
+    }
+
+    public String getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(String numeroFactura) {
+        this.numeroFactura = numeroFactura;
+    }
 
     public int getIdTipoMercancia() {
         return idTipoMercancia;
