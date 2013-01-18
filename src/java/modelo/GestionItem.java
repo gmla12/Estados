@@ -7,6 +7,7 @@ package modelo;
 import forms.DOForm;
 import forms.DOOpForm;
 import forms.bean.BeanDO;
+import forms.bean.BeanItem;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,7 +166,7 @@ public class GestionItem extends ConeccionMySql {
 
     public ArrayList<Object> MostrarItem(Boolean transac, Connection tCn) {
 
-        ArrayList<Object> resultado = new ArrayList<Object>();
+         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave;
 
         try {
@@ -194,17 +195,46 @@ public class GestionItem extends ConeccionMySql {
                 cn = tCn;
 
             }
-
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.dos_id, p.referencia FROM items_DOs p");
+            
+            String query = "id, dos_id, referencia, pedido, descripcion, ";
+            query += "cliente_final, proveedor_id, fecha_estimada_arribo, fecha_llegada, fecha_documentos, ";
+            query += "fecha_documentos_ok, fecha_aceptacion, fecha_solicitud_anticipo, fecha_pago_tributo, ";
+            query += "fecha_levante, fecha_poder, fecha_envio_documentos, fecha_autenticacion, fecha_liberacion_bl, ";
+            query += "fecha_planilla, fecha_soat, fecha_transito_libre, fecha_despacho, fecha_entrega_facturacion, ";
+            query += "fecha_facturacion, numero_factura FROM items_DOs";
+            psSelectConClave = cn.prepareStatement(query);
             ResultSet rs = psSelectConClave.executeQuery();
 
-            BeanDO bu;
+            BeanItem bu;
             while (rs.next()) {
-                bu = new BeanDO();
+                bu = new BeanItem();
 
-                bu.setIdItems(rs.getObject("p.id"));
-                bu.setIdDO(rs.getObject("p.dos_id"));
-                bu.setReferencia(rs.getObject("p.referencia"));
+                bu.setIdItems(rs.getObject("id"));
+                bu.setIdDOs(rs.getObject("dos_id"));
+                bu.setReferencia(rs.getObject("referencia"));
+                bu.setPedido(rs.getObject("pedido"));
+                bu.setDescripcion(rs.getObject("descripcion"));
+                bu.setClienteFinal(rs.getObject("cliente_final"));
+                bu.setIdProveedor(rs.getObject("proveedor_id"));
+                bu.setFechaEstimadaArribo(rs.getObject("fecha_estimada_arribo"));
+                bu.setFechaLlegada(rs.getObject("fecha_llegada"));
+                bu.setFechaDocumentos(rs.getObject("fecha_documentos"));
+                bu.setFechaDocumentosOK(rs.getObject("fecha_documentos_ok"));
+                bu.setFechaAceptacion(rs.getObject("fecha_aceptacion"));
+                bu.setFechaSolicitudAnticipo(rs.getObject("fecha_solicitud_anticipo"));
+                bu.setFechaPagoTributo(rs.getObject("fecha_pago_tributo"));
+                bu.setFechaLevante(rs.getObject("fecha_levante"));
+                bu.setFechaPoder(rs.getObject("fecha_poder"));
+                bu.setFechaEnvioDocumentos(rs.getObject("fecha_envio_documentos"));
+                bu.setFechaAutenticacion(rs.getObject("fecha_autenticacion"));
+                bu.setFechaLiberacionBL(rs.getObject("fecha_liberacion_bl"));
+                bu.setFechaPlanilla(rs.getObject("fecha_planilla"));
+                bu.setFechaSOAT(rs.getObject("fecha_soat"));
+                bu.setFechaTransitoLibre(rs.getObject("fecha_transito_libre"));
+                bu.setFechaDespacho(rs.getObject("fecha_despacho"));
+                bu.setFechaEntregaFacturacion(rs.getObject("fecha_entrega_facturacion"));
+                bu.setFechaFacturacion(rs.getObject("fecha_facturacion"));
+                bu.setNumeroFactura(rs.getObject("numero_factura"));
 
                 GR_ITEMs.add(bu);
 
@@ -580,7 +610,7 @@ public class GestionItem extends ConeccionMySql {
             while (rs.next()) {
 
                 setIdItems(rs.getObject("p.id"));
-                setIdDO(rs.getObject("p.dos_id"));
+                setIdDOs(rs.getObject("p.dos_id"));
                 setReferencia(rs.getObject("p.referencia"));
                 setPedido(rs.getObject("p.pedido"));
                 setDescripcion(rs.getObject("p.descripcion"));
@@ -604,7 +634,7 @@ public class GestionItem extends ConeccionMySql {
                 setFechaDespacho(rs.getObject("p.fecha_despacho"));
                 setFechaEntregaFacturacion(rs.getObject("p.fecha_entrega_facturacion"));
                 setFechaFacturacion(rs.getObject("p.fecha_facturacion"));
-                setFechaNumeroFactura(rs.getObject("p.fecha_numero_factura"));
+                setNumeroFactura(rs.getObject("p.numero_factura"));
                 setNombreUsu(rs.getObject("nombre_usu"));
                 setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
@@ -795,7 +825,7 @@ public class GestionItem extends ConeccionMySql {
 //    }
 //}
     private Object idItems;
-    private Object idDO;
+    private Object idDOs;
     private Object referencia;
     private Object pedido;
     private Object descripcion;
@@ -819,7 +849,7 @@ public class GestionItem extends ConeccionMySql {
     private Object fechaDespacho;
     private Object fechaEntregaFacturacion;
     private Object fechaFacturacion;
-    private Object fechaNumeroFactura;
+    private Object numeroFactura;
     private Object nombreUsu;
     private Object fechaModificacion;
 
@@ -847,12 +877,12 @@ public class GestionItem extends ConeccionMySql {
         this.idItems = idItems;
     }
 
-    public Object getIdDO() {
-        return idDO;
+    public Object getIdDOs() {
+        return idDOs;
     }
 
-    public void setIdDO(Object idDO) {
-        this.idDO = idDO;
+    public void setIdDOs(Object idDOs) {
+        this.idDOs = idDOs;
     }
 
     public Object getReferencia() {
@@ -1039,12 +1069,12 @@ public class GestionItem extends ConeccionMySql {
         this.fechaFacturacion = fechaFacturacion;
     }
 
-    public Object getFechaNumeroFactura() {
-        return fechaNumeroFactura;
+    public Object getNumeroFactura() {
+        return numeroFactura;
     }
 
-    public void setFechaNumeroFactura(Object fechaNumeroFactura) {
-        this.fechaNumeroFactura = fechaNumeroFactura;
+    public void setNumeroFactura(Object numeroFactura) {
+        this.numeroFactura = numeroFactura;
     }
 
 }
