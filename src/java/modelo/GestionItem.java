@@ -8,6 +8,7 @@ import forms.DOForm;
 import forms.DOOpForm;
 import forms.bean.BeanDO;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import util.ConeccionMySql;
 
@@ -21,6 +22,7 @@ public class GestionItem extends ConeccionMySql {
     Statement st = null;
 
     public ArrayList<Object> IngresaItem(DOForm f, Boolean transac, Connection tCn) {
+        //Ingresa el Item con todos los campos.
 
         int mod;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -62,25 +64,66 @@ public class GestionItem extends ConeccionMySql {
             psInsertar.setInt(1, f.getIdDOs());
             psInsertar.setString(2, f.getReferencia());
             psInsertar.setString(3, f.getPedido());
-            psInsertar.setString(4, f.getClienteFinal());
-            psInsertar.setInt(5, f.getIdProveedor());
-            psInsertar.setDate(6, f.getFechaEstimadaArribo());
-            psInsertar.setDate(7, f.getFechaLlegada());
-            psInsertar.setDate(8, f.getFechaSolicitudAnticipo());
-            psInsertar.setDate(9, f.getFechaPagoTributo());
-            psInsertar.setDate(10, f.getFechaLevante());
-            psInsertar.setDate(11, f.getFechaPoder());
-            psInsertar.setDate(12, f.getFechaEnvioDocumentos());
-            psInsertar.setDate(13, f.getFechaAutenticacion());
-            psInsertar.setDate(14, f.getFechaLiberacionBL());
-            psInsertar.setDate(15, f.getFechaPlanilla());
-            psInsertar.setDate(16, f.getFechaSOAT());
-            psInsertar.setDate(17, f.getFechaTransitoLibre());
-            psInsertar.setDate(18, f.getFechaDespacho());
-            psInsertar.setDate(19, f.getFechaEntregaFacturacion());
-            psInsertar.setDate(20, f.getFechaFacturacion());
-            psInsertar.setString(21, f.getNumeroFactura());
-            psInsertar.setInt(22, f.getIdUsu());
+            psInsertar.setString(4, f.getDescripcion());
+            psInsertar.setString(5, f.getClienteFinal());
+            psInsertar.setInt(6, f.getIdProveedor());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dtf = sdf.parse(f.getFechaEstimadaArribo());
+            java.sql.Timestamp momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(7, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLlegada());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(8, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDocumentos());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(9, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDocumentosOK());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(10, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaAceptacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(11, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaSolicitudAnticipo());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(12, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPagoTributo());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(13, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLevante());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(14, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPoder());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(15, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaEnvioDocumentos());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(16, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaAutenticacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(17, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLiberacionBL());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(18, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPlanilla());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(19, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaSOAT());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(20, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaTransitoLibre());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(21, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDespacho());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(22, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaEntregaFacturacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(23, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaFacturacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psInsertar.setTimestamp(24, momentoTimestamp);
+            psInsertar.setString(25, f.getNumeroFactura());
+            psInsertar.setInt(26, f.getIdUsu());
             psInsertar.executeUpdate(); // Se ejecuta la inserción.
 
             // Se obtiene la clave generada
@@ -118,16 +161,16 @@ public class GestionItem extends ConeccionMySql {
         }
 
     }
-    private ArrayList<Object> GR_DO;
+    private ArrayList<Object> GR_ITEMs;
 
-    public ArrayList<Object> MostrarDO(Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarItem(Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave;
 
         try {
 
-            GR_DO = new ArrayList<Object>();
+            GR_ITEMs = new ArrayList<Object>();
 
             if (transac == false) { //si no es una transaccion busca una nueva conexion
 
@@ -152,17 +195,18 @@ public class GestionItem extends ConeccionMySql {
 
             }
 
-            psSelectConClave = cn.prepareStatement("SELECT p.DO, p.entidades_id FROM DOs p");
+            psSelectConClave = cn.prepareStatement("SELECT p.id, p.dos_id, p.referencia FROM items_DOs p");
             ResultSet rs = psSelectConClave.executeQuery();
 
             BeanDO bu;
             while (rs.next()) {
                 bu = new BeanDO();
 
-                bu.setDO(rs.getObject("p.DO"));
-                bu.setIdCliente(rs.getObject("p.entidades_id"));
+                bu.setIdItems(rs.getObject("p.id"));
+                bu.setIdDO(rs.getObject("p.dos_id"));
+                bu.setReferencia(rs.getObject("p.referencia"));
 
-                GR_DO.add(bu);
+                GR_ITEMs.add(bu);
 
             }
 
@@ -173,7 +217,7 @@ public class GestionItem extends ConeccionMySql {
             }
 
             resultado.add(false); //si no hubo un error asigna false
-            resultado.add(GR_DO); // y registros consultados
+            resultado.add(GR_ITEMs); // y registros consultados
 
         } catch (Exception e) {
 
@@ -193,110 +237,109 @@ public class GestionItem extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarDOOP(DOOpForm f, Boolean transac, Connection tCn) {
-
-        ArrayList<Object> resultado = new ArrayList<Object>();
-        PreparedStatement psSelectConClave;
-
-        try {
-
-            GR_DO = new ArrayList<Object>();
-
-            if (transac == false) { //si no es una transaccion busca una nueva conexion
-
-                ArrayList<Object> resultad;
-                resultad = (ArrayList) getConection();
-
-                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
-
-                    cn = (Connection) resultad.get(1);
-
-                } else { //si hubo error al obtener la conexion retorna el error para visualizar
-
-                    resultado.add(true);
-                    resultado.add(resultad.get(1));
-                    return resultado;
-
-                }
-
-            } else { //si es una transaccion asigna la conexion utilizada
-
-                cn = tCn;
-
-            }
-
-            String query = "SELECT p.id, p.DO, p.entidades_id, IF(r.pedido <> NULL, r.pedido, '') as 'r.pedido', IF(r.referencia <> NULL, r.referencia, '') as 'r.referencia', IF(r.descripcion <> NULL, r.descripcion, '') as 'r.descripcion' ";
-            query += "FROM DOs p LEFT JOIN items_DOs r ON p.id = r.DOs_id ";
-            String query2 = "";
-            if (f.getbDO().isEmpty() != true) {
-                query2 = "p.DO = ?";
-            }
-            if (f.getbIdCliente().isEmpty() != true) {
-                if (query2.equals("") != true) {
-                    query2 = query2 + " AND ";
-                }
-                query2 = query2 + "p.entidades_id = ?";
-            }
-
-            if (query2.isEmpty() != true) {
-                query += " WHERE " + query2;
-            }
-            psSelectConClave = cn.prepareStatement(query);
-            if (f.getbDO().isEmpty() != true) {
-                psSelectConClave.setString(1, f.getbDO());
-                if (f.getbIdCliente().isEmpty() != true) {
-                    psSelectConClave.setString(2, f.getbIdCliente());
-                }
-            } else {
-                if (f.getbIdCliente().isEmpty() != true) {
-                    psSelectConClave.setString(1, f.getbIdCliente());
-                }
-            }
-            ResultSet rs = psSelectConClave.executeQuery();
-
-            BeanDO bu;
-            while (rs.next()) {
-                bu = new BeanDO();
-
-                bu.setIdDOs(rs.getObject("p.id"));
-                bu.setDO(rs.getObject("p.DO"));
-                bu.setIdCliente(rs.getObject("p.entidades_id"));
-                bu.setPedido(rs.getObject("r.pedido"));
-                bu.setReferencia(rs.getObject("r.referencia"));
-                bu.setDescripcion(rs.getObject("r.descripcion"));
-
-                GR_DO.add(bu);
-
-            }
-
-            if (transac == false) { // si no es una transaccion cierra la conexion
-
-                cn.close();
-
-            }
-
-            resultado.add(false); //si no hubo un error asigna false
-            resultado.add(GR_DO); // y registros consultados
-
-        } catch (Exception e) {
-
-            resultado.add(true); //si hubo error asigna true
-            resultado.add(e); //y asigna el error para retornar y visualizar
-
-            if (cn != null) {
-                cn.rollback();
-                cn.close();
-            }
-
-        } finally {
-
-            return resultado;
-
-        }
-
-    }
-
-    public ArrayList<Object> ModificaDO(DOForm f, Boolean transac, Connection tCn) {
+//    public ArrayList<Object> MostrarDOOP(DOOpForm f, Boolean transac, Connection tCn) {
+//
+//        ArrayList<Object> resultado = new ArrayList<Object>();
+//        PreparedStatement psSelectConClave;
+//
+//        try {
+//
+//            GR_DO = new ArrayList<Object>();
+//
+//            if (transac == false) { //si no es una transaccion busca una nueva conexion
+//
+//                ArrayList<Object> resultad;
+//                resultad = (ArrayList) getConection();
+//
+//                if ((Boolean) resultad.get(0) == false) { // si no hubo error al obtener la conexion
+//
+//                    cn = (Connection) resultad.get(1);
+//
+//                } else { //si hubo error al obtener la conexion retorna el error para visualizar
+//
+//                    resultado.add(true);
+//                    resultado.add(resultad.get(1));
+//                    return resultado;
+//
+//                }
+//
+//            } else { //si es una transaccion asigna la conexion utilizada
+//
+//                cn = tCn;
+//
+//            }
+//
+//            String query = "SELECT p.id, p.DO, p.entidades_id, IF(r.pedido <> NULL, r.pedido, '') as 'r.pedido', IF(r.referencia <> NULL, r.referencia, '') as 'r.referencia', IF(r.descripcion <> NULL, r.descripcion, '') as 'r.descripcion' ";
+//            query += "FROM DOs p LEFT JOIN items_DOs r ON p.id = r.DOs_id ";
+//            String query2 = "";
+//            if (f.getbDO().isEmpty() != true) {
+//                query2 = "p.DO = ?";
+//            }
+//            if (f.getbIdCliente().isEmpty() != true) {
+//                if (query2.equals("") != true) {
+//                    query2 = query2 + " AND ";
+//                }
+//                query2 = query2 + "p.entidades_id = ?";
+//            }
+//
+//            if (query2.isEmpty() != true) {
+//                query += " WHERE " + query2;
+//            }
+//            psSelectConClave = cn.prepareStatement(query);
+//            if (f.getbDO().isEmpty() != true) {
+//                psSelectConClave.setString(1, f.getbDO());
+//                if (f.getbIdCliente().isEmpty() != true) {
+//                    psSelectConClave.setString(2, f.getbIdCliente());
+//                }
+//            } else {
+//                if (f.getbIdCliente().isEmpty() != true) {
+//                    psSelectConClave.setString(1, f.getbIdCliente());
+//                }
+//            }
+//            ResultSet rs = psSelectConClave.executeQuery();
+//
+//            BeanDO bu;
+//            while (rs.next()) {
+//                bu = new BeanDO();
+//
+//                bu.setIdDOs(rs.getObject("p.id"));
+//                bu.setDO(rs.getObject("p.DO"));
+//                bu.setIdCliente(rs.getObject("p.entidades_id"));
+//                bu.setPedido(rs.getObject("r.pedido"));
+//                bu.setReferencia(rs.getObject("r.referencia"));
+//                bu.setDescripcion(rs.getObject("r.descripcion"));
+//
+//                GR_DO.add(bu);
+//
+//            }
+//
+//            if (transac == false) { // si no es una transaccion cierra la conexion
+//
+//                cn.close();
+//
+//            }
+//
+//            resultado.add(false); //si no hubo un error asigna false
+//            resultado.add(GR_DO); // y registros consultados
+//
+//        } catch (Exception e) {
+//
+//            resultado.add(true); //si hubo error asigna true
+//            resultado.add(e); //y asigna el error para retornar y visualizar
+//
+//            if (cn != null) {
+//                cn.rollback();
+//                cn.close();
+//            }
+//
+//        } finally {
+//
+//            return resultado;
+//
+//        }
+//
+//    }
+    public ArrayList<Object> ModificaItem(DOForm f, Boolean transac, Connection tCn) {
 
         int mod = -99;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -326,46 +369,78 @@ public class GestionItem extends ConeccionMySql {
                 cn = tCn;
 
             }
-
-            String query = "UPDATE DOs SET  do = ?, lote = ?, bl = ?, observaciones = ?";
-            if (f.getIdCliente() != 0) {
-                query += ", entidades_id = ?";
-            }
-            if (f.getIdSucursal() != 0) {
-                query += ", sucursal_id = ?";
-            }
-            if (f.getIdPuerto() != 0) {
-                query += ", puerto_id = ?";
-            }
-            if (f.getIdTipoMercancia() != 0) {
-                query += ", tipo_mercancia_id = ?";
-            }
-            query += ", sUsuarios_id = ?, fecha_modificacion = now() WHERE id = ?";
+            String query = "UPDATE items_dos SET  dos_id = ?, referencia = ?, pedido = ?, descripcion = ?";
+            query += "cliente_final = ?, proveedor_id = ?, fecha_estimada_arribo = ?, fecha_llegada = ?, fecha_documentos = ?, ";
+            query += "fecha_documentos_ok = ?, fecha_aceptacion = ?, fecha_solicitud_anticipo = ?, fecha_pago_tributo = ?, ";
+            query += "fecha_levante = ?, fecha_poder = ?, fecha_envio_documentos = ?, fecha_autenticacion = ?, fecha_liberacion_bl = ?, ";
+            query += "fecha_planilla = ?, fecha_soat = ?, fecha_transito_libre = ?, fecha_despacho = ?, fecha_entrega_facturacion = ?, ";
+            query += "fecha_facturacion = ?, numero_factura = ?, ";
+            query += "sUsuarios_id = ?, fecha_modificacion = now() WHERE id = ?";
             psUpdate = cn.prepareStatement(query);
-            psUpdate.setString(1, f.getDO());
-            psUpdate.setString(2, f.getLote());
-            psUpdate.setString(3, f.getBL());
-            psUpdate.setString(4, f.getObservaciones());
-            int i = 5;
-            if (f.getIdCliente() != 0) {
-                psUpdate.setInt(i, f.getIdCliente());
-                i++;
-            }
-            if (f.getIdSucursal() != 0) {
-                psUpdate.setInt(i, f.getIdSucursal());
-                i++;
-            }
-            if (f.getIdPuerto() != 0) {
-                psUpdate.setInt(i, f.getIdPuerto());
-                i++;
-            }
-            if (f.getIdTipoMercancia() != 0) {
-                psUpdate.setInt(i, f.getIdTipoMercancia());
-                i++;
-            }
-            psUpdate.setInt(i, f.getIdUsu());
-            i++;
-            psUpdate.setInt(i, f.getIdDOs());
+            psUpdate.setInt(1, f.getIdDOs());
+            psUpdate.setString(2, f.getReferencia());
+            psUpdate.setString(3, f.getPedido());
+            psUpdate.setString(4, f.getDescripcion());
+            psUpdate.setString(5, f.getClienteFinal());
+            psUpdate.setInt(6, f.getIdProveedor());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dtf = sdf.parse(f.getFechaEstimadaArribo());
+            java.sql.Timestamp momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(7, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLlegada());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(8, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDocumentos());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(9, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDocumentosOK());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(10, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaAceptacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(11, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaSolicitudAnticipo());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(12, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPagoTributo());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(13, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLevante());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(14, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPoder());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(15, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaEnvioDocumentos());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(16, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaAutenticacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(17, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaLiberacionBL());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(18, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaPlanilla());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(19, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaSOAT());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(20, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaTransitoLibre());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(21, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaDespacho());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(22, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaEntregaFacturacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(23, momentoTimestamp);
+            dtf = sdf.parse(f.getFechaFacturacion());
+            momentoTimestamp = new java.sql.Timestamp(dtf.getTime());
+            psUpdate.setTimestamp(24, momentoTimestamp);
+            psUpdate.setString(25, f.getNumeroFactura());
+            psUpdate.setInt(26, f.getIdUsu());
+            psUpdate.setInt(27, f.getIdItems());
             psUpdate.executeUpdate();
 
             mod = psUpdate.getUpdateCount();
@@ -397,7 +472,7 @@ public class GestionItem extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> EliminaDO(DOForm f, Boolean transac, Connection tCn) {
+    public ArrayList<Object> EliminaItem(DOForm f, Boolean transac, Connection tCn) {
 
         int mod;
         ArrayList<Object> resultado = new ArrayList<Object>();
@@ -428,8 +503,8 @@ public class GestionItem extends ConeccionMySql {
 
             }
 
-            psDelete = cn.prepareStatement("DELETE FROM DOs WHERE id = ?");
-            psDelete.setInt(1, f.getIdDOs());
+            psDelete = cn.prepareStatement("DELETE FROM items_dos WHERE id = ?");
+            psDelete.setInt(1, f.getIdItems());
             psDelete.executeUpdate();
 
             mod = psDelete.getUpdateCount();
@@ -461,7 +536,7 @@ public class GestionItem extends ConeccionMySql {
 
     }
 
-    public ArrayList<Object> MostrarDOFormulario(String DO, Boolean transac, Connection tCn) {
+    public ArrayList<Object> MostrarItemFormulario(String idItem, String idDO, Boolean transac, Connection tCn) {
 
         ArrayList<Object> resultado = new ArrayList<Object>();
         PreparedStatement psSelectConClave;
@@ -490,22 +565,46 @@ public class GestionItem extends ConeccionMySql {
                 cn = tCn;
 
             }
-
-            psSelectConClave = cn.prepareStatement("SELECT p.id, p.DO, p.entidades_id, p.sucursal_id, p.lote, p.BL, p.puerto_id, p.tipo_mercancia_id, p.observaciones, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM DOs p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ?");
-            psSelectConClave.setString(1, DO);
+            String query = "SELECT p.id, p.dos_id, p.referencia, p.pedido, p.descripcion, ";
+            query += "p.cliente_final, p.proveedor_id, p.fecha_estimada_arribo, p.fecha_llegada, p.fecha_documentos, ";
+            query += "p.fecha_documentos_ok, p.fecha_aceptacion, p.fecha_solicitud_anticipo, p.fecha_pago_tributo, ";
+            query += "p.fecha_levante, p.fecha_poder, p.fecha_envio_documentos, p.fecha_autenticacion, p.fecha_liberacion_bl, ";
+            query += "p.fecha_planilla, p.fecha_soat, p.fecha_transito_libre, p.fecha_despacho, p.fecha_entrega_facturacion, ";
+            query += "p.fecha_facturacion, p.numero_factura, ";
+            query += "p.sUsuarios_id, p.susuarios_id, IF(e.primer_nombre <> NULL AND e.primer_apellido <> NULL, e.razon_Social, CONCAT(IF(e.primer_nombre <> NULL,'',CONCAT(e.primer_nombre,' ')), IF(e.segundo_nombre <> NULL,'',CONCAT(e.segundo_nombre,' ')), IF(e.primer_apellido <> NULL,'',CONCAT(e.primer_apellido,' ')), IF(e.segundo_apellido <> NULL,'',CONCAT(e.segundo_apellido,' ')))) as nombre_usu, p.fecha_modificacion FROM items_dos p INNER JOIN susuarios r ON p.susuarios_id = r.id INNER JOIN entidades e ON r.id_tipo_documento = e.id_tipo_documento AND r.identificacion = e.identificacion WHERE p.id = ? AND p.dos_id = ?";
+            psSelectConClave = cn.prepareStatement(query);
+            psSelectConClave.setString(1, idItem);
+            psSelectConClave.setString(2, idDO);
             ResultSet rs = psSelectConClave.executeQuery();
 
             while (rs.next()) {
 
-                setIdDOs(rs.getObject("p.id"));
-                setDO(rs.getObject("p.DO"));
-                setIdCliente(rs.getObject("p.entidades_id"));
-                setIdSucursal(rs.getObject("p.sucursal_id"));
-                setLote(rs.getObject("p.lote"));
-                setBL(rs.getObject("p.BL"));
-                setIdPuerto(rs.getObject("p.puerto_id"));
-                setIdTipoMercancia(rs.getObject("p.tipo_mercancia_id"));
-                setObservaciones(rs.getObject("p.observaciones"));
+                setIdItems(rs.getObject("p.id"));
+                setIdDO(rs.getObject("p.dos_id"));
+                setReferencia(rs.getObject("p.referencia"));
+                setPedido(rs.getObject("p.pedido"));
+                setDescripcion(rs.getObject("p.descripcion"));
+                setClienteFinal(rs.getObject("p.cliente_final"));
+                setIdProveedor(rs.getObject("p.proveedor_id"));
+                setFechaEstimadaArribo(rs.getObject("p.fecha_estimada_arribo"));
+                setFechaLlegada(rs.getObject("p.fecha_llegada"));
+                setFechaDocumentos(rs.getObject("p.fecha_documentos"));
+                setFechaDocumentosOK(rs.getObject("p.fecha_documentos_ok"));
+                setFechaAceptacion(rs.getObject("p.fecha_aceptacion"));
+                setFechaSolicitudAnticipo(rs.getObject("p.fecha_solicitud_anticipo"));
+                setFechaPagoTributo(rs.getObject("p.fecha_pago_tributo"));
+                setFechaLevante(rs.getObject("p.fecha_levante"));
+                setFechaPoder(rs.getObject("p.fecha_poder"));
+                setFechaEnvioDocumentos(rs.getObject("p.fecha_envio_documentos"));
+                setFechaAutenticacion(rs.getObject("p.fecha_autenticacion"));
+                setFechaLiberacionBL(rs.getObject("p.fecha_liberacion_bl"));
+                setFechaPlanilla(rs.getObject("p.fecha_planilla"));
+                setFechaSOAT(rs.getObject("p.fecha_soat"));
+                setFechaTransitoLibre(rs.getObject("p.fecha_transito_libre"));
+                setFechaDespacho(rs.getObject("p.fecha_despacho"));
+                setFechaEntregaFacturacion(rs.getObject("p.fecha_entrega_facturacion"));
+                setFechaFacturacion(rs.getObject("p.fecha_facturacion"));
+                setFechaNumeroFactura(rs.getObject("p.fecha_numero_factura"));
                 setNombreUsu(rs.getObject("nombre_usu"));
                 setFechaModificacion(rs.getObject("p.fecha_modificacion"));
 
@@ -695,25 +794,34 @@ public class GestionItem extends ConeccionMySql {
 //        return GR_USUARIOS2;
 //    }
 //}
-    private Object idDOs;
-    private Object DO;
-    private Object idCliente;
-    private Object idSucursal;
-    private Object Lote;
-    private Object BL;
-    private Object idPuerto;
-    private Object idTipoMercancia;
-    private Object observaciones;
+    private Object idItems;
+    private Object idDO;
+    private Object referencia;
+    private Object pedido;
+    private Object descripcion;
+    private Object clienteFinal;
+    private Object idProveedor;
+    private Object fechaEstimadaArribo;
+    private Object fechaLlegada;
+    private Object fechaDocumentos;
+    private Object fechaDocumentosOK;
+    private Object fechaAceptacion;
+    private Object fechaSolicitudAnticipo;
+    private Object fechaPagoTributo;
+    private Object fechaLevante;
+    private Object fechaPoder;
+    private Object fechaEnvioDocumentos;
+    private Object fechaAutenticacion;
+    private Object fechaLiberacionBL;
+    private Object fechaPlanilla;
+    private Object fechaSOAT;
+    private Object fechaTransitoLibre;
+    private Object fechaDespacho;
+    private Object fechaEntregaFacturacion;
+    private Object fechaFacturacion;
+    private Object fechaNumeroFactura;
     private Object nombreUsu;
     private Object fechaModificacion;
-
-    public Object getIdTipoMercancia() {
-        return idTipoMercancia;
-    }
-
-    public void setIdTipoMercancia(Object idTipoMercancia) {
-        this.idTipoMercancia = idTipoMercancia;
-    }
 
     public Object getNombreUsu() {
         return nombreUsu;
@@ -731,67 +839,212 @@ public class GestionItem extends ConeccionMySql {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Object getIdDOs() {
-        return idDOs;
+    public Object getIdItems() {
+        return idItems;
     }
 
-    public void setIdDOs(Object idDOs) {
-        this.idDOs = idDOs;
+    public void setIdItems(Object idItems) {
+        this.idItems = idItems;
     }
 
-    public Object getObservaciones() {
-        return observaciones;
+    public Object getIdDO() {
+        return idDO;
     }
 
-    public void setObservaciones(Object observaciones) {
-        this.observaciones = observaciones;
+    public void setIdDO(Object idDO) {
+        this.idDO = idDO;
     }
 
-    public Object getDO() {
-        return DO;
+    public Object getReferencia() {
+        return referencia;
     }
 
-    public void setDO(Object DO) {
-        this.DO = DO;
+    public void setReferencia(Object referencia) {
+        this.referencia = referencia;
     }
 
-    public Object getIdCliente() {
-        return idCliente;
+    public Object getPedido() {
+        return pedido;
     }
 
-    public void setIdCliente(Object idCliente) {
-        this.idCliente = idCliente;
+    public void setPedido(Object pedido) {
+        this.pedido = pedido;
     }
 
-    public Object getIdSucursal() {
-        return idSucursal;
+    public Object getDescripcion() {
+        return descripcion;
     }
 
-    public void setIdSucursal(Object idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setDescripcion(Object descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Object getLote() {
-        return Lote;
+    public Object getClienteFinal() {
+        return clienteFinal;
     }
 
-    public void setLote(Object Lote) {
-        this.Lote = Lote;
+    public void setClienteFinal(Object clienteFinal) {
+        this.clienteFinal = clienteFinal;
     }
 
-    public Object getBL() {
-        return BL;
+    public Object getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setBL(Object BL) {
-        this.BL = BL;
+    public void setIdProveedor(Object idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
-    public Object getIdPuerto() {
-        return idPuerto;
+    public Object getFechaEstimadaArribo() {
+        return fechaEstimadaArribo;
     }
 
-    public void setIdPuerto(Object idPuerto) {
-        this.idPuerto = idPuerto;
+    public void setFechaEstimadaArribo(Object fechaEstimadaArribo) {
+        this.fechaEstimadaArribo = fechaEstimadaArribo;
     }
+
+    public Object getFechaLlegada() {
+        return fechaLlegada;
+    }
+
+    public void setFechaLlegada(Object fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
+    public Object getFechaDocumentos() {
+        return fechaDocumentos;
+    }
+
+    public void setFechaDocumentos(Object fechaDocumentos) {
+        this.fechaDocumentos = fechaDocumentos;
+    }
+
+    public Object getFechaDocumentosOK() {
+        return fechaDocumentosOK;
+    }
+
+    public void setFechaDocumentosOK(Object fechaDocumentosOK) {
+        this.fechaDocumentosOK = fechaDocumentosOK;
+    }
+
+    public Object getFechaAceptacion() {
+        return fechaAceptacion;
+    }
+
+    public void setFechaAceptacion(Object fechaAceptacion) {
+        this.fechaAceptacion = fechaAceptacion;
+    }
+
+    public Object getFechaSolicitudAnticipo() {
+        return fechaSolicitudAnticipo;
+    }
+
+    public void setFechaSolicitudAnticipo(Object fechaSolicitudAnticipo) {
+        this.fechaSolicitudAnticipo = fechaSolicitudAnticipo;
+    }
+
+    public Object getFechaPagoTributo() {
+        return fechaPagoTributo;
+    }
+
+    public void setFechaPagoTributo(Object fechaPagoTributo) {
+        this.fechaPagoTributo = fechaPagoTributo;
+    }
+
+    public Object getFechaLevante() {
+        return fechaLevante;
+    }
+
+    public void setFechaLevante(Object fechaLevante) {
+        this.fechaLevante = fechaLevante;
+    }
+
+    public Object getFechaPoder() {
+        return fechaPoder;
+    }
+
+    public void setFechaPoder(Object fechaPoder) {
+        this.fechaPoder = fechaPoder;
+    }
+
+    public Object getFechaEnvioDocumentos() {
+        return fechaEnvioDocumentos;
+    }
+
+    public void setFechaEnvioDocumentos(Object fechaEnvioDocumentos) {
+        this.fechaEnvioDocumentos = fechaEnvioDocumentos;
+    }
+
+    public Object getFechaAutenticacion() {
+        return fechaAutenticacion;
+    }
+
+    public void setFechaAutenticacion(Object fechaAutenticacion) {
+        this.fechaAutenticacion = fechaAutenticacion;
+    }
+
+    public Object getFechaLiberacionBL() {
+        return fechaLiberacionBL;
+    }
+
+    public void setFechaLiberacionBL(Object fechaLiberacionBL) {
+        this.fechaLiberacionBL = fechaLiberacionBL;
+    }
+
+    public Object getFechaPlanilla() {
+        return fechaPlanilla;
+    }
+
+    public void setFechaPlanilla(Object fechaPlanilla) {
+        this.fechaPlanilla = fechaPlanilla;
+    }
+
+    public Object getFechaSOAT() {
+        return fechaSOAT;
+    }
+
+    public void setFechaSOAT(Object fechaSOAT) {
+        this.fechaSOAT = fechaSOAT;
+    }
+
+    public Object getFechaTransitoLibre() {
+        return fechaTransitoLibre;
+    }
+
+    public void setFechaTransitoLibre(Object fechaTransitoLibre) {
+        this.fechaTransitoLibre = fechaTransitoLibre;
+    }
+
+    public Object getFechaDespacho() {
+        return fechaDespacho;
+    }
+
+    public void setFechaDespacho(Object fechaDespacho) {
+        this.fechaDespacho = fechaDespacho;
+    }
+
+    public Object getFechaEntregaFacturacion() {
+        return fechaEntregaFacturacion;
+    }
+
+    public void setFechaEntregaFacturacion(Object fechaEntregaFacturacion) {
+        this.fechaEntregaFacturacion = fechaEntregaFacturacion;
+    }
+
+    public Object getFechaFacturacion() {
+        return fechaFacturacion;
+    }
+
+    public void setFechaFacturacion(Object fechaFacturacion) {
+        this.fechaFacturacion = fechaFacturacion;
+    }
+
+    public Object getFechaNumeroFactura() {
+        return fechaNumeroFactura;
+    }
+
+    public void setFechaNumeroFactura(Object fechaNumeroFactura) {
+        this.fechaNumeroFactura = fechaNumeroFactura;
+    }
+
 }

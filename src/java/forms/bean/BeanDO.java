@@ -17,8 +17,26 @@ public class BeanDO implements Serializable{
     private Object DO;
     private Object idCliente;
     private Object pedido;
-    private Object referencia;
     private Object descripcion;
+    private Object idItems;
+    private Object idDO;
+    private Object referencia;
+
+    public Object getIdItems() {
+        return idItems;
+    }
+
+    public void setIdItems(Object idItems) {
+        this.idItems = idItems;
+    }
+
+    public Object getIdDO() {
+        return idDO;
+    }
+
+    public void setIdDO(Object idDO) {
+        this.idDO = idDO;
+    }
 
     public Object getIdDOs() {
         return idDOs;

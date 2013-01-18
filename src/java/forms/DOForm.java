@@ -22,6 +22,7 @@ public class DOForm extends ActionForm{
     private int idPuerto;
     private int idTipoMercancia;
     private String observaciones;
+    private int idItems;
     private String referencia;
     private String pedido;
     private String descripcion;
@@ -43,10 +44,27 @@ public class DOForm extends ActionForm{
     private String fechaSOAT;
     private String fechaTransitoLibre;
     private String fechaDespacho;
+    private String fechaEntregaFacturacion;
     private String fechaFacturacion;
     private String numeroFactura;
     private String op;
     private int idUsu;
+
+    public int getIdItems() {
+        return idItems;
+    }
+
+    public void setIdItems(int idItems) {
+        this.idItems = idItems;
+    }
+
+    public String getFechaEntregaFacturacion() {
+        return fechaEntregaFacturacion;
+    }
+
+    public void setFechaEntregaFacturacion(String fechaEntregaFacturacion) {
+        this.fechaEntregaFacturacion = fechaEntregaFacturacion;
+    }
 
     public String getReferencia() {
         return referencia;
