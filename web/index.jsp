@@ -14,8 +14,6 @@
                 padding: 5px;
 
             }
-
-            example three
         </style>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
